@@ -1,0 +1,34 @@
+# TechFreedom
+
+> See your technology clearly.
+
+TechFreedom helps organisations in the voluntary, community, and social enterprise (VCSE) sector understand their technology dependencies — and start making informed choices about them.
+
+## What we do
+
+Most organisations don't choose their technology stack — they inherit it. Over time, a tangle of SaaS subscriptions, cloud services, and platform dependencies builds up, often without anyone noticing the risks. TechFreedom is a structured programme that helps you see what's really going on — and what your options are.
+
+## Three pillars
+
+### 1. Jurisdiction
+Where does your data actually live, and under whose laws? We help you map your data flows, understand jurisdictional exposure, and identify where sovereignty matters most for your organisation.
+
+### 2. Business Continuity
+What happens when a key platform changes its pricing, terms, or simply disappears? We assess your dependency points, model switching costs, and help you build a realistic roadmap for reducing single points of failure.
+
+### 3. Surveillance
+How much does your technology stack know about you, your staff, and the people you serve? We audit your tools for data collection practices, help you understand what's being gathered, and identify privacy-respecting alternatives.
+
+## Who we are
+
+TechFreedom is led by Tom Watson (tomcw.xyz, The Good Ship) and Doug Belshaw (dougbelshaw.com, Dynamic Skillset).
+
+## Get involved
+
+TechFreedom is currently in development. Sign up at https://techfreedom.eu to be notified when the first cohort opens.
+
+## Contact
+
+- Website: https://techfreedom.eu
+- Tom Watson: https://tomcw.xyz
+- Doug Belshaw: https://dougbelshaw.com

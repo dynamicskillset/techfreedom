@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://techfreedom.eu/sitemap.xml
