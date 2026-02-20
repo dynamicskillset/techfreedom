@@ -21,7 +21,11 @@ Prerequisites (PocketBase import only):
 import argparse
 import json
 import sys
-import requests
+
+try:
+    import requests
+except ImportError:
+    requests = None  # Only needed for PocketBase import mode
 
 
 # ============================================================
@@ -251,6 +255,28 @@ def slugify(name):
     return s
 
 
+def safe_int(v):
+    """Safely convert a value to int, returning 0 on failure."""
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return 0
+
+
+def parse_bool_select(v):
+    """Parse Yes/No/Partially/N-A style values from xlsx."""
+    s = str(v or "").lower().strip()
+    if s in ("yes", "true"):
+        return "Yes"
+    if s in ("no", "false"):
+        return "No"
+    if s in ("partially",):
+        return "Partially"
+    if s in ("n/a", "na"):
+        return "N/A"
+    return "No"
+
+
 class PocketBaseClient:
     def __init__(self, base_url):
         self.base_url = base_url.rstrip('/')
@@ -341,12 +367,6 @@ def read_tools_from_xlsx(xlsx_path):
         name = str(vals[0])
         slug = slugify(name)
 
-        def safe_int(v):
-            try:
-                return int(v)
-            except (TypeError, ValueError):
-                return 0
-
         tools.append({
             "id": i + 1,
             "name": name,
@@ -385,6 +405,52 @@ def build_archetypes(tools):
     return archetypes
 
 
+def read_alternatives_from_xlsx(xlsx_path):
+    """Read alternatives from xlsx sheet[1] and return list of dicts in internal format."""
+    import openpyxl
+
+    wb = openpyxl.load_workbook(xlsx_path, data_only=True)
+    ws_alts = wb[wb.sheetnames[1]]
+    alternatives = []
+
+    for i, row in enumerate(ws_alts.iter_rows(min_row=2)):
+        vals = [c.value for c in row]
+        if vals[0] is None:
+            break
+
+        name = str(vals[0])
+        slug = slugify(name)
+
+        # alternativeTo: split on commas and slugify each part
+        alt_to_raw = str(vals[2] or "")
+        alternative_to = [slugify(part.strip()) for part in alt_to_raw.split(",") if part.strip()]
+
+        alternatives.append({
+            "id": i + 1,
+            "name": name,
+            "slug": slug,
+            "category": str(vals[1] or ""),
+            "alternativeTo": alternative_to,
+            "provider": str(vals[3] or ""),
+            "hqCountry": str(vals[4] or ""),
+            "openSource": parse_bool_select(vals[5]),
+            "selfHostable": parse_bool_select(vals[6]),
+            "dataHosting": str(vals[7] or ""),
+            "jurisdiction": safe_int(vals[8]),
+            "continuity": safe_int(vals[9]),
+            "surveillance": safe_int(vals[10]),
+            "lockIn": safe_int(vals[11]),
+            "costExposure": safe_int(vals[12]),
+            "total": safe_int(vals[13]),
+            "approxCost": str(vals[14] or ""),
+            "migrationDifficulty": str(vals[15] or ""),
+            "tradeoffs": str(vals[16] or ""),
+            "lastReviewed": str(vals[17] or ""),
+        })
+
+    return alternatives
+
+
 def export_json(xlsx_path, output_dir):
     """Export tools.json and archetypes.json to output_dir."""
     import os
@@ -398,6 +464,9 @@ def export_json(xlsx_path, output_dir):
     archetypes = build_archetypes(tools)
     print(f"  Built {len(archetypes)} archetypes")
 
+    alternatives = read_alternatives_from_xlsx(xlsx_path)
+    print(f"  Found {len(alternatives)} alternatives")
+
     tools_path = os.path.join(output_dir, "tools.json")
     with open(tools_path, "w", encoding="utf-8") as f:
         json.dump(tools, f, indent=2, ensure_ascii=False)
@@ -407,6 +476,11 @@ def export_json(xlsx_path, output_dir):
     with open(archetypes_path, "w", encoding="utf-8") as f:
         json.dump(archetypes, f, indent=2, ensure_ascii=False)
     print(f"  Wrote {archetypes_path}")
+
+    alternatives_path = os.path.join(output_dir, "alternatives.json")
+    with open(alternatives_path, "w", encoding="utf-8") as f:
+        json.dump(alternatives, f, indent=2, ensure_ascii=False)
+    print(f"  Wrote {alternatives_path}")
 
     print("\nDone! Static JSON files ready for deployment.")
 
@@ -512,12 +586,6 @@ def main():
             name = str(vals[0])
             slug = slugify(name)
 
-            def safe_int(v):
-                try:
-                    return int(v)
-                except (TypeError, ValueError):
-                    return 0
-
             data = {
                 "name": name,
                 "slug": slug,
@@ -556,29 +624,15 @@ def main():
             name = str(vals[0])
             slug = slugify(name)
 
-            def safe_int(v):
-                try:
-                    return int(v)
-                except (TypeError, ValueError):
-                    return 0
-
-            def parse_bool_select(v):
-                s = str(v or "").lower().strip()
-                if s in ("yes", "true"):
-                    return "Yes"
-                if s in ("no", "false"):
-                    return "No"
-                if s in ("partially",):
-                    return "Partially"
-                if s in ("n/a", "na"):
-                    return "N/A"
-                return "No"
+            # Slugify alternativeTo as comma-separated slugs for consistent references
+            alt_to_raw = str(vals[2] or "")
+            alt_to_slugs = ",".join(slugify(part.strip()) for part in alt_to_raw.split(",") if part.strip())
 
             data = {
                 "name": name,
                 "slug": slug,
                 "category": str(vals[1] or ""),
-                "alternativeTo": str(vals[2] or ""),
+                "alternativeTo": alt_to_slugs,
                 "provider": str(vals[3] or ""),
                 "hqCountry": str(vals[4] or ""),
                 "openSource": parse_bool_select(vals[5]),

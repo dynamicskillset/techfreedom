@@ -860,6 +860,7 @@
         <a href="/" class="nav-wordmark">TechFreedom</a>
         <ul class="nav-links">
             <li><a href="/assess/" aria-current="page">Assessment</a></li>
+            <li><a href="/alternatives/">Alternatives</a></li>
         </ul>
     </nav>
 
@@ -1026,8 +1027,8 @@
                         <h3>Get your alternatives guide</h3>
                         <p>For each tool in your stack, we'll show you European and open-source alternatives with migration guides, trade-offs, and real costs.</p>
                         <span class="cta-price">One-time purchase</span>
-                        <a href="#" class="cta-link" id="cta-alternatives">
-                            Coming soon
+                        <a href="/alternatives/" class="cta-link" id="cta-alternatives">
+                            See your alternatives
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                                 <path d="M7 17L17 7M17 7H7M17 7v10"/>
                             </svg>
@@ -1408,6 +1409,13 @@
             resultsSection.hidden = false;
             ctaSection.hidden = false;
             document.getElementById('next-step-nudge').hidden = false;
+
+            // Set alternatives CTA link with selected tool slugs
+            var altLink = document.getElementById('cta-alternatives');
+            if (altLink) {
+                var slugs = selectedToolIds.map(getToolById).filter(Boolean).map(function(t) { return t.slug; });
+                altLink.href = '/alternatives/?tools=' + slugs.join(',');
+            }
 
             // Scroll to results
             resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });

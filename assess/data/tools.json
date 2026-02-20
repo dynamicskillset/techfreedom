@@ -65,7 +65,7 @@
     "costExposure": 4,
     "total": 19,
     "riskLevel": "High",
-    "keyRisks": "Tightly bundled with M365 \u2014 near-impossible to use alternatives. Metadata extensively collected. Requires M365 licence."
+    "keyRisks": "Tightly bundled with M365 — near-impossible to use alternatives. Metadata extensively collected. Requires M365 licence."
   },
   {
     "id": 5,
@@ -218,7 +218,7 @@
     "costExposure": 3,
     "total": 14,
     "riskLevel": "Medium",
-    "keyRisks": "Owned by Atlassian. Data in US. Free tier limited. Low lock-in \u2014 easy to export and switch."
+    "keyRisks": "Owned by Atlassian. Data in US. Free tier limited. Low lock-in — easy to export and switch."
   },
   {
     "id": 14,
@@ -286,7 +286,7 @@
     "costExposure": 3,
     "total": 16,
     "riskLevel": "High",
-    "keyRisks": "Data in US. Proprietary \u2014 cannot take your site elsewhere. Poor data export. Annual pricing creates lock-in."
+    "keyRisks": "Data in US. Proprietary — cannot take your site elsewhere. Poor data export. Annual pricing creates lock-in."
   },
   {
     "id": 18,
@@ -303,7 +303,7 @@
     "costExposure": 3,
     "total": 17,
     "riskLevel": "High",
-    "keyRisks": "Data in US. Highest lock-in of any CMS \u2014 virtually impossible to migrate. Aggressive upselling."
+    "keyRisks": "Data in US. Highest lock-in of any CMS — virtually impossible to migrate. Aggressive upselling."
   },
   {
     "id": 19,
@@ -354,7 +354,7 @@
     "costExposure": 1,
     "total": 15,
     "riskLevel": "High",
-    "keyRisks": "All responses feed Google\u2019s data ecosystem. Free but data is harvested. Tied to Google Sheets."
+    "keyRisks": "All responses feed Google's data ecosystem. Free but data is harvested. Tied to Google Sheets."
   },
   {
     "id": 22,
@@ -444,7 +444,7 @@
   {
     "id": 27,
     "name": "Amazon Web Services",
-    "slug": "aws",
+    "slug": "amazon-web-services",
     "category": "Cloud Infrastructure",
     "provider": "Amazon.com Inc",
     "hqCountry": "United States",
