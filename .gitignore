@@ -9,4 +9,5 @@ techfreedom-plan.md
 setup.sh
 .claude/
 *.png
+!og-image.png
 .playwright-mcp/
