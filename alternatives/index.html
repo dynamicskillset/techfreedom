@@ -230,29 +230,30 @@
             color: var(--accent-sky);
         }
 
-        /* --- Gated Content --- */
+        /* --- Gated Content (scores/details - always visible) --- */
         .gated-content {
             margin-top: var(--space-s);
         }
 
-        .gated-content.locked {
+        /* --- Gated Identity (name/provider - blurred when locked) --- */
+        .gated-identity.locked {
             position: relative;
             filter: blur(6px);
             user-select: none;
             pointer-events: none;
         }
 
-        .gated-content.locked::after {
+        .gated-identity.locked::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             right: 0;
-            height: 60%;
+            bottom: 0;
             background: linear-gradient(
                 180deg,
-                transparent 0%,
-                rgba(247, 245, 240, 0.6) 100%
+                rgba(247, 245, 240, 0.3) 0%,
+                rgba(247, 245, 240, 0.5) 100%
             );
             pointer-events: none;
         }
@@ -295,6 +296,40 @@
         .score-3 { background: #F9A825; color: var(--text-primary); }
         .score-4 { background: #EF6C00; }
         .score-5 { background: #C62828; }
+
+        .risk-comparison {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: var(--space-s);
+            padding-top: var(--space-s);
+            border-top: 1px solid var(--horizon);
+        }
+
+        .risk-comparison strong {
+            color: var(--text-primary);
+        }
+
+        .risk-comparison-score {
+            font-weight: 700;
+        }
+
+        .risk-comparison-score.improvement {
+            color: #2E7D32;
+        }
+
+        .risk-comparison-score.worse {
+            color: #C62828;
+        }
+
+        .risk-comparison-score.neutral {
+            color: var(--text-muted);
+        }
+
+        .risk-comparison-diff {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
 
         .gated-detail {
             font-size: 0.85rem;
@@ -697,9 +732,12 @@
             var card = document.createElement('div');
             card.className = 'alt-card';
 
-            // --- Teaser (always visible) ---
-            var html = '<h3>' + escapeHtml(alt.name) + '</h3>';
+            // --- Identity (blurred when locked) ---
+            var lockedClass = IS_UNLOCKED ? '' : ' locked';
+            var html = '<div class="gated-identity' + lockedClass + '">';
+            html += '<h3>' + escapeHtml(alt.name) + '</h3>';
             html += '<p class="alt-card-meta">' + escapeHtml(alt.provider) + ' &middot; ' + escapeHtml(alt.hqCountry) + '</p>';
+            html += '</div>';
             html += '<span class="alt-card-category">' + escapeHtml(alt.category) + '</span>';
 
             // Badges
@@ -739,9 +777,8 @@
 
             html += '</div>';
 
-            // --- Gated content ---
-            var lockedClass = IS_UNLOCKED ? '' : ' locked';
-            html += '<div class="gated-content' + lockedClass + '">';
+            // --- Gated content (scores - always visible) ---
+            html += '<div class="gated-content">';
 
             // Score cells
             html += '<div class="gated-scores">';
@@ -773,6 +810,20 @@
             }
 
             html += '</div>'; // .gated-content
+
+            // Risk comparison (bottom of card)
+            var parentTool = getToolBySlug(currentToolSlug);
+            if (parentTool) {
+                var diff = parentTool.total - alt.total;
+                var diffClass = diff > 0 ? 'improvement' : (diff < 0 ? 'worse' : 'neutral');
+                var diffSign = diff > 0 ? '\u2212' : (diff < 0 ? '+' : '');
+                html += '<div class="risk-comparison">';
+                html += '<strong>Risk:</strong> <span class="risk-comparison-score ' + diffClass + '">' + alt.total + '/25</span>';
+                if (diff !== 0) {
+                    html += ' <span class="risk-comparison-diff">(' + diffSign + Math.abs(diff) + ' vs current)</span>';
+                }
+                html += '</div>';
+            }
 
             card.innerHTML = html;
             return card;

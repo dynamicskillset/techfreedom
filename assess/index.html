@@ -30,9 +30,9 @@
     <link rel="stylesheet" href="../css/shared.css">
     <!-- Chart.js for radar chart -->
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-    <!-- PDF export: html2canvas + jsPDF (loaded separately to avoid html2pdf's opacity-0 overlay bug) -->
-    <script defer src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- PDF export: jsPDF + autoTable plugin -->
     <script defer src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
     <style>
         /* ========================================
            ASSESSMENT PAGE STYLES
@@ -343,26 +343,28 @@
             min-width: 640px;
             border-collapse: separate;
             border-spacing: 0;
+            table-layout: fixed;
         }
 
         .heatmap thead th {
             font-family: var(--font-body);
             font-size: 0.7rem;
             font-weight: 500;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--text-muted);
-            padding: 0.75em 0.5em;
+            padding: 0.75em 0.35em;
             text-align: center;
             border-bottom: 2px solid var(--horizon);
             position: sticky;
             top: 0;
             background: var(--bg-primary);
+            overflow: visible;
+            white-space: nowrap;
         }
 
         .heatmap thead th:first-child {
             text-align: left;
-            min-width: 200px;
         }
 
         .heatmap tbody tr {
@@ -544,6 +546,26 @@
         .summary-text strong {
             color: var(--text-primary);
             font-weight: 600;
+        }
+
+        .summary-section.risk-low {
+            border-left: 4px solid #2E7D32;
+            background: linear-gradient(135deg, rgba(232, 245, 233, 0.6) 0%, rgba(255,255,255,0.6) 100%);
+        }
+
+        .summary-section.risk-moderate {
+            border-left: 4px solid #F9A825;
+            background: linear-gradient(135deg, rgba(255, 248, 225, 0.6) 0%, rgba(255,255,255,0.6) 100%);
+        }
+
+        .summary-section.risk-high {
+            border-left: 4px solid #EF6C00;
+            background: linear-gradient(135deg, rgba(255, 243, 224, 0.6) 0%, rgba(255,255,255,0.6) 100%);
+        }
+
+        .summary-section.risk-critical {
+            border-left: 4px solid #C62828;
+            background: linear-gradient(135deg, rgba(255, 235, 238, 0.6) 0%, rgba(255,255,255,0.6) 100%);
         }
 
         /* --- Export Actions --- */
@@ -784,22 +806,60 @@
 
             .heatmap-wrapper.mobile-cards .heatmap tbody tr:not(.key-risks-row) {
                 padding: var(--space-m);
-                margin-bottom: var(--space-s);
+                margin-bottom: 0;
                 background: var(--white);
                 border: 1px solid var(--horizon);
-                border-radius: 8px;
+                border-radius: 8px 8px 0 0;
+                text-align: left;
             }
 
             .heatmap-wrapper.mobile-cards .heatmap tbody td {
-                text-align: left;
-                padding: 0.35em 0;
+                text-align: left !important;
+                padding: 0.45em 0;
                 border-bottom: none;
+                display: flex;
+                align-items: center;
+                gap: 0.75em;
+                width: 100% !important;
+            }
+
+            .heatmap-wrapper.mobile-cards .heatmap tbody td:first-child {
+                display: block;
+                text-align: left !important;
+                font-size: 0;
+                padding-bottom: 0.5em;
+                margin-bottom: 0.35em;
+                border-bottom: 1px solid var(--horizon);
+            }
+
+            .heatmap-wrapper.mobile-cards .heatmap tbody td:first-child .expand-indicator {
+                display: none;
+            }
+
+            .heatmap-wrapper.mobile-cards .heatmap tbody td:first-child .tool-category {
+                display: block;
+                font-size: 0.8rem;
+                font-weight: 400;
+                color: var(--text-muted);
+                text-transform: none;
+                letter-spacing: normal;
+                margin-top: 0.15em;
+                padding-bottom: 0.4em;
+            }
+
+            .heatmap-wrapper.mobile-cards .heatmap tbody tr:not(.key-risks-row)::before {
+                content: attr(data-tool);
+                display: block;
+                text-align: left;
+                font-weight: 500;
+                font-size: 1rem;
+                line-height: 1.3;
             }
 
             .heatmap-wrapper.mobile-cards .heatmap tbody td::before {
                 content: attr(data-label);
                 display: inline-block;
-                width: 7em;
+                min-width: 8.5em;
                 font-size: 0.75rem;
                 font-weight: 500;
                 color: var(--text-muted);
@@ -807,9 +867,15 @@
                 letter-spacing: 0.05em;
             }
 
+            .heatmap-wrapper.mobile-cards .key-risks-row {
+                display: block !important;
+                margin-bottom: var(--space-m);
+            }
+
             .heatmap-wrapper.mobile-cards .key-risks-content {
                 border-left: none;
                 border-top: 3px solid var(--accent-amber);
+                border-radius: 0 0 8px 8px;
             }
         }
 
@@ -935,6 +1001,16 @@
                 <!-- Heatmap -->
                 <div class="heatmap-wrapper" id="heatmap-wrapper">
                     <table class="heatmap" id="heatmap" role="grid" aria-label="Tool risk scores heatmap">
+                        <colgroup>
+                            <col style="width:22%">
+                            <col style="width:12%">
+                            <col style="width:11%">
+                            <col style="width:13%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:10%">
+                            <col style="width:14%">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th scope="col">Tool</th>
@@ -1435,6 +1511,9 @@
                 // Main row
                 var tr = document.createElement('tr');
                 tr.setAttribute('tabindex', '0');
+                tr.setAttribute('data-tool', tool.name);
+                tr.setAttribute('data-category', tool.category);
+                tr.setAttribute('data-risks', tool.keyRisks);
                 tr.setAttribute('aria-label', tool.name + '. Total risk: ' + tool.total + ' out of 25. ' + tool.riskLevel + ' risk. Click to expand.');
 
                 tr.innerHTML =
@@ -1563,6 +1642,8 @@
 
         function renderSummary(tools) {
             var container = document.getElementById('summary-text');
+            var summaryEl = document.querySelector('.summary-section');
+            summaryEl.classList.remove('risk-low', 'risk-moderate', 'risk-high', 'risk-critical');
 
             // Calculate aggregate scores
             var avgs = {};
@@ -1600,6 +1681,8 @@
             else if (avgTotal >= 15) riskCategory = 'High';
             else if (avgTotal >= 11) riskCategory = 'Moderate';
 
+            summaryEl.classList.add('risk-' + riskCategory.toLowerCase());
+
             var summaryHTML =
                 '<p>Your stack of <strong>' + tools.length + ' tool' + (tools.length > 1 ? 's' : '') + '</strong> ' +
                 'scores <strong>' + avgTotal + '/25</strong> on average, placing it in the ' +
@@ -1636,59 +1719,308 @@
            EXPORT: PDF
            ======================================== */
         function downloadPDF() {
-            var resultsSection = document.getElementById('results-section');
-            if (!resultsSection || typeof html2canvas === 'undefined' || typeof jspdf === 'undefined') {
+            if (typeof jspdf === 'undefined') {
                 alert('PDF export is not available. Please try again in a moment.');
                 return;
             }
 
             var btn = document.getElementById('btn-pdf');
+            var pdfBtnIcon = btn.innerHTML;
             btn.textContent = 'Generating\u2026';
             btn.disabled = true;
 
-            var pdfBtnIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="width:1em;height:1em"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg> Download PDF';
+            var tools = selectedToolIds.map(getToolById).filter(Boolean);
+            if (tools.length === 0) { btn.innerHTML = pdfBtnIcon; btn.disabled = false; return; }
 
-            // Wait for radar chart animation (600ms) to complete
-            setTimeout(function() {
-                html2canvas(resultsSection, {
-                    scale: 2,
-                    useCORS: true,
-                    windowWidth: 1200,
-                    onclone: function(clonedDoc) {
-                        // Remove grain texture overlay
-                        var fix = clonedDoc.createElement('style');
-                        fix.textContent = 'body::after{display:none!important}';
-                        clonedDoc.head.appendChild(fix);
-                        // Hide elements not needed in PDF
-                        var ea = clonedDoc.querySelector('.export-actions');
-                        if (ea) ea.style.display = 'none';
-                        var nudge = clonedDoc.getElementById('next-step-nudge');
-                        if (nudge) nudge.style.display = 'none';
-                    }
-                }).then(function(canvas) {
-                    var margin = 10;
-                    var pdf = new jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'landscape' });
-                    var pageW = pdf.internal.pageSize.getWidth() - 2 * margin;
-                    var pageH = pdf.internal.pageSize.getHeight() - 2 * margin;
-                    var imgH = (canvas.height * pageW) / canvas.width;
-                    var imgData = canvas.toDataURL('image/jpeg', 0.95);
+            try {
+                var pdf = new jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+                var pw = pdf.internal.pageSize.getWidth();
+                var ph = pdf.internal.pageSize.getHeight();
+                var margin = 20;
+                var contentW = pw - 2 * margin;
 
-                    // Multi-page: tile the full-width image across pages
-                    var y = 0;
-                    while (y < imgH) {
-                        if (y > 0) pdf.addPage();
-                        pdf.addImage(imgData, 'JPEG', margin, margin - y, pageW, imgH);
-                        y += pageH;
-                    }
+                // Colours matching the score cells
+                var scoreColours = {
+                    1: [46, 125, 50],    // green
+                    2: [104, 159, 56],   // light green
+                    3: [249, 168, 37],   // amber
+                    4: [239, 108, 0],    // orange
+                    5: [198, 40, 40]     // red
+                };
 
-                    pdf.save('techfreedom-risk-assessment.pdf');
-                    btn.innerHTML = pdfBtnIcon;
-                    btn.disabled = false;
-                }).catch(function() {
-                    btn.textContent = 'Download PDF';
-                    btn.disabled = false;
+                var riskBadgeColours = {
+                    'Low':      { bg: [232, 245, 233], text: [46, 125, 50] },
+                    'Medium':   { bg: [255, 248, 225], text: [245, 127, 23] },
+                    'High':     { bg: [251, 233, 231], text: [216, 67, 21] },
+                    'Critical': { bg: [255, 235, 238], text: [198, 40, 40] }
+                };
+
+                // Compute averages for summary
+                var avgs = {};
+                DIMENSIONS.forEach(function(dim) {
+                    var sum = 0;
+                    tools.forEach(function(t) { sum += t[dim]; });
+                    avgs[dim] = parseFloat((sum / tools.length).toFixed(1));
                 });
-            }, 700);
+                var avgTotal = parseFloat((tools.reduce(function(s, t) { return s + t.total; }, 0) / tools.length).toFixed(1));
+                var riskCategory = 'Low';
+                if (avgTotal >= 18) riskCategory = 'Critical';
+                else if (avgTotal >= 15) riskCategory = 'High';
+                else if (avgTotal >= 11) riskCategory = 'Moderate';
+
+                // --- Page footer helper ---
+                var totalPages = 0; // set after building
+                function addFooter(pageNum) {
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(107, 114, 128);
+                    pdf.text('Generated by TechFreedom \u2014 techfreedom.eu', margin, ph - 10);
+                    pdf.text('Page ' + pageNum, pw - margin, ph - 10, { align: 'right' });
+                }
+
+                // ===== PAGE 1: HEADER + TABLE =====
+                var y = margin;
+
+                // Title
+                pdf.setFontSize(24);
+                pdf.setTextColor(26, 35, 50);
+                pdf.text('Tech Stack Risk Assessment', margin, y + 8);
+                y += 14;
+
+                // Subtitle line
+                pdf.setFontSize(10);
+                pdf.setTextColor(107, 114, 128);
+                var dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+                pdf.text(dateStr + '  \u2022  ' + tools.length + ' tool' + (tools.length > 1 ? 's' : '') + ' assessed  \u2022  Overall risk: ' + riskCategory, margin, y + 4);
+                y += 10;
+
+                // Divider
+                pdf.setDrawColor(217, 213, 203);
+                pdf.setLineWidth(0.3);
+                pdf.line(margin, y, pw - margin, y);
+                y += 6;
+
+                // Heatmap table
+                var sorted = tools.slice().sort(function(a, b) { return b.total - a.total; });
+
+                var tableHead = [['Tool', 'Juris.', 'Cont.', 'Surv.', 'Lock-in', 'Cost', 'Total', 'Risk']];
+                var tableBody = sorted.map(function(t) {
+                    return [
+                        t.name,
+                        String(t.jurisdiction),
+                        String(t.continuity),
+                        String(t.surveillance),
+                        String(t.lockIn),
+                        String(t.costExposure),
+                        t.total + '/25',
+                        t.riskLevel
+                    ];
+                });
+
+                pdf.autoTable({
+                    startY: y,
+                    margin: { left: margin, right: margin },
+                    head: tableHead,
+                    body: tableBody,
+                    styles: {
+                        font: 'helvetica',
+                        fontSize: 8,
+                        cellPadding: 3,
+                        lineColor: [217, 213, 203],
+                        lineWidth: 0.2
+                    },
+                    headStyles: {
+                        fillColor: [26, 35, 50],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold',
+                        fontSize: 7,
+                        halign: 'center'
+                    },
+                    columnStyles: {
+                        0: { halign: 'left', cellWidth: contentW * 0.30 },
+                        1: { halign: 'center', cellWidth: contentW * 0.09 },
+                        2: { halign: 'center', cellWidth: contentW * 0.09 },
+                        3: { halign: 'center', cellWidth: contentW * 0.09 },
+                        4: { halign: 'center', cellWidth: contentW * 0.09 },
+                        5: { halign: 'center', cellWidth: contentW * 0.09 },
+                        6: { halign: 'center', cellWidth: contentW * 0.12, fontStyle: 'bold' },
+                        7: { halign: 'center', cellWidth: contentW * 0.13 }
+                    },
+                    didParseCell: function(data) {
+                        // Colour score cells (columns 1-5)
+                        if (data.section === 'body' && data.column.index >= 1 && data.column.index <= 5) {
+                            var val = parseInt(data.cell.raw);
+                            if (scoreColours[val]) {
+                                data.cell.styles.fillColor = scoreColours[val];
+                                data.cell.styles.textColor = val === 3 ? [26, 35, 50] : [255, 255, 255];
+                                data.cell.styles.fontStyle = 'bold';
+                            }
+                        }
+                        // Colour risk badge column
+                        if (data.section === 'body' && data.column.index === 7) {
+                            var badge = riskBadgeColours[data.cell.raw];
+                            if (badge) {
+                                data.cell.styles.fillColor = badge.bg;
+                                data.cell.styles.textColor = badge.text;
+                                data.cell.styles.fontStyle = 'bold';
+                            }
+                        }
+                    },
+                    didDrawPage: function() {}
+                });
+
+                y = pdf.lastAutoTable.finalY + 8;
+
+                // ===== RADAR CHART IMAGE =====
+                var radarCanvas = document.getElementById('radar-chart');
+                if (radarCanvas) {
+                    var chartImgW = 80;
+                    var chartImgH = 80;
+
+                    // Check if we need a new page
+                    if (y + chartImgH + 20 > ph - 20) {
+                        addFooter(pdf.getNumberOfPages());
+                        pdf.addPage();
+                        y = margin;
+                    }
+
+                    pdf.setFontSize(14);
+                    pdf.setTextColor(26, 35, 50);
+                    pdf.text('Risk Profile Overview', margin, y + 5);
+                    y += 10;
+
+                    var chartImg = radarCanvas.toDataURL('image/png', 1.0);
+                    var chartX = (pw - chartImgW) / 2;
+                    pdf.addImage(chartImg, 'PNG', chartX, y, chartImgW, chartImgH);
+                    y += chartImgH + 8;
+                }
+
+                // ===== SUMMARY =====
+                if (y + 40 > ph - 20) {
+                    addFooter(pdf.getNumberOfPages());
+                    pdf.addPage();
+                    y = margin;
+                }
+
+                // Summary box border colour
+                var summaryBorderColour = [46, 125, 50]; // low
+                if (riskCategory === 'Critical') summaryBorderColour = [198, 40, 40];
+                else if (riskCategory === 'High') summaryBorderColour = [239, 108, 0];
+                else if (riskCategory === 'Moderate') summaryBorderColour = [249, 168, 37];
+
+                pdf.setFontSize(14);
+                pdf.setTextColor(26, 35, 50);
+                pdf.text('Summary', margin, y + 5);
+                y += 10;
+
+                // Draw colour bar
+                pdf.setFillColor(summaryBorderColour[0], summaryBorderColour[1], summaryBorderColour[2]);
+                pdf.rect(margin, y, 2, 0); // placeholder height, updated after text
+
+                // Summary text
+                pdf.setFontSize(9);
+                pdf.setTextColor(61, 74, 92);
+
+                // Build plain summary text
+                var worstDim = DIMENSIONS[0];
+                DIMENSIONS.forEach(function(dim) {
+                    if (avgs[dim] > avgs[worstDim]) worstDim = dim;
+                });
+                var worstToolForDim = tools[0];
+                tools.forEach(function(t) {
+                    if (t[worstDim] > worstToolForDim[worstDim]) worstToolForDim = t;
+                });
+
+                var summaryLines = [
+                    'Your stack of ' + tools.length + ' tool' + (tools.length > 1 ? 's' : '') + ' scores ' + avgTotal + '/25 on average, placing it in the ' + riskCategory + ' risk category.',
+                    '',
+                    'Your biggest exposure is ' + DIM_LABELS[worstDim] + ' (' + avgs[worstDim] + '/5), driven primarily by ' + worstToolForDim.name + '.'
+                ];
+
+                var criticalCount = tools.filter(function(t) { return t.riskLevel === 'Critical'; }).length;
+                var highCount = tools.filter(function(t) { return t.riskLevel === 'High'; }).length;
+                if (criticalCount > 0 || highCount > 0) {
+                    summaryLines.push('');
+                    var counts = [];
+                    if (criticalCount > 0) counts.push(criticalCount + ' tool' + (criticalCount > 1 ? 's' : '') + ' rated Critical risk');
+                    if (highCount > 0) counts.push(highCount + ' tool' + (highCount > 1 ? 's' : '') + ' rated High risk');
+                    summaryLines.push(counts.join('. ') + '.');
+                }
+
+                // Wrap and draw text
+                var textX = margin + 5;
+                var textMaxW = contentW - 5;
+                var lineH = 4.5;
+                var startY = y;
+
+                summaryLines.forEach(function(line) {
+                    if (line === '') { y += lineH * 0.5; return; }
+                    var wrapped = pdf.splitTextToSize(line, textMaxW);
+                    wrapped.forEach(function(wl) {
+                        pdf.text(wl, textX, y + 3);
+                        y += lineH;
+                    });
+                });
+
+                y += 4;
+
+                // Draw the colour bar with final height
+                pdf.setFillColor(summaryBorderColour[0], summaryBorderColour[1], summaryBorderColour[2]);
+                pdf.rect(margin, startY, 2, y - startY, 'F');
+
+                // ===== KEY RISKS DETAIL (always new page) =====
+                addFooter(pdf.getNumberOfPages());
+                pdf.addPage();
+                y = margin;
+
+                pdf.setFontSize(14);
+                pdf.setTextColor(26, 35, 50);
+                pdf.text('Key Risks by Tool', margin, y + 5);
+                y += 10;
+
+                sorted.forEach(function(tool) {
+                    if (y + 20 > ph - 20) {
+                        addFooter(pdf.getNumberOfPages());
+                        pdf.addPage();
+                        y = margin;
+                    }
+
+                    pdf.setFontSize(9);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(26, 35, 50);
+                    pdf.text(tool.name, margin + 3, y + 3);
+                    y += 5;
+
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(61, 74, 92);
+                    var riskLines = pdf.splitTextToSize(tool.keyRisks, contentW - 6);
+                    riskLines.forEach(function(rl) {
+                        if (y + 4 > ph - 20) {
+                            addFooter(pdf.getNumberOfPages());
+                            pdf.addPage();
+                            y = margin;
+                        }
+                        pdf.text(rl, margin + 3, y + 3);
+                        y += 3.5;
+                    });
+                    y += 4;
+                });
+
+                // Add footers to all pages
+                var numPages = pdf.getNumberOfPages();
+                for (var p = 1; p <= numPages; p++) {
+                    pdf.setPage(p);
+                    addFooter(p);
+                }
+
+                pdf.save('techfreedom-risk-assessment.pdf');
+            } catch (e) {
+                console.error('PDF generation failed:', e);
+                alert('PDF generation failed. Please try again.');
+            }
+
+            btn.innerHTML = pdfBtnIcon;
+            btn.disabled = false;
         }
 
         /* ========================================
