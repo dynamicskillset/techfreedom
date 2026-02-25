@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme — TechFreedom</title>
+    <meta name="description" content="Three online sessions that help social purpose organisations see their technology dependencies, assess hidden risks, and build practical roadmaps towards greater sovereignty.">
+    <link rel="canonical" href="https://techfreedom.eu/programme/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://techfreedom.eu/programme/">
+    <meta property="og:title" content="Programme — TechFreedom">
+    <meta property="og:description" content="Three online sessions that help social purpose organisations see their technology dependencies, assess hidden risks, and build practical roadmaps towards greater sovereignty.">
+    <meta property="og:image" content="https://techfreedom.eu/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:site_name" content="TechFreedom">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Programme — TechFreedom">
+    <meta name="twitter:description" content="Three online sessions that help social purpose organisations see their technology dependencies, assess hidden risks, and build practical roadmaps towards greater sovereignty.">
+    <meta name="twitter:image" content="https://techfreedom.eu/og-image.png">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "TechFreedom Programme",
+        "description": "A cohort-based programme helping social purpose organisations understand their technology dependencies and build practical roadmaps towards greater sovereignty.",
+        "provider": {
+            "@type": "Organization",
+            "name": "TechFreedom",
+            "url": "https://techfreedom.eu"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "300",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/PreOrder"
+        },
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online",
+            "courseWorkload": "PT6H"
+        }
+    }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A2332'/%3E%3Ctext x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23F7F5F0' text-anchor='middle'%3ETf%3C/text%3E%3C/svg%3E">
+    <script defer data-domain="techfreedom.eu" src="https://plausible.io/js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/shared.css">
+    <style>
+        /* ========================================
+           PROGRAMME PAGE STYLES
+           ======================================== */
+
+        /* Page header */
+        .programme-header {
+            padding: calc(var(--space-2xl) + 60px) 0 var(--space-xl);
+            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-primary) 100%);
+        }
+
+        .programme-header h1 {
+            font-size: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+            margin-bottom: var(--space-s);
+        }
+
+        .programme-header .tagline {
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 50ch;
+        }
+
+        /* Intro section */
+        .programme-intro {
+            padding: var(--space-xl) 0;
+        }
+
+        .programme-intro p {
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .programme-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .programme-intro .emphasis {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Who section */
+        .who-section {
+            padding: var(--space-l) 0 var(--space-xl);
+        }
+
+        .who-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .org-types {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs) var(--space-s);
+            margin-bottom: var(--space-m);
+        }
+
+        .org-types li {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            padding: 0.35rem 0.85rem;
+            border: 1px solid var(--horizon);
+            border-radius: 2rem;
+            background: var(--bg-warm);
+        }
+
+        .who-participants {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: var(--space-s);
+        }
+
+        .who-note {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-left: 3px solid var(--accent-amber);
+            padding-left: var(--space-s);
+        }
+
+        /* Sessions */
+        .sessions-section {
+            padding: var(--space-xl) 0;
+        }
+
+        .sessions-section > .section-inner > h2 {
+            margin-bottom: var(--space-l);
+        }
+
+        .session {
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-xl);
+            border-bottom: 1px solid var(--horizon);
+        }
+
+        .session:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .session-label {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-amber);
+            margin-bottom: var(--space-xs);
+        }
+
+        .session h3 {
+            font-size: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+            margin-bottom: var(--space-s);
+        }
+
+        .session-intro {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-m);
+            font-size: 1.05rem;
+        }
+
+        .session-detail h4 {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            margin-top: var(--space-m);
+        }
+
+        .session-detail ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .session-detail ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .session-detail ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-sky);
+            opacity: 0.5;
+        }
+
+        .session-outcome {
+            margin-top: var(--space-m);
+            padding: var(--space-s) var(--space-m);
+            background: linear-gradient(135deg, var(--bg-warm), rgba(212, 168, 67, 0.06));
+            border-left: 3px solid var(--accent-amber);
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .session-outcome p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .session-outcome strong {
+            color: var(--text-primary);
+        }
+
+        /* Risk lenses */
+        .lenses-grid {
+            display: grid;
+            gap: var(--space-s);
+            margin-top: var(--space-s);
+            margin-bottom: var(--space-m);
+        }
+
+        .lens-item {
+            display: grid;
+            grid-template-columns: 2rem 1fr;
+            gap: 0 var(--space-xs);
+            align-items: start;
+            padding: var(--space-s);
+            background: var(--bg-warm);
+            border-radius: 0.5rem;
+            border: 1px solid var(--horizon);
+        }
+
+        .lens-number {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-amber);
+            grid-row: 1 / 3;
+            padding-top: 0.1rem;
+        }
+
+        .lens-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .lens-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            grid-column: 2;
+        }
+
+        /* Between sessions */
+        .between-section {
+            padding: var(--space-l) 0 var(--space-xl);
+            background: var(--bg-warm);
+        }
+
+        .between-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .between-section p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-s);
+        }
+
+        .between-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .between-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .between-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-sky);
+            opacity: 0.5;
+        }
+
+        .between-note {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-top: var(--space-s);
+        }
+
+        /* What you get */
+        .includes-section {
+            padding: var(--space-xl) 0;
+        }
+
+        .includes-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .includes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-s);
+        }
+
+        .include-item {
+            display: flex;
+            gap: var(--space-s);
+            padding: var(--space-s);
+            border: 1px solid var(--horizon);
+            border-radius: 0.5rem;
+            background: linear-gradient(135deg, var(--white), var(--bg-warm));
+        }
+
+        .include-icon {
+            flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-amber-light);
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .include-text strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+        }
+
+        .include-text span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Structure & pricing */
+        .pricing-section {
+            padding: var(--space-xl) 0;
+            background: var(--bg-warm);
+        }
+
+        .pricing-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .pricing-box {
+            background: linear-gradient(135deg, var(--white), rgba(212, 168, 67, 0.04));
+            border: 1px solid var(--horizon);
+            border-radius: 0.75rem;
+            padding: var(--space-m);
+            margin-bottom: var(--space-m);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.5rem var(--space-m);
+            align-items: baseline;
+        }
+
+        .pricing-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent-amber);
+        }
+
+        .pricing-value {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .pricing-value .price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .pilot-note {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            padding: var(--space-s);
+            background: var(--accent-amber-light);
+            border-radius: 0.5rem;
+            margin-top: var(--space-s);
+        }
+
+        /* Why cohort */
+        .cohort-section {
+            padding: var(--space-xl) 0;
+        }
+
+        .cohort-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .cohort-reasons {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cohort-reasons li {
+            margin-bottom: var(--space-s);
+            padding-left: 0;
+        }
+
+        .cohort-reasons li strong {
+            color: var(--text-primary);
+        }
+
+        .cohort-reasons li span {
+            color: var(--text-secondary);
+        }
+
+        /* After programme */
+        .after-section {
+            padding: var(--space-l) 0 var(--space-xl);
+            background: var(--bg-warm);
+        }
+
+        .after-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .after-intro {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-m);
+        }
+
+        .after-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .after-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .after-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-amber);
+            opacity: 0.5;
+        }
+
+        /* Facilitators */
+        .facilitators-section {
+            padding: var(--space-xl) 0;
+        }
+
+        .facilitators-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .facilitators-section p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-s);
+        }
+
+        /* FAQs */
+        .faq-section {
+            padding: var(--space-xl) 0;
+            background: var(--bg-warm);
+        }
+
+        .faq-section h2 {
+            margin-bottom: var(--space-l);
+        }
+
+        .faq-item {
+            margin-bottom: var(--space-m);
+            padding-bottom: var(--space-m);
+            border-bottom: 1px solid var(--horizon);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-item h3 {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .faq-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: var(--space-xl) 0 var(--space-2xl);
+        }
+
+        .cta-box {
+            padding: var(--space-l) var(--space-m);
+            background: linear-gradient(135deg, var(--bg-warm), rgba(212, 168, 67, 0.08));
+            border: 1px solid var(--accent-amber-light);
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .cta-box h2 {
+            margin-bottom: var(--space-s);
+        }
+
+        .cta-box p {
+            margin: 0 auto var(--space-m);
+            color: var(--text-secondary);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 0.85rem 2.5rem;
+            background: var(--accent-amber);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--accent-amber-glow);
+            color: var(--white);
+        }
+
+        .cta-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 3px;
+        }
+
+        .cta-subtext {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: var(--space-s);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 0.25rem;
+            }
+
+            .pricing-label {
+                margin-top: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .programme-header {
+                padding-top: calc(var(--space-xl) + 60px);
+            }
+
+            .include-item {
+                flex-direction: column;
+                gap: var(--space-xs);
+            }
+
+            .lens-item {
+                grid-template-columns: 1fr;
+            }
+
+            .lens-number {
+                grid-row: auto;
+            }
+
+            .lens-desc {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-wordmark">TechFreedom</a>
+        <ul class="nav-links">
+            <li><a href="/manifesto/">Manifesto</a></li>
+            <li><a href="/assess/">Assessment</a></li>
+            <li><a href="/programme/" aria-current="page">Programme</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" tabindex="-1">
+
+        <!-- Header -->
+        <header class="programme-header">
+            <div class="section-inner">
+                <h1 class="reveal">The Programme</h1>
+                <p class="tagline reveal reveal-delay-1">A cohort-based journey to technology sovereignty for social purpose organisations</p>
+            </div>
+        </header>
+
+        <!-- Intro -->
+        <section class="programme-intro">
+            <div class="section-inner">
+                <p class="reveal">TechFreedom is a three-session cohort programme that helps social purpose organisations see their technology landscape clearly, assess hidden risks and dependencies, and build practical roadmaps towards greater sovereignty.</p>
+                <p class="reveal reveal-delay-1">The programme combines systems thinking, participatory facilitation methods, and peer learning to create space for honest reflection about where power sits in your technology stack.</p>
+                <p class="reveal reveal-delay-2"><span class="emphasis">This is not a technical audit.</span> It's a strategic conversation about whose interests your tools serve, who can switch you off, and what freedom of movement you actually have.</p>
+            </div>
+        </section>
+
+        <!-- Who it's for -->
+        <section class="who-section">
+            <div class="section-inner">
+                <h2 class="reveal">Who is it for?</h2>
+                <ul class="org-types reveal reveal-delay-1" role="list">
+                    <li>Charities &amp; non-profits</li>
+                    <li>Community interest companies</li>
+                    <li>Co-operatives &amp; mutuals</li>
+                    <li>Social enterprises</li>
+                    <li>Advocacy &amp; campaigning groups</li>
+                    <li>Community organisations</li>
+                    <li>Mission-driven small businesses</li>
+                </ul>
+                <p class="who-participants reveal reveal-delay-2">Typical participants are executive directors, operations managers, trustees with technology oversight, or anyone responsible for technology decisions.</p>
+                <p class="who-note reveal reveal-delay-3">You don't need to be technical. The programme is designed for people who make strategic decisions about technology, not people who implement it.</p>
+            </div>
+        </section>
+
+        <!-- The Three Sessions -->
+        <section class="sessions-section" aria-labelledby="sessions-heading">
+            <div class="section-inner">
+                <h2 id="sessions-heading" class="reveal">The Three Sessions</h2>
+
+                <!-- Session 1 -->
+                <article class="session reveal">
+                    <p class="session-label">Session 1</p>
+                    <h3>SEE &mdash; Mapping Invisible Reliance</h3>
+                    <p class="session-intro">Most organisations have never listed every piece of technology they depend on. In this first session, that changes.</p>
+
+                    <div class="session-detail">
+                        <h4>What you'll do</h4>
+                        <ul>
+                            <li>Build a complete technology inventory across 14 categories &mdash; from email and cloud storage through to specialist tools and infrastructure</li>
+                            <li>Place each tool on the Bullseye: Core, Important, Peripheral, or Out of Scope</li>
+                            <li>Compare your landscape with peers &mdash; what's on their list that isn't on yours?</li>
+                            <li>Begin to see patterns: concentration with a single provider, tools in unfamiliar jurisdictions, invisible dependencies you didn't know you had</li>
+                        </ul>
+
+                        <h4>How it works</h4>
+                        <ul>
+                            <li>Quiet individual work, then structured peer conversations using 1-2-4-All &mdash; a method that ensures every voice is heard before the whole group discusses</li>
+                            <li>Pairs comparison to reveal blind spots and shared dependencies</li>
+                            <li>Whole-group harvest connecting individual observations to wider patterns</li>
+                        </ul>
+                    </div>
+
+                    <div class="session-outcome">
+                        <p><strong>You'll leave with:</strong> A complete map of your technology landscape and a first sense of where invisible dependencies lie. You'll also have access to the cohort channel for questions and reflections between sessions.</p>
+                    </div>
+                </article>
+
+                <!-- Session 2 -->
+                <article class="session reveal">
+                    <p class="session-label">Session 2</p>
+                    <h3>ASSESS &mdash; Making the Risks Explicit</h3>
+                    <p class="session-intro">Now that you can see your landscape, it's time to score it. This session introduces the five risk lenses &mdash; the analytical heart of TechFreedom.</p>
+
+                    <div class="session-detail">
+                        <h4>The Five Risk Lenses</h4>
+                        <div class="lenses-grid">
+                            <div class="lens-item">
+                                <span class="lens-number">01</span>
+                                <span class="lens-name">Jurisdiction</span>
+                                <span class="lens-desc">Where does your data actually live, and under whose laws?</span>
+                            </div>
+                            <div class="lens-item">
+                                <span class="lens-number">02</span>
+                                <span class="lens-name">Continuity</span>
+                                <span class="lens-desc">What happens when a platform changes the rules, the pricing, or simply disappears?</span>
+                            </div>
+                            <div class="lens-item">
+                                <span class="lens-number">03</span>
+                                <span class="lens-name">Surveillance</span>
+                                <span class="lens-desc">How much does your tech stack know about you, your staff, and the people you serve?</span>
+                            </div>
+                            <div class="lens-item">
+                                <span class="lens-number">04</span>
+                                <span class="lens-name">Lock-in</span>
+                                <span class="lens-desc">Could you leave if you wanted to? What would it cost?</span>
+                            </div>
+                            <div class="lens-item">
+                                <span class="lens-number">05</span>
+                                <span class="lens-name">Cost Exposure</span>
+                                <span class="lens-desc">How exposed are you to price changes and eliminated free tiers?</span>
+                            </div>
+                        </div>
+
+                        <h4>What you'll do</h4>
+                        <ul>
+                            <li>Walk through the five lenses with real examples from the TechFreedom Database</li>
+                            <li>Score your own Core and Important tools (each lens 1&ndash;5, total out of 25)</li>
+                            <li>Reflect on ethical alignment, accessibility, environmental impact, and AI &amp; data training</li>
+                            <li>Build your Priority Grid &mdash; plotting risk against readiness to identify what to act on first</li>
+                            <li>Work through your biggest dependency in a Troika Consulting session &mdash; structured peer support where two people offer suggestions while you listen</li>
+                        </ul>
+                    </div>
+
+                    <div class="session-outcome">
+                        <p><strong>You'll leave with:</strong> A clear picture of where your risks lie and which tools sit in the &ldquo;Quick Wins&rdquo; quadrant for immediate action.</p>
+                    </div>
+                </article>
+
+                <!-- Session 3 -->
+                <article class="session reveal">
+                    <p class="session-label">Session 3</p>
+                    <h3>PLAN &mdash; From Analysis to Action</h3>
+                    <p class="session-intro">Analysis without action is just worry. In this final session, you'll build a concrete roadmap using the Three Horizons framework.</p>
+
+                    <div class="session-detail">
+                        <h4>The Three Horizons</h4>
+                        <ul>
+                            <li><strong>Horizon 1 (Now &rarr; 3 months):</strong> Quick Wins &mdash; changes you can make without significant investment</li>
+                            <li><strong>Horizon 2 (3&ndash;12 months):</strong> Planned Transitions &mdash; moves requiring coordination, budget, or training</li>
+                            <li><strong>Horizon 3 (12&ndash;24 months):</strong> Strategic Shifts &mdash; long-term investments in sovereignty and capability</li>
+                        </ul>
+
+                        <h4>What you'll do</h4>
+                        <ul>
+                            <li>Hear a real migration story &mdash; what was switched, what the trade-offs were, and why it mattered</li>
+                            <li>Workshop your Quick Wins using the TechFreedom Database to find realistic alternatives</li>
+                            <li>Plan longer-term transitions across Horizons 2 and 3</li>
+                            <li>Identify what you need: skills, budget, and support</li>
+                            <li>Make public commitments with specific timelines</li>
+                            <li>Pair up with a buddy from the cohort for ongoing accountability</li>
+                            <li>Write your Tech Freedom Vision: &ldquo;In two years, our technology looks like&hellip;&rdquo;</li>
+                        </ul>
+                    </div>
+
+                    <div class="session-outcome">
+                        <p><strong>You'll leave with:</strong> A concrete roadmap with actions, owners, and timelines. A buddy to keep you accountable. Commitments you've made in front of peers. And an invitation into the alumni community.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Between sessions -->
+        <section class="between-section">
+            <div class="section-inner">
+                <h2 class="reveal">Between Sessions</h2>
+                <p class="reveal reveal-delay-1">Sessions are spaced 2&ndash;3 weeks apart. Between them, you're invited to:</p>
+                <ul class="between-list reveal reveal-delay-2" role="list">
+                    <li>Add any tools you remembered after the session</li>
+                    <li>Note questions or unknowns to bring next time</li>
+                    <li>Explore the TechFreedom Database of alternative tools</li>
+                    <li>Post a question or insight in the cohort channel</li>
+                    <li>Join an optional drop-in call for specific questions</li>
+                </ul>
+                <p class="between-note reveal reveal-delay-3">The programme is designed to respect your capacity. Between-session work is deliberately light and optional.</p>
+            </div>
+        </section>
+
+        <!-- What you get -->
+        <section class="includes-section">
+            <div class="section-inner section-inner--wide">
+                <h2 class="reveal">What You Get</h2>
+                <div class="includes-grid">
+                    <div class="include-item reveal reveal-delay-1">
+                        <div class="include-icon" aria-hidden="true">&#9671;</div>
+                        <div class="include-text">
+                            <strong>Three facilitated sessions</strong>
+                            <span>Two hours each, using participatory methods that ensure everyone is heard</span>
+                        </div>
+                    </div>
+                    <div class="include-item reveal reveal-delay-1">
+                        <div class="include-icon" aria-hidden="true">&#9633;</div>
+                        <div class="include-text">
+                            <strong>The TechFreedom Canvas</strong>
+                            <span>A three-page working document (printable A3) &mdash; your technology map, risk assessment, and roadmap</span>
+                        </div>
+                    </div>
+                    <div class="include-item reveal reveal-delay-2">
+                        <div class="include-icon" aria-hidden="true">&#9678;</div>
+                        <div class="include-text">
+                            <strong>TechFreedom Database</strong>
+                            <span>27 commonly-used tools pre-scored across five risk lenses, plus 27 curated alternatives with migration difficulty ratings</span>
+                        </div>
+                    </div>
+                    <div class="include-item reveal reveal-delay-2">
+                        <div class="include-icon" aria-hidden="true">&#9998;</div>
+                        <div class="include-text">
+                            <strong>Participant Workbook</strong>
+                            <span>Complete guide with manifesto, frameworks, worksheets, and space for reflection</span>
+                        </div>
+                    </div>
+                    <div class="include-item reveal reveal-delay-3">
+                        <div class="include-icon" aria-hidden="true">&#9740;</div>
+                        <div class="include-text">
+                            <strong>Cohort community</strong>
+                            <span>Shared channel, optional drop-in calls, a buddy for accountability</span>
+                        </div>
+                    </div>
+                    <div class="include-item reveal reveal-delay-3">
+                        <div class="include-icon" aria-hidden="true">&#10038;</div>
+                        <div class="include-text">
+                            <strong>Alumni network</strong>
+                            <span>Quarterly calls on rotating themes, persistent channel, 3&ndash;6 month check-ins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Structure & pricing -->
+        <section class="pricing-section">
+            <div class="section-inner">
+                <h2 class="reveal">Structure &amp; Pricing</h2>
+                <div class="pricing-box reveal reveal-delay-1">
+                    <div class="pricing-grid">
+                        <span class="pricing-label">Format</span>
+                        <span class="pricing-value">3 &times; 2-hour online sessions</span>
+
+                        <span class="pricing-label">Spacing</span>
+                        <span class="pricing-value">2&ndash;3 weeks between sessions</span>
+
+                        <span class="pricing-label">Cohort size</span>
+                        <span class="pricing-value">6&ndash;10 organisations (one person per organisation)</span>
+
+                        <span class="pricing-label">Cost</span>
+                        <span class="pricing-value"><span class="price">&pound;300</span> per organisation</span>
+
+                        <span class="pricing-label">Includes</span>
+                        <span class="pricing-value">Canvas, database, workbook, facilitation, cohort channel, alumni community</span>
+
+                        <span class="pricing-label">Add-on</span>
+                        <span class="pricing-value">1:1 surgery sessions available for working through specific blockers</span>
+                    </div>
+                    <p class="pilot-note">Pilot cohort at reduced rate &mdash; register interest for early access pricing!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why cohort-based -->
+        <section class="cohort-section">
+            <div class="section-inner">
+                <h2 class="reveal">Why Cohort-Based?</h2>
+                <ul class="cohort-reasons" role="list">
+                    <li class="reveal"><strong>Peer learning:</strong> <span>You learn as much from other organisations navigating similar challenges as from the facilitators.</span></li>
+                    <li class="reveal reveal-delay-1"><strong>Accountability:</strong> <span>Public commitments and buddy pairing create structures that outlast the programme.</span></li>
+                    <li class="reveal reveal-delay-2"><strong>Pacing:</strong> <span>Sessions spaced 2&ndash;3 weeks apart allow time for reflection and small shifts without overwhelming capacity.</span></li>
+                    <li class="reveal reveal-delay-3"><strong>Community:</strong> <span>The cohort becomes a community. Alumni stay connected through quarterly calls and a persistent channel.</span></li>
+                    <li class="reveal reveal-delay-4"><strong>Collective power:</strong> <span>When organisations move together, they can share migration stories, recommend suppliers, pool resources, and build collective alternatives.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- After the programme -->
+        <section class="after-section">
+            <div class="section-inner">
+                <h2 class="reveal">After the Programme</h2>
+                <p class="after-intro reveal reveal-delay-1">All participants join the TechFreedom alumni community:</p>
+                <ul class="after-list reveal reveal-delay-2" role="list">
+                    <li>Persistent channel for ongoing questions and resource-sharing</li>
+                    <li>Quarterly community calls on rotating themes &mdash; jurisdiction, surveillance, AI &amp; data training, environmental impact</li>
+                    <li>Optional 1:1 surgery sessions for working through specific blockers</li>
+                    <li>3-month check-in: brief survey about Horizon 1 progress, barriers encountered, and unexpected shifts</li>
+                    <li>6-month reunion call: show-and-tell of changes made, peer learning, and harvesting insights for future cohorts</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Facilitators -->
+        <section class="facilitators-section">
+            <div class="section-inner">
+                <h2 class="reveal">About the Facilitators</h2>
+                <p class="reveal reveal-delay-1"><strong>Tom Watson</strong> and <strong>Doug Belshaw</strong> co-created TechFreedom.</p>
+                <p class="reveal reveal-delay-2"><strong>Tom</strong> is a coach, advisor and technologist focused on social purpose. He blends data, technology, design and strategy grounded in open infrastructure and principles.</p>
+                <p class="reveal reveal-delay-3"></p><strong>Doug</strong> is a consultant, facilitator, and critical friend. He helps mission-driven organisations work more openly and navigate complexity.</p>
+                <p class="reveal reveal-delay-4">They share a commitment to participatory facilitation, peer learning, and supporting organisations to make technology choices that align with their values rather than compromise them.</p>
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <section class="faq-section" aria-labelledby="faq-heading">
+            <div class="section-inner">
+                <h2 id="faq-heading" class="reveal">Frequently Asked Questions</h2>
+
+                <div class="faq-item reveal">
+                    <h3>Do I need to be technical?</h3>
+                    <p>No. The programme is designed for people who make strategic decisions about technology, not people who implement it. If you can list the tools your organisation uses, you have everything you need.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3>How many people from my organisation should attend?</h3>
+                    <p>One person per organisation. Ideally someone with oversight of technology decisions &mdash; an executive director, operations manager, or trustee. They can always bring insights back to colleagues.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3>What do I need to prepare?</h3>
+                    <p>Nothing. There is no pre-work. The first session starts with building your inventory from scratch.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3>What happens if I miss a session?</h3>
+                    <p>The sessions build on each other, so attending all three gives you the most value. If you need to miss one, we can arrange a brief catch-up call.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3>Is this about shaming us for using Google or Microsoft?</h3>
+                    <p>No. The programme creates space for honest reflection, not judgement. Most organisations use these tools for good reasons. The point is to make invisible dependencies visible so you can make informed choices &mdash; at your own pace.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3>What platform are the sessions held on?</h3>
+                    <p>We use privacy-respecting video conferencing, confirmed with each cohort. The cohort channel uses an open, privacy-friendly platform.</p>
+                </div>
+
+                <div class="faq-item reveal">
+                    <h3>Can we run TechFreedom for our network?</h3>
+                    <p>Yes. The programme can be licensed for delivery by partner organisations working with specific sectors or communities. Get in touch to discuss.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="section-inner">
+                <div class="cta-box reveal">
+                    <h2>Ready to see your technology clearly?</h2>
+                    <p>Register your interest for the first TechFreedom cohort.</p>
+                    <a href="https://techfreedom.eu/#signup" class="cta-btn">Register Interest</a>
+                    <p class="cta-subtext">Or email <a href="mailto:hello@techfreedom.eu">hello@techfreedom.eu</a> with questions.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="section-inner">
+            <div class="footer-inner">
+                <p class="footer-copyright">CC BY TechFreedom 2026</p>
+                <p class="footer-credit"></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Navigation scroll effect
+            var nav = document.querySelector('.site-nav');
+
+            function handleScroll() {
+                var scrolled = window.scrollY > 40;
+                nav.classList.toggle('scrolled', scrolled);
+            }
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            // Reveal on scroll (with reduced-motion fallback)
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!prefersReducedMotion) {
+                var revealObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    revealObserver.observe(el);
+                });
+            } else {
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    el.classList.add('visible');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

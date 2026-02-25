@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifesto — TechFreedom</title>
+    <meta name="description" content="Technology is never neutral. The TechFreedom manifesto sets out 18 principles across six themes to help social purpose organisations align their technology with their values.">
+    <link rel="canonical" href="https://techfreedom.eu/manifesto/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://techfreedom.eu/manifesto/">
+    <meta property="og:title" content="Manifesto — TechFreedom">
+    <meta property="og:description" content="Technology is never neutral. 18 principles across six themes to help social purpose organisations align their technology with their values.">
+    <meta property="og:image" content="https://techfreedom.eu/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:site_name" content="TechFreedom">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Manifesto — TechFreedom">
+    <meta name="twitter:description" content="Technology is never neutral. 18 principles across six themes to help social purpose organisations align their technology with their values.">
+    <meta name="twitter:image" content="https://techfreedom.eu/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A2332'/%3E%3Ctext x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23F7F5F0' text-anchor='middle'%3ETf%3C/text%3E%3C/svg%3E">
+    <script defer data-domain="techfreedom.eu" src="https://plausible.io/js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/shared.css">
+    <style>
+        /* ========================================
+           MANIFESTO PAGE STYLES
+           ======================================== */
+
+        /* Page header */
+        .manifesto-header {
+            padding: calc(var(--space-2xl) + 60px) 0 var(--space-xl);
+            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-primary) 100%);
+        }
+
+        .manifesto-header h1 {
+            font-size: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+            margin-bottom: var(--space-s);
+        }
+
+        .manifesto-header .tagline {
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 50ch;
+        }
+
+        /* Intro section */
+        .manifesto-intro {
+            padding: var(--space-xl) 0;
+        }
+
+        .manifesto-intro p {
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .manifesto-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .manifesto-intro .opening {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        /* Themes section */
+        .themes-section {
+            padding: var(--space-l) 0 var(--space-xl);
+        }
+
+        /* Individual theme */
+        .theme {
+            position: relative;
+            padding: var(--space-xl) 0;
+            overflow: hidden;
+        }
+
+        .theme + .theme {
+            border-top: 1px solid var(--horizon);
+        }
+
+        .theme-bg-number {
+            position: absolute;
+            top: 50%;
+            right: -5%;
+            transform: translateY(-50%);
+            font-family: var(--font-display);
+            font-size: clamp(10rem, 8rem + 10vw, 18rem);
+            font-weight: 300;
+            color: var(--text-primary);
+            opacity: 0.025;
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            font-variation-settings: 'opsz' 144;
+        }
+
+        .theme:nth-child(even) .theme-bg-number {
+            right: auto;
+            left: -5%;
+        }
+
+        .theme-number {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-sky);
+            margin-bottom: var(--space-s);
+            display: flex;
+            align-items: center;
+            gap: var(--space-s);
+        }
+
+        .theme-number::before {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 1px;
+            background: var(--accent-sky);
+            opacity: 0.5;
+        }
+
+        .theme h2 {
+            margin-bottom: var(--space-s);
+            font-weight: 350;
+        }
+
+        .theme-subtitle {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--accent-sky);
+            margin-bottom: var(--space-m);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        .principles {
+            list-style: none;
+            padding: 0;
+        }
+
+        .principle {
+            position: relative;
+            padding: var(--space-s) var(--space-m);
+            padding-left: calc(var(--space-m) + 4px);
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+            line-height: 1.8;
+            background: var(--bg-approach);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .principle::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(
+                180deg,
+                var(--accent-amber) 0%,
+                rgba(212, 168, 67, 0.3) 100%
+            );
+            border-radius: 2px;
+        }
+
+        .principle:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Commitment section */
+        .commitment-section {
+            padding: var(--space-xl) 0 var(--space-2xl);
+            background: linear-gradient(
+                180deg,
+                var(--bg-primary) 0%,
+                var(--bg-warm) 40%,
+                var(--bg-mist) 100%
+            );
+        }
+
+        .commitment-section .section-inner {
+            position: relative;
+        }
+
+        .commitment-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .commitment-principles {
+            list-style: none;
+            padding: 0;
+            margin-bottom: var(--space-l);
+        }
+
+        .commitment-principles li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .commitment-principles li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.75em;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-amber);
+            opacity: 0.6;
+        }
+
+        .cta-box {
+            padding: var(--space-l) var(--space-m);
+            background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
+            border: 1px solid rgba(26, 35, 50, 0.06);
+            border-radius: 8px;
+            max-width: 520px;
+        }
+
+        .cta-heading {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        .cta-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-s);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 0.85rem 2.5rem;
+            background: var(--accent-amber);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--accent-amber-glow);
+            color: var(--white);
+        }
+
+        .cta-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 3px;
+        }
+
+        /* Icon for each theme */
+        .theme-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: var(--space-s);
+            color: var(--accent-sky);
+            opacity: 0.6;
+        }
+
+        .theme-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .theme {
+                padding: var(--space-l) 0;
+            }
+
+            .theme-bg-number {
+                font-size: 8rem;
+                right: -10%;
+            }
+
+            .theme:nth-child(even) .theme-bg-number {
+                left: -10%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .manifesto-header {
+                padding-top: calc(var(--space-xl) + 60px);
+            }
+
+            .theme-bg-number {
+                display: none;
+            }
+
+            .principle {
+                padding: var(--space-s);
+                padding-left: calc(var(--space-s) + 4px);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .theme .section-inner {
+                display: grid;
+                grid-template-columns: 200px 1fr;
+                gap: 0 var(--space-l);
+                align-items: start;
+            }
+
+            .theme-icon {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .theme-number {
+                grid-column: 1;
+                grid-row: 2;
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 0;
+            }
+
+            .theme-number::before {
+                width: 1px;
+                height: 24px;
+            }
+
+            .theme h2 {
+                grid-column: 2;
+                grid-row: 1 / 3;
+                align-self: center;
+            }
+
+            .theme-subtitle {
+                grid-column: 2;
+            }
+
+            .principles {
+                grid-column: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-wordmark">TechFreedom</a>
+        <ul class="nav-links">
+            <li><a href="/manifesto/" aria-current="page">Manifesto</a></li>
+            <li><a href="/assess/">Assessment</a></li>
+            <li><a href="/programme/">Programme</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" tabindex="-1">
+
+        <!-- Header -->
+        <header class="manifesto-header">
+            <div class="section-inner">
+                <h1 class="reveal">Manifesto</h1>
+                <p class="tagline reveal reveal-delay-1">18 principles for technology that serves your mission</p>
+            </div>
+        </header>
+
+        <!-- Intro -->
+        <section class="manifesto-intro">
+            <div class="section-inner">
+                <p class="opening reveal">Technology is never neutral.</p>
+                <p class="reveal reveal-delay-1">For social purpose organisations, the tools you choose shape who holds power, who can participate, and who gets left vulnerable. Convenience has a cost: in data harvested, in decisions outsourced to distant platforms, in communities made dependent on infrastructure they cannot see or influence.</p>
+                <p class="reveal reveal-delay-2">TechFreedom exists to make those costs visible &mdash; and to support organisations that want their technology to match their values. This manifesto sets out what that means in practice.</p>
+            </div>
+        </section>
+
+        <!-- The Six Themes -->
+        <section class="themes-section" aria-labelledby="themes-heading">
+            <h2 id="themes-heading" class="visually-hidden">The Six Themes</h2>
+
+            <!-- Theme 1: Jurisdiction -->
+            <article class="theme" aria-labelledby="theme-jurisdiction">
+                <span class="theme-bg-number" aria-hidden="true">01</span>
+                <div class="section-inner">
+                    <div class="theme-icon reveal" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                            <circle cx="24" cy="24" r="16"/>
+                            <ellipse cx="24" cy="24" rx="8" ry="16"/>
+                            <path d="M8 24h32"/>
+                            <path d="M10.5 15h27"/>
+                            <path d="M10.5 33h27"/>
+                            <path d="M24 8v32"/>
+                        </svg>
+                    </div>
+                    <div class="theme-number reveal reveal-delay-1">
+                        <span>01 &mdash; Jurisdiction</span>
+                    </div>
+                    <h2 id="theme-jurisdiction" class="reveal reveal-delay-2">Where power sits</h2>
+                    <ul class="principles reveal reveal-delay-3">
+                        <li class="principle">Data should be subject to laws that respect the rights and safety of the people it concerns.</li>
+                        <li class="principle">Organisations should know where their data actually lives and under whose authority it can be accessed.</li>
+                        <li class="principle">Critical data should not be governed solely by jurisdictions whose interests conflict with the communities served.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Theme 2: Business Continuity -->
+            <article class="theme" aria-labelledby="theme-continuity">
+                <span class="theme-bg-number" aria-hidden="true">02</span>
+                <div class="section-inner">
+                    <div class="theme-icon reveal" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                            <rect x="8" y="16" width="14" height="16" rx="7"/>
+                            <rect x="26" y="16" width="14" height="16" rx="7"/>
+                            <path d="M22 24h4"/>
+                            <path d="M15 12v4"/>
+                            <path d="M33 12v4"/>
+                            <path d="M15 32v4"/>
+                            <path d="M33 32v4"/>
+                        </svg>
+                    </div>
+                    <div class="theme-number reveal reveal-delay-1">
+                        <span>02 &mdash; Business Continuity</span>
+                    </div>
+                    <h2 id="theme-continuity" class="reveal reveal-delay-2">Who can switch off your work</h2>
+                    <ul class="principles reveal reveal-delay-3">
+                        <li class="principle">No single company should have the power to stop an organisation working overnight.</li>
+                        <li class="principle">Essential services should have clear exit paths, backups, and alternatives.</li>
+                        <li class="principle">Contracts and terms of service should never be the only place where continuity is considered.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Theme 3: Surveillance -->
+            <article class="theme" aria-labelledby="theme-surveillance">
+                <span class="theme-bg-number" aria-hidden="true">03</span>
+                <div class="section-inner">
+                    <div class="theme-icon reveal" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                            <path d="M4 24C4 24 12 12 24 12C36 12 44 24 44 24C44 24 36 36 24 36C12 36 4 24 4 24Z"/>
+                            <circle cx="24" cy="24" r="6"/>
+                            <circle cx="24" cy="24" r="2.5"/>
+                            <path d="M24 12v-4" opacity="0.4"/>
+                            <path d="M24 40v-4" opacity="0.4"/>
+                            <path d="M12 16l-2-3" opacity="0.4"/>
+                            <path d="M36 16l2-3" opacity="0.4"/>
+                        </svg>
+                    </div>
+                    <div class="theme-number reveal reveal-delay-1">
+                        <span>03 &mdash; Surveillance</span>
+                    </div>
+                    <h2 id="theme-surveillance" class="reveal reveal-delay-2">What the stack knows and extracts</h2>
+                    <ul class="principles reveal reveal-delay-3">
+                        <li class="principle">People have a right to organise, learn, and receive services without being tracked beyond what is necessary.</li>
+                        <li class="principle">Analytics should serve the mission of the organisation, not the advertising and data-mining needs of third parties.</li>
+                        <li class="principle">Tools that treat users as raw material for surveillance capitalism have no place at the heart of social purpose work.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Theme 4: Lock-in -->
+            <article class="theme" aria-labelledby="theme-lockin">
+                <span class="theme-bg-number" aria-hidden="true">04</span>
+                <div class="section-inner">
+                    <div class="theme-icon reveal" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                            <rect x="12" y="20" width="24" height="20" rx="3"/>
+                            <path d="M16 20v-6a8 8 0 0 1 16 0v6"/>
+                            <circle cx="24" cy="32" r="3"/>
+                            <path d="M24 35v3"/>
+                        </svg>
+                    </div>
+                    <div class="theme-number reveal reveal-delay-1">
+                        <span>04 &mdash; Lock-in</span>
+                    </div>
+                    <h2 id="theme-lockin" class="reveal reveal-delay-2">How free you are to leave</h2>
+                    <ul class="principles reveal reveal-delay-3">
+                        <li class="principle">Organisations should be able to leave any platform without threat or punishment.</li>
+                        <li class="principle">Open standards, data portability, and interoperability are baseline requirements, not optional extras.</li>
+                        <li class="principle">A tool that is hard to leave is a risk, no matter how polished its interface may be.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Theme 5: Cost Exposure -->
+            <article class="theme" aria-labelledby="theme-cost">
+                <span class="theme-bg-number" aria-hidden="true">05</span>
+                <div class="section-inner">
+                    <div class="theme-icon reveal" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                            <path d="M24 6v36"/>
+                            <path d="M16 14c0-4 3.5-6 8-6s8 2 8 6-3.5 5-8 5"/>
+                            <path d="M32 34c0 4-3.5 6-8 6s-8-2-8-6 3.5-5 8-5"/>
+                            <path d="M16 24h16"/>
+                        </svg>
+                    </div>
+                    <div class="theme-number reveal reveal-delay-1">
+                        <span>05 &mdash; Cost Exposure</span>
+                    </div>
+                    <h2 id="theme-cost" class="reveal reveal-delay-2">Who carries the financial shock</h2>
+                    <ul class="principles reveal reveal-delay-3">
+                        <li class="principle">Long-term affordability matters more than introductory discounts and &ldquo;free&rdquo; tiers.</li>
+                        <li class="principle">Budget decisions should be based on realistic scenarios about future pricing and licensing changes.</li>
+                        <li class="principle">The true cost of a tool includes migration, training, and the energy spent working around its limitations.</li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+
+        <!-- Commitment -->
+        <section class="commitment-section" aria-labelledby="commitment-heading">
+            <div class="section-inner">
+                <h2 id="commitment-heading" class="reveal">Commitment</h2>
+                <ul class="commitment-principles">
+                    <li class="reveal reveal-delay-1">Technology choices are political choices.</li>
+                    <li class="reveal reveal-delay-2">Every organisation can move, step by step, towards a stack that is more transparent, accountable, and aligned with its purpose.</li>
+                    <li class="reveal reveal-delay-3">TechFreedom stands with those who want to make that journey &mdash; together rather than alone.</li>
+                </ul>
+
+                <div class="cta-box reveal reveal-delay-4">
+                    <p class="cta-heading">Ready to put these principles into practice?</p>
+                    <p class="cta-text">The TechFreedom programme turns this manifesto into action &mdash; three sessions, a cohort of peers, and a concrete roadmap.</p>
+                    <a href="/programme/" class="cta-btn">See the programme</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="section-inner">
+            <div class="footer-inner">
+                <p class="footer-copyright">CC BY TechFreedom 2026</p>
+                <p class="footer-credit"></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Navigation scroll effect
+            var nav = document.querySelector('.site-nav');
+
+            function handleScroll() {
+                var scrolled = window.scrollY > 40;
+                nav.classList.toggle('scrolled', scrolled);
+            }
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            // Reveal on scroll (with reduced-motion fallback)
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!prefersReducedMotion) {
+                var revealObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    revealObserver.observe(el);
+                });
+            } else {
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    el.classList.add('visible');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
