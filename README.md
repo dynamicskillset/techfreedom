@@ -33,4 +33,4 @@ npx serve .
 
 ## Contact
 
-A project by Tom at [The Good Ship](https://thegoodship.org).
+A project by Tom at [The Good Ship](https://thegoodship.org) and Doug at [Dynamic Skillset](https://dynamicskillset.com).
