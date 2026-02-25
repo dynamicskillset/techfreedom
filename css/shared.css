@@ -14,15 +14,21 @@
     --bg-approach: rgba(212, 168, 67, 0.05);
     --text-primary: #1A2332;
     --text-secondary: #3D4A5C;
-    --text-muted: #6B7280;
-    --accent-sky: #4A90D9;
-    --accent-sky-light: rgba(74, 144, 217, 0.12);
+    --text-muted: #636B78;
+    --accent-sky: #2B6AB0;
+    --accent-sky-light: rgba(43, 106, 176, 0.12);
     --accent-amber: #D4A843;
     --accent-amber-light: rgba(212, 168, 67, 0.15);
     --accent-amber-glow: rgba(212, 168, 67, 0.4);
     --white: #FFFFFF;
     --horizon: rgba(26, 35, 50, 0.06);
     --color-error: #D9534F;
+
+    --score-1: #2E7D32;
+    --score-2: #689F38;
+    --score-3: #F9A825;
+    --score-4: #EF6C00;
+    --score-5: #C62828;
 
     --font-display: 'Fraunces', serif;
     --font-body: 'DM Sans', sans-serif;
@@ -250,6 +256,7 @@ a:hover {
     text-decoration: none;
     letter-spacing: 0.02em;
     transition: color 0.3s ease;
+    padding: 0.75rem 0;
 }
 
 .nav-links a:hover {
@@ -333,15 +340,12 @@ a:hover {
 
     .nav-icon {
         display: block;
+        width: 28px;
+        height: 28px;
     }
 
     .nav-wordmark-text {
         display: none;
-    }
-
-    .nav-icon {
-        width: 28px;
-        height: 28px;
     }
 
     .nav-links {
