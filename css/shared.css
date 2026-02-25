@@ -206,6 +206,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--space-s);
     transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -224,6 +225,12 @@ a:hover {
     text-decoration: none;
     font-variation-settings: 'opsz' 48;
     letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon {
+    display: none;
 }
 
 .nav-wordmark:hover {
@@ -232,7 +239,7 @@ a:hover {
 
 .nav-links {
     display: flex;
-    gap: var(--space-m);
+    gap: var(--space-s);
     list-style: none;
 }
 
@@ -322,5 +329,26 @@ a:hover {
     .site-nav {
         padding-left: var(--space-s);
         padding-right: var(--space-s);
+    }
+
+    .nav-icon {
+        display: block;
+    }
+
+    .nav-wordmark-text {
+        display: none;
+    }
+
+    .nav-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .nav-links {
+        gap: 0.625rem;
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
     }
 }
