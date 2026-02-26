@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifesto — TechFreedom</title>
+    <meta name="description" content="Technology is never neutral. The TechFreedom manifesto sets out seven principles to help social purpose organisations align their technology with their values.">
+    <link rel="canonical" href="https://techfreedom.eu/manifesto/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://techfreedom.eu/manifesto/">
+    <meta property="og:title" content="Manifesto — TechFreedom">
+    <meta property="og:description" content="Technology is never neutral. Seven principles to help social purpose organisations align their technology with their values.">
+    <meta property="og:image" content="https://techfreedom.eu/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:site_name" content="TechFreedom">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Manifesto — TechFreedom">
+    <meta name="twitter:description" content="Technology is never neutral. Seven principles to help social purpose organisations align their technology with their values.">
+    <meta name="twitter:image" content="https://techfreedom.eu/og-image.png">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "TechFreedom Manifesto",
+        "description": "Technology is never neutral. Seven principles to help social purpose organisations align their technology with their values.",
+        "url": "https://techfreedom.eu/manifesto/",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "TechFreedom",
+            "url": "https://techfreedom.eu"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Digital sovereignty for social purpose organisations"
+        }
+    }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A2332'/%3E%3Ctext x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23F7F5F0' text-anchor='middle'%3ETf%3C/text%3E%3C/svg%3E">
+    <script defer data-domain="techfreedom.eu" src="https://plausible.io/js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/shared.css">
+    <style>
+        /* ========================================
+           MANIFESTO PAGE STYLES
+           ======================================== */
+
+        /* Page header */
+        .manifesto-header {
+            position: relative;
+            padding: calc(var(--space-2xl) + 60px) 0 var(--space-xl);
+            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-primary) 100%);
+            overflow: hidden;
+        }
+
+        .manifesto-header .section-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .manifesto-atmosphere {
+            position: absolute;
+            top: 50%;
+            right: -8%;
+            transform: translateY(-50%);
+            width: clamp(280px, 40vw, 500px);
+            height: clamp(280px, 40vw, 500px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .compass-svg {
+            width: 100%;
+            height: 100%;
+            animation: compassSpin 120s linear infinite;
+        }
+
+        .compass-ring {
+            fill: none;
+            stroke: var(--accent-amber);
+        }
+
+        .compass-ray {
+            fill: var(--accent-amber);
+        }
+
+        .compass-tick {
+            stroke: var(--accent-amber);
+            stroke-width: 1;
+        }
+
+        @keyframes compassSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .manifesto-header h1 {
+            font-size: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+            margin-bottom: var(--space-s);
+        }
+
+        .manifesto-header .tagline {
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 50ch;
+        }
+
+        /* Intro section */
+        .manifesto-intro {
+            padding: var(--space-l) 0 var(--space-m);
+        }
+
+        .manifesto-intro p {
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .manifesto-intro p:last-child {
+            margin-bottom: 0;
+        }
+
+        .manifesto-intro .opening {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        /* Principles section */
+        .principles-section {
+            padding: var(--space-m) 0 var(--space-xl);
+        }
+
+        .manifesto-principles {
+            list-style: none;
+            padding: 0;
+            counter-reset: principle;
+        }
+
+        .manifesto-principle {
+            position: relative;
+            padding: var(--space-m) var(--space-m) var(--space-m) calc(3.5rem + var(--space-m));
+            margin-bottom: 0;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            counter-increment: principle;
+            border-bottom: 1px solid var(--horizon);
+        }
+
+        .manifesto-principle:last-child {
+            border-bottom: none;
+        }
+
+        .manifesto-principle::before {
+            content: counter(principle);
+            position: absolute;
+            left: 0;
+            top: var(--space-m);
+            width: 3rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--accent-amber);
+            opacity: 0.6;
+            text-align: center;
+            font-variation-settings: 'opsz' 48;
+            line-height: 1.8;
+        }
+
+        .manifesto-principle::after {
+            content: '';
+            position: absolute;
+            left: 3.25rem;
+            top: calc(var(--space-m) + 0.3rem);
+            bottom: calc(var(--space-m) + 0.3rem);
+            width: 2px;
+            background: linear-gradient(
+                180deg,
+                var(--accent-amber) 0%,
+                rgba(212, 168, 67, 0.15) 100%
+            );
+            border-radius: 1px;
+        }
+
+        /* First principle — thesis statement, styled distinctly */
+        .manifesto-principle:first-child {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        /* Last principle — closing commitment, styled distinctly */
+        .manifesto-principle:last-child {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.25rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        /* CTA section */
+        .manifesto-cta {
+            padding: var(--space-l) 0 var(--space-xl);
+            background: linear-gradient(
+                180deg,
+                var(--bg-primary) 0%,
+                var(--bg-warm) 40%,
+                var(--bg-mist) 100%
+            );
+        }
+
+        .cta-box {
+            padding: var(--space-l) var(--space-m);
+            background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
+            border: 1px solid var(--horizon);
+            border-radius: 8px;
+            max-width: 520px;
+        }
+
+        .cta-heading {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        .cta-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-s);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 0.85rem 2.5rem;
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--accent-amber-glow);
+        }
+
+        .cta-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .manifesto-atmosphere {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .compass-svg {
+                animation: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .manifesto-header {
+                padding-top: calc(var(--space-xl) + 60px);
+            }
+
+            .manifesto-principle {
+                padding-left: calc(2.5rem + var(--space-s));
+            }
+
+            .manifesto-principle::before {
+                width: 2rem;
+                font-size: 1.25rem;
+            }
+
+            .manifesto-principle::after {
+                left: 2.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-wordmark"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
+        <ul class="nav-links">
+            <li><a href="/manifesto/" aria-current="page">Manifesto</a></li>
+            <li><a href="/assess/">Assessment</a></li>
+            <li><a href="/programme/">Programme</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" tabindex="-1">
+
+        <!-- Header -->
+        <header class="manifesto-header">
+            <div class="manifesto-atmosphere" aria-hidden="true">
+                <svg class="compass-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                    <!-- Outer ring -->
+                    <circle cx="200" cy="200" r="180" class="compass-ring" stroke-width="0.5" opacity="0.1"/>
+                    <circle cx="200" cy="200" r="140" class="compass-ring" stroke-width="0.5" opacity="0.07"/>
+                    <!-- Cardinal rays (N, E, S, W) — elongated diamonds -->
+                    <polygon points="200,20 206,160 200,170 194,160" class="compass-ray" opacity="0.1"/>
+                    <polygon points="380,200 240,206 230,200 240,194" class="compass-ray" opacity="0.1"/>
+                    <polygon points="200,380 194,240 200,230 206,240" class="compass-ray" opacity="0.1"/>
+                    <polygon points="20,200 160,194 170,200 160,206" class="compass-ray" opacity="0.1"/>
+                    <!-- Ordinal rays (NE, SE, SW, NW) — shorter -->
+                    <polygon points="327,73 225,180 220,175 313,68" class="compass-ray" opacity="0.06"/>
+                    <polygon points="327,327 225,220 220,225 313,332" class="compass-ray" opacity="0.06"/>
+                    <polygon points="73,327 175,220 180,225 87,332" class="compass-ray" opacity="0.06"/>
+                    <polygon points="73,73 175,180 180,175 87,68" class="compass-ray" opacity="0.06"/>
+                    <!-- Tick marks around outer ring -->
+                    <line x1="200" y1="20" x2="200" y2="36" class="compass-tick" opacity="0.15"/>
+                    <line x1="200" y1="364" x2="200" y2="380" class="compass-tick" opacity="0.15"/>
+                    <line x1="20" y1="200" x2="36" y2="200" class="compass-tick" opacity="0.15"/>
+                    <line x1="364" y1="200" x2="380" y2="200" class="compass-tick" opacity="0.15"/>
+                    <!-- Minor ticks -->
+                    <line x1="327" y1="73" x2="319" y2="81" class="compass-tick" opacity="0.08"/>
+                    <line x1="327" y1="327" x2="319" y2="319" class="compass-tick" opacity="0.08"/>
+                    <line x1="73" y1="327" x2="81" y2="319" class="compass-tick" opacity="0.08"/>
+                    <line x1="73" y1="73" x2="81" y2="81" class="compass-tick" opacity="0.08"/>
+                    <!-- Centre point -->
+                    <circle cx="200" cy="200" r="4" class="compass-ray" opacity="0.15"/>
+                    <circle cx="200" cy="200" r="1.5" fill="var(--accent-sky)" opacity="0.2"/>
+                </svg>
+            </div>
+            <div class="section-inner">
+                <h1 class="reveal">Manifesto</h1>
+                <p class="tagline reveal reveal-delay-1">Seven principles for technology that serves your mission</p>
+            </div>
+        </header>
+
+        <!-- Intro -->
+        <section class="manifesto-intro">
+            <div class="section-inner">
+                <p class="opening reveal">Technology is never neutral.</p>
+                <p class="reveal reveal-delay-1">For social purpose organisations, the tools you choose shape who holds power, who can participate, and who gets left vulnerable. Convenience has a cost: in data harvested, in decisions outsourced to distant platforms, in communities made dependent on infrastructure they cannot see or influence.</p>
+                <p class="reveal reveal-delay-2">TechFreedom exists to make those costs visible, and to support organisations that want their technology to match their values. This manifesto sets out what that means in practice.</p>
+            </div>
+        </section>
+
+        <!-- The Seven Principles -->
+        <section class="principles-section" aria-labelledby="principles-heading">
+            <h2 id="principles-heading" class="visually-hidden">The Seven Principles</h2>
+            <div class="section-inner">
+                <ol class="manifesto-principles" role="list">
+                    <li class="manifesto-principle reveal">Technology choices are political choices. Every organisation can move, step by step, towards a stack that is more transparent, accountable, and aligned with its purpose.</li>
+                    <li class="manifesto-principle reveal">Data must be governed in the interests of the people it concerns: subject to laws that respect their rights and safety, held in jurisdictions that don&rsquo;t conflict with the communities served, and visible to the organisations responsible for it.</li>
+                    <li class="manifesto-principle reveal">No single company should have the power to stop an organisation working overnight. Essential services need clear exit paths, backups, and alternatives. Continuity cannot be an afterthought buried in a contract.</li>
+                    <li class="manifesto-principle reveal">People have a right to organise, learn, and receive services without being tracked beyond what is necessary. Tools that treat users as raw material for surveillance capitalism have no place at the heart of social purpose work.</li>
+                    <li class="manifesto-principle reveal">Organisations must be free to leave any platform without threat or punishment. Open standards, data portability, and interoperability are baseline requirements, not optional extras. A tool that is hard to leave is a risk regardless of how polished it appears.</li>
+                    <li class="manifesto-principle reveal">The true cost of a tool includes migration, training, and the energy spent working around its limitations. Long-term affordability matters more than introductory discounts, and budget decisions should account for realistic future pricing.</li>
+                    <li class="manifesto-principle reveal">TechFreedom stands with organisations making this journey, together rather than alone.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="manifesto-cta">
+            <div class="section-inner">
+                <div class="cta-box reveal">
+                    <p class="cta-heading">Ready to put these principles into practice?</p>
+                    <p class="cta-text">The TechFreedom programme turns this manifesto into action: three sessions, a cohort of peers, and a concrete roadmap.</p>
+                    <a href="/programme/" class="cta-btn">See the programme</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="section-inner">
+            <div class="footer-inner">
+                <p class="footer-copyright">CC BY TechFreedom 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // Navigation scroll effect
+            var nav = document.querySelector('.site-nav');
+
+            function handleScroll() {
+                var scrolled = window.scrollY > 40;
+                nav.classList.toggle('scrolled', scrolled);
+            }
+
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            // Reveal on scroll (with reduced-motion fallback)
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!prefersReducedMotion) {
+                var revealObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    revealObserver.observe(el);
+                });
+            } else {
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    el.classList.add('visible');
+                });
+            }
+
+            // Pause compass animation when off-screen
+            var compass = document.querySelector('.compass-svg');
+            if (compass && !prefersReducedMotion) {
+                var compassObserver = new IntersectionObserver(function(entries) {
+                    compass.style.animationPlayState = entries[0].isIntersecting ? 'running' : 'paused';
+                });
+                compassObserver.observe(compass);
+            }
+        })();
+    </script>
+</body>
+</html>

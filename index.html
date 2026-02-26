@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechFreedom — See your technology clearly</title>
-    <meta name="description" content="TechFreedom helps organisations understand their technology dependencies and start making informed choices.">
+    <title>TechFreedom — A clearer forecast for your organisation's digital future</title>
+    <meta name="description" content="TechFreedom helps organisations understand their technology dependencies and start making deliberate choices.">
     <link rel="canonical" href="https://techfreedom.eu/">
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://techfreedom.eu/">
-    <meta property="og:title" content="TechFreedom — See your technology clearly">
-    <meta property="og:description" content="TechFreedom helps organisations understand their technology dependencies and start making informed choices.">
+    <meta property="og:title" content="TechFreedom — A clearer forecast for your organisation's digital future">
+    <meta property="og:description" content="TechFreedom helps organisations understand their technology dependencies and start making deliberate choices.">
     <meta property="og:image" content="https://techfreedom.eu/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -18,8 +18,8 @@
     <meta property="og:site_name" content="TechFreedom">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="TechFreedom — See your technology clearly">
-    <meta name="twitter:description" content="TechFreedom helps organisations understand their technology dependencies and make informed choices.">
+    <meta name="twitter:title" content="TechFreedom — A clearer forecast for your organisation's digital future">
+    <meta name="twitter:description" content="TechFreedom helps organisations understand their technology dependencies and make deliberate choices.">
     <meta name="twitter:image" content="https://techfreedom.eu/og-image.png">
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -28,7 +28,7 @@
         "@type": "Organization",
         "name": "TechFreedom",
         "url": "https://techfreedom.eu",
-        "description": "TechFreedom helps organisations understand their technology dependencies and start making informed choices.",
+        "description": "TechFreedom helps organisations understand their technology dependencies and start making deliberate choices.",
         "foundingDate": "2026",
         "founder": [
             {
@@ -55,180 +55,13 @@
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i&display=swap" rel="stylesheet" />
 <link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/shared.css">
     <style>
         /* ========================================
-           CSS CUSTOM PROPERTIES
+           LANDING PAGE STYLES
            ======================================== */
-        :root {
-            --bg-primary: #F7F5F0;
-            --bg-warm: #F0EDE5;
-            --bg-mist: #E8E5DD;
-            --bg-fog: #D9D5CB;
-            --bg-approach: rgba(212, 168, 67, 0.05);
-            --text-primary: #1A2332;
-            --text-secondary: #3D4A5C;
-            --text-muted: #6B7280;
-            --accent-sky: #4A90D9;
-            --accent-sky-light: rgba(74, 144, 217, 0.12);
-            --accent-amber: #D4A843;
-            --accent-amber-light: rgba(212, 168, 67, 0.15);
-            --accent-amber-glow: rgba(212, 168, 67, 0.4);
-            --white: #FFFFFF;
-            --horizon: rgba(26, 35, 50, 0.06);
-
-            --font-display: 'Fraunces', serif;
-            --font-body: 'DM Sans', sans-serif;
-
-            --measure: 680px;
-            --measure-wide: 920px;
-            --space-xs: 0.5rem;
-            --space-s: 1rem;
-            --space-m: 2rem;
-            --space-l: 4rem;
-            --space-xl: 6rem;
-            --space-2xl: 10rem;
-        }
-
-        /* ========================================
-           RESET & BASE
-           ======================================== */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
 
         @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-        }
-
-        body {
-            font-family: var(--font-body);
-            font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-            line-height: 1.7;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* ========================================
-           GRAIN TEXTURE OVERLAY
-           ======================================== */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 200px 200px;
-        }
-
-        /* ========================================
-           SKIP LINK
-           ======================================== */
-        .skip-link {
-            position: absolute;
-            top: 0.5rem;
-            left: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            background: var(--white);
-            color: var(--text-primary);
-            border: 2px solid currentColor;
-            border-radius: 0.25rem;
-            font-weight: 500;
-            text-decoration: none;
-            transform: translateY(-200%);
-            z-index: 10000;
-        }
-
-        .skip-link:focus {
-            transform: translateY(0);
-            outline: 2px solid var(--accent-sky);
-            outline-offset: 2px;
-        }
-
-        /* ========================================
-           TYPOGRAPHY
-           ======================================== */
-        h1, h2, h3 {
-            font-family: var(--font-display);
-            font-weight: 400;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-        }
-
-        h1 {
-            font-size: clamp(3.5rem, 2.5rem + 5vw, 7rem);
-            font-weight: 300;
-            font-variation-settings: 'opsz' 144;
-        }
-
-        h2 {
-            font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3rem);
-            font-variation-settings: 'opsz' 72;
-        }
-
-        h3 {
-            font-size: clamp(1.25rem, 1rem + 1.25vw, 1.75rem);
-            font-variation-settings: 'opsz' 48;
-        }
-
-        p {
-            max-width: 65ch;
-        }
-
-        a {
-            color: var(--accent-sky);
-            text-decoration-thickness: 1px;
-            text-underline-offset: 0.15em;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: var(--accent-amber);
-        }
-
-        /* ========================================
-           SCROLL ANIMATION BASE
-           ======================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
-                        transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.25s; }
-        .reveal-delay-3 { transition-delay: 0.4s; }
-        .reveal-delay-4 { transition-delay: 0.55s; }
-
-        @media (prefers-reduced-motion: reduce) {
-            .reveal {
-                opacity: 1;
-                transform: none;
-                transition: none;
-            }
             .hero-title .word {
                 opacity: 1 !important;
                 transform: none !important;
@@ -246,19 +79,6 @@
         }
 
         /* ========================================
-           LAYOUT
-           ======================================== */
-        .section-inner {
-            max-width: var(--measure);
-            margin: 0 auto;
-            padding: 0 var(--space-m);
-        }
-
-        .section-inner--wide {
-            max-width: var(--measure-wide);
-        }
-
-        /* ========================================
            HERO
            ======================================== */
         .hero {
@@ -268,7 +88,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 0 0 var(--space-2xl) 0;
+            padding: calc(60px + var(--space-l)) 0 var(--space-2xl) 0;
             overflow: hidden;
         }
 
@@ -846,7 +666,7 @@
         }
 
         .form-error {
-            color: #D9534F;
+            color: var(--color-error);
         }
 
         /* ========================================
@@ -968,42 +788,9 @@
         }
 
         /* ========================================
-           FOOTER
-           ======================================== */
-        .site-footer {
-            padding: var(--space-l) 0;
-            border-top: 1px solid var(--horizon);
-            background: var(--bg-mist);
-        }
-
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: var(--space-s);
-        }
-
-        .footer-copyright {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .footer-credit {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        /* ========================================
-           RESPONSIVE
+           RESPONSIVE (page-specific)
            ======================================== */
         @media (max-width: 768px) {
-            :root {
-                --space-xl: 4rem;
-                --space-2xl: 6rem;
-            }
-
             .hero {
                 min-height: 90vh;
                 min-height: 90svh;
@@ -1035,22 +822,14 @@
                 padding: var(--space-m);
             }
 
-            .footer-inner {
-                flex-direction: column;
-                gap: var(--space-xs);
-            }
-
             .scroll-hint {
                 display: none;
             }
         }
 
         @media (max-width: 480px) {
-            :root {
-                --space-m: 1.5rem;
-                --space-l: 2.5rem;
-                --space-xl: 3rem;
-                --space-2xl: 4rem;
+            .hero-title {
+                font-size: clamp(2.5rem, 10vw, 3.5rem);
             }
 
             .hero-eyebrow {
@@ -1107,26 +886,20 @@
                 grid-column: 2;
             }
         }
-
-        /* ========================================
-           UTILITIES
-           ======================================== */
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
     </style>
 </head>
 <body>
 
     <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-wordmark" aria-current="page"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
+        <ul class="nav-links">
+            <li><a href="/manifesto/">Manifesto</a></li>
+            <li><a href="/assess/">Assessment</a></li>
+            <li><a href="/programme/">Programme</a></li>
+        </ul>
+    </nav>
 
     <!-- ============ HERO ============ -->
     <header class="hero">
@@ -1153,14 +926,13 @@
         </div>
 
         <div class="section-inner">
-            <p class="hero-eyebrow">A clearer forecast for your digital future</p>
             <h1 class="hero-title" aria-label="TechFreedom">
                 <span class="word" aria-hidden="true">TechFreedom</span>
             </h1>
-            <p class="hero-tagline">See your technology clearly.</p>
+            <p class="hero-tagline">A clearer forecast for your organisation's digital future.</p>
             <div class="hero-intro">
-                <p>You cannot manage what you cannot see. Most organisations operate in a fog of invisible reliance; you rely on platforms that obscure their workings behind slick interfaces and terms you never read.</p>
-                <p>TechFreedom helps you clear the air. We give you the tools to look past Big Tech's version of the Cloud and build a digital infrastructure that is open, visible, and under your control.</p>
+                <p>Most organisations can't see what's gathering overhead. You depend on platforms that set the terms, shift the forecast without warning, and leave you exposed when conditions change.</p>
+                <p>TechFreedom is a cohort programme for social purpose organisations ready to read the sky for themselves. Across three facilitated sessions, you'll map your technology dependencies, assess where the real risks lie, and build a practical roadmap toward greater independence.</p>
             </div>
         </div>
 
@@ -1174,9 +946,9 @@
         <!-- ============ TRANSITION ============ -->
         <section class="transition-section" aria-labelledby="transition-heading">
             <div class="section-inner">
-                <h2 id="transition-heading" class="reveal">Bring your operations into the light</h2>
+                <h2 id="transition-heading" class="reveal">Where the pressure builds</h2>
                 <p class="reveal reveal-delay-1">
-                    Moving away from Big Tech is not about cutting yourself off. It is about knowing what you are working with. When you rely on US-based tech companies, you take on risks that are buried in the small print. We help you spot those risks, explore what your options are and find alternatives you can see and trust.
+                    Dependency on Big Tech isn't abstract; it shows up in specific, concrete ways. The programme examines your technology through three telling lenses, each revealing a different kind of exposure.
                 </p>
             </div>
         </section>
@@ -1326,11 +1098,11 @@
                         </p>
 
                         <p class="form-success" id="form-success" role="status" aria-live="polite" hidden tabindex="-1">
-                            Thank you — we'll be in touch when the first cohort opens.
+                            Thank you. We'll be in touch when the first cohort opens.
                         </p>
 
                         <p class="form-error" id="form-error" role="alert" hidden tabindex="-1">
-                            Sorry — something went wrong. Please try again.
+                            Sorry, something went wrong. Please try again.
                         </p>
                     </form>
                 </div>
@@ -1341,12 +1113,12 @@
         <section class="team" aria-labelledby="team-heading">
             <div class="section-inner">
                 <h2 id="team-heading" class="reveal">Who's behind this?</h2>
-                <p class="team-intro reveal reveal-delay-1">TechFreedom is built by two people who've spent years helping organisations navigate technology with clarity and independence.</p>
+                <p class="team-intro reveal reveal-delay-1">TechFreedom is built by two people who've spent years helping organisations approach technology with clarity and independence.</p>
 
                 <div class="team-grid">
                     <div class="team-member reveal reveal-delay-2">
                         <div class="team-avatar">
-                            <span class="team-avatar-initial" aria-hidden="true"><img src="tom.jpg" alt="Tom Watson" /></span>
+                            <span class="team-avatar-initial" aria-hidden="true"><img src="tom.jpg" alt="Tom Watson" width="400" height="400" loading="lazy" /></span>
                         </div>
                         <p class="team-name"><a href="https://tomcw.xyz">Tom Watson</a></p>
                         <p class="team-bio">
@@ -1363,11 +1135,11 @@
 
                     <div class="team-member reveal reveal-delay-3">
                         <div class="team-avatar">
-                            <span class="team-avatar-initial" aria-hidden="true"><img src="doug.jpg" alt="Doug Belshaw" /></span>
+                            <span class="team-avatar-initial" aria-hidden="true"><img src="doug.jpg" alt="Doug Belshaw" width="400" height="400" loading="lazy" /></span>
                         </div>
                         <p class="team-name"><a href="https://dougbelshaw.com">Doug Belshaw</a></p>
                         <p class="team-bio">
-                            Consultant, facilitator, and critical friend. Helping mission-driven organisations navigate complexity. 
+                            Consultant, facilitator, and critical friend. Helping mission-driven organisations make sense of complexity.
                             Specialising in digital literacies, open technology and decentralisation. Director of Dynamic Skillset Ltd.
                         </p>
                         <a href="https://dynamicskillset.com" class="team-link">
@@ -1387,7 +1159,6 @@
         <div class="section-inner">
             <div class="footer-inner">
                 <p class="footer-copyright">CC BY TechFreedom 2026</p>
-                <p class="footer-credit"></p>
             </div>
         </div>
     </footer>
@@ -1468,6 +1239,22 @@
                         }
                     });
                 });
+            }
+
+            /* ========================================
+               NAV SCROLL STATE
+               ======================================== */
+            var nav = document.querySelector('.site-nav');
+            if (nav) {
+                var onNavScroll = function() {
+                    if (window.pageYOffset > 40) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                };
+                window.addEventListener('scroll', onNavScroll, { passive: true });
+                onNavScroll();
             }
 
             /* ========================================
