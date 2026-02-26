@@ -1,36 +1,42 @@
 # TechFreedom
 
-**See your technology clearly.**
+**A clearer forecast for your organisation's digital future.**
 
-TechFreedom helps organisations in the voluntary, community, and social enterprise (VCSE) sector understand their technology dependencies — and start making informed choices about them.
+TechFreedom helps organisations understand their technology dependencies and start making deliberate choices about them.
 
 ## About
 
-Most organisations don't choose their technology stack — they inherit it. Over time, a tangle of SaaS subscriptions, cloud services, and platform dependencies builds up, often without anyone noticing the risks.
+Most organisations don't choose their technology stack; they inherit it. Over time, a tangle of SaaS subscriptions, cloud services, and platform dependencies builds up, often without anyone noticing the risks.
 
-TechFreedom is a structured programme covering three pillars:
+TechFreedom is a cohort-based programme built around three pillars:
 
-- **Jurisdiction** — Where does your data actually live, and under whose laws?
-- **Business Continuity** — What happens when a platform changes the rules?
-- **Surveillance** — How much does your tech stack know about you?
+- **Jurisdiction**: Where does your data actually live, and under whose laws?
+- **Business Continuity**: What happens when a platform changes the rules?
+- **Surveillance**: How much does your tech stack know about you?
+
+## Pages
+
+- `/` Landing page
+- `/manifesto/` Principles
+- `/programme/` Programme details (sessions, pricing, FAQ)
+- `/alternatives/` Alternatives assessment tool (coming soon)
+- `/assess/` Self-assessment
 
 ## Tech
 
-Single-page landing site. No build step, no framework — just HTML, CSS, and vanilla JS.
+No build step, no framework. HTML, CSS, and vanilla JS.
 
-- **Typography**: Fraunces + DM Sans (Google Fonts)
+- **Typography**: Fraunces + DM Sans via [Bunny Fonts](https://fonts.bunny.net) (privacy-friendly)
 - **Animations**: CSS keyframes + Intersection Observer
-- **Forms**: Netlify Forms
+- **Forms**: Netlify Forms with honeypot spam protection
 - **Hosting**: Netlify (auto-deploys from `main`)
 
-## Deploy
-
-Pushes to `main` auto-deploy via Netlify. For local preview:
+## Local preview
 
 ```bash
-npx serve .
+python3 -m http.server 8080
 ```
 
 ## Contact
 
-A project by Tom at [The Good Ship](https://thegoodship.org) and Doug at [Dynamic Skillset](https://dynamicskillset.com).
+A project by Tom at [The Good Ship](https://good-ship.co.uk) and Doug at [Dynamic Skillset](https://dynamicskillset.com).
