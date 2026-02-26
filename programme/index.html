@@ -601,53 +601,122 @@
             padding: var(--space-xl) 0 var(--space-2xl);
         }
 
-        .cta-box {
-            padding: var(--space-l) var(--space-m);
-            background: linear-gradient(135deg, var(--bg-warm), rgba(212, 168, 67, 0.08));
-            border: 1px solid var(--accent-amber-light);
-            border-radius: 0.75rem;
-            text-align: center;
+        .cta-area {
+            margin: 0 auto;
+            padding: var(--space-l);
+            background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
+            border: 1px solid rgba(26, 35, 50, 0.06);
+            border-radius: 8px;
+            max-width: 520px;
         }
 
-        .cta-box h2 {
-            margin-bottom: var(--space-s);
+        .cta-heading {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-variation-settings: 'opsz' 36;
         }
 
-        .cta-box p {
-            margin: 0 auto var(--space-m);
-            color: var(--text-secondary);
+        .cta-subtext {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-m);
+            line-height: 1.6;
         }
 
-        .cta-btn {
-            display: inline-block;
-            padding: 0.85rem 2.5rem;
+        .signup-form .form-row {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .signup-form label {
+            flex: 1;
+        }
+
+        .signup-form input[type="email"] {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            padding: 0.85em 1em;
+            border: 1px solid var(--bg-fog);
+            border-radius: 4px;
+            background: var(--white);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .signup-form input[type="email"]::placeholder {
+            color: var(--text-muted);
+        }
+
+        .signup-form input[type="email"]:focus {
+            outline: none;
+            border-color: var(--accent-sky);
+            box-shadow: 0 0 0 3px var(--accent-sky-light);
+        }
+
+        .signup-form button[type="submit"] {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.85em 1.75em;
             background: var(--accent-amber);
             color: var(--text-primary);
-            font-family: var(--font-body);
-            font-weight: 700;
-            font-size: 1rem;
-            text-decoration: none;
-            border-radius: 0.5rem;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.02em;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+            animation: gentlePulse 3s ease-in-out infinite;
         }
 
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px var(--accent-amber-glow);
+        .signup-form button[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 4px 16px rgba(212, 168, 67, 0.3),
+                0 0 24px rgba(212, 168, 67, 0.15);
         }
 
-        .cta-btn:focus-visible {
+        .signup-form button[type="submit"]:focus-visible {
             outline: 2px solid var(--accent-sky);
             outline-offset: 3px;
         }
 
-        .cta-subtext {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+        .signup-form button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% {
+                box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+            }
+            50% {
+                box-shadow:
+                    0 2px 8px rgba(212, 168, 67, 0.25),
+                    0 0 20px rgba(212, 168, 67, 0.12);
+            }
+        }
+
+        .form-success,
+        .form-error {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 0.95rem;
             margin-top: var(--space-s);
+            font-variation-settings: 'opsz' 24;
+        }
+
+        .form-success {
+            color: var(--accent-sky);
+        }
+
+        .form-error {
+            color: var(--color-error);
         }
 
         /* Responsive */
@@ -667,6 +736,18 @@
 
             .pricing-label {
                 margin-top: 0.5rem;
+            }
+
+            .signup-form .form-row {
+                flex-direction: column;
+            }
+
+            .signup-form button[type="submit"] {
+                align-self: flex-start;
+            }
+
+            .cta-area {
+                padding: var(--space-m);
             }
         }
 
@@ -1053,11 +1134,43 @@
         <!-- CTA -->
         <section class="cta-section">
             <div class="section-inner">
-                <div class="cta-box reveal">
-                    <h2>Ready to see your technology clearly?</h2>
-                    <p>Register your interest for the first TechFreedom cohort.</p>
-                    <a href="https://techfreedom.eu/#signup" class="cta-btn">Register Interest</a>
-                    <p class="cta-subtext">Or email <a href="mailto:hello@techfreedom.eu">hello@techfreedom.eu</a> with questions.</p>
+                <div class="cta-area reveal">
+                    <p class="cta-heading">Join the next cohort</p>
+                    <span class="cta-subtext">Sign up to be notified when the first cohort opens.</span>
+                    <form class="signup-form" id="signup" name="cohort-signup" method="POST" action="/programme/" data-netlify="true" netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="cohort-signup">
+
+                        <p class="visually-hidden">
+                            <label>Do not fill this in: <input name="bot-field" autocomplete="off" tabindex="-1"></label>
+                        </p>
+
+                        <div class="form-row">
+                            <label for="email-input" class="visually-hidden">Email address</label>
+                            <input
+                                type="email"
+                                id="email-input"
+                                name="email"
+                                placeholder="you@organisation.org"
+                                required
+                                autocomplete="email"
+                                inputmode="email"
+                                aria-describedby="email-note"
+                            >
+                            <button type="submit">Notify me</button>
+                        </div>
+
+                        <p id="email-note" class="visually-hidden">
+                            We'll only use this to notify you about TechFreedom cohort openings.
+                        </p>
+
+                        <p class="form-success" id="form-success" role="status" aria-live="polite" hidden tabindex="-1">
+                            Thank you. We'll be in touch when the first cohort opens.
+                        </p>
+
+                        <p class="form-error" id="form-error" role="alert" hidden tabindex="-1">
+                            Sorry, something went wrong. Please try again.
+                        </p>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1107,6 +1220,49 @@
             } else {
                 document.querySelectorAll('.reveal').forEach(function(el) {
                     el.classList.add('visible');
+                });
+            }
+
+            // Email form handling
+            var form = document.getElementById('signup');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    var emailInput = document.getElementById('email-input');
+                    var successMsg = document.getElementById('form-success');
+                    var errorMsg = document.getElementById('form-error');
+                    var submitBtn = form.querySelector('button[type="submit"]');
+
+                    if (!emailInput.checkValidity()) {
+                        e.preventDefault();
+                        emailInput.reportValidity();
+                        return;
+                    }
+
+                    if (!window.fetch) return;
+
+                    e.preventDefault();
+                    submitBtn.textContent = 'Sending…';
+                    submitBtn.disabled = true;
+                    if (errorMsg) errorMsg.hidden = true;
+
+                    var formData = new FormData(form);
+
+                    fetch(form.getAttribute('action') || '/programme/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams(formData).toString()
+                    }).then(function() {
+                        form.querySelector('.form-row').hidden = true;
+                        successMsg.hidden = false;
+                        successMsg.focus();
+                    }).catch(function() {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Notify me';
+                        if (errorMsg) {
+                            errorMsg.hidden = false;
+                            errorMsg.focus();
+                        }
+                    });
                 });
             }
         })();
