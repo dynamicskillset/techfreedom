@@ -886,6 +886,63 @@
                 grid-column: 2;
             }
         }
+
+        /* Endorsement */
+        .endorsement {
+            margin: clamp(3rem, 8vw, 6rem) 0;
+        }
+
+        .endorsement-card {
+            border-left: 3px solid var(--accent-blue);
+            padding: clamp(1.5rem, 4vw, 2rem);
+            background: rgba(247, 245, 240, 0.4);
+            border-radius: 8px;
+        }
+
+        .endorsement-quote {
+            margin: 0 0 1.5rem 0;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            line-height: 1.4;
+            font-style: italic;
+            font-family: 'Fraunces', Georgia, serif;
+            color: #1a2332;
+        }
+
+        .endorsement-quote p {
+            margin: 0;
+        }
+
+        .endorsement-author {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .endorsement-photo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .endorsement-info {
+            min-width: 0;
+        }
+
+        .endorsement-name {
+            margin: 0;
+            font-weight: 600;
+            color: #1a2332;
+            font-size: 0.95rem;
+        }
+
+        .endorsement-title {
+            margin: 0.25rem 0 0 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.3;
+        }
     </style>
 </head>
 <body>
@@ -1057,6 +1114,24 @@
             </li>
 
         </ol>
+
+        <!-- ============ ENDORSEMENT ============ -->
+        <section class="endorsement" aria-label="Endorsement">
+            <div class="section-inner">
+                <div class="endorsement-card reveal reveal-delay-2">
+                    <blockquote class="endorsement-quote">
+                        <p>"This is exactly what the sector needs."</p>
+                    </blockquote>
+                    <div class="endorsement-author">
+                        <img src="https://www.richardedwards.me/photo.jpg" alt="Richard Edwards" class="endorsement-photo" width="64" height="64">
+                        <div class="endorsement-info">
+                            <p class="endorsement-name">Richard Edwards</p>
+                            <p class="endorsement-title">Founder, The Shuttleworth Foundation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- ============ CLOSING + CTA ============ -->
         <section class="closing" aria-labelledby="closing-heading">
