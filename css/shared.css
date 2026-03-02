@@ -267,6 +267,24 @@ a:hover {
     color: var(--accent-sky);
 }
 
+.nav-cta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5em 1.25em;
+    background: var(--accent-amber);
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+}
+
+.nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
+}
+
 /* ========================================
    FOOTER
    ======================================== */
@@ -354,5 +372,9 @@ a:hover {
 
     .nav-links a {
         font-size: 0.8rem;
+    }
+
+    .nav-cta {
+        display: none;
     }
 }
