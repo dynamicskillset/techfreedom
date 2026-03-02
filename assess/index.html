@@ -697,60 +697,53 @@
         }
 
         .cta-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-m);
+            max-width: var(--measure);
         }
 
         .cta-card {
-            padding: var(--space-l);
+            padding: var(--space-m);
             background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
             border: 1px solid var(--horizon);
             border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .cta-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
 
         .cta-card h3 {
             font-size: 1.15rem;
             font-weight: 400;
-            margin-bottom: var(--space-s);
+            margin-bottom: var(--space-xs);
         }
 
         .cta-card p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.7;
-            margin-bottom: var(--space-m);
+            margin-bottom: var(--space-s);
         }
 
-        .cta-card .cta-price {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 500;
+        .cta-meta {
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: var(--space-s);
-            letter-spacing: 0.02em;
+            font-style: italic;
         }
 
         .cta-link {
             display: inline-flex;
             align-items: center;
             gap: 0.35em;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--accent-sky);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
             text-decoration: none;
-            transition: color 0.3s ease, gap 0.3s ease;
+            background: var(--accent-sky);
+            padding: 0.6em 1.25em;
+            border-radius: 4px;
+            transition: background 0.3s ease;
         }
 
         .cta-link:hover {
-            color: var(--accent-amber);
-            gap: 0.5em;
+            background: var(--accent-amber);
+            color: var(--text-primary);
         }
 
         .cta-link svg {
@@ -927,7 +920,7 @@
         <ul class="nav-links">
             <li><a href="/programme/">Programme</a></li>
             <li><a href="/manifesto/">Principles</a></li>
-            <li><a href="/alternatives/" aria-current="page">Alternatives</a></li>
+            <li><a href="/alternatives/">Alternatives</a></li>
         </ul>
         <a href="/#signup-cta" class="nav-cta">Join the first cohort</a>
     </nav>
@@ -1047,18 +1040,11 @@
         <section class="cta-section" id="cta-section" aria-labelledby="cta-heading">
             <div class="section-inner section-inner--wide">
                 <h2 id="cta-heading" class="reveal">Ready to take the next step?</h2>
-                <p class="cta-pivot reveal reveal-delay-1">Join the first cohort. First session towards the end of April 2026. £300 + VAT per organisation.</p>
-
-                <div class="cta-grid reveal reveal-delay-2">
+                <div class="cta-grid reveal reveal-delay-1">
                     <div class="cta-card">
-                        <h3>Join the first cohort</h3>
                         <p>Work through your assessment with a cohort of like-minded organisations. You'll explore alternatives, understand your options, and build a practical migration plan together.</p>
-                        <a href="/#signup-cta" class="cta-link">
-                            Register your interest
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                                <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                            </svg>
-                        </a>
+                        <p class="cta-meta">First session towards the end of April 2026. £300 + VAT per organisation.</p>
+                        <a href="/#signup-cta" class="cta-link" role="link">Register your interest</a>
                     </div>
                 </div>
             </div>
@@ -2192,9 +2178,11 @@
                 showResults();
             });
 
-            // Wire up export buttons
-            document.getElementById('btn-pdf').addEventListener('click', downloadPDF);
-            document.getElementById('btn-share').addEventListener('click', shareURL);
+            // Wire up export buttons (if present)
+            var btnPdf = document.getElementById('btn-pdf');
+            var btnShare = document.getElementById('btn-share');
+            if (btnPdf) btnPdf.addEventListener('click', downloadPDF);
+            if (btnShare) btnShare.addEventListener('click', shareURL);
 
             // Responsive heatmap
             window.addEventListener('resize', checkMobileHeatmap);
