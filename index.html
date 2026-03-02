@@ -296,6 +296,22 @@
             font-variation-settings: 'opsz' 48;
         }
 
+        .hero-cta {
+            display: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.65em 1.5em;
+            background: var(--accent-amber);
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.23, 1, 0.32, 1) 1.2s forwards;
+            margin-bottom: var(--space-m);
+        }
+
         .hero-intro {
             color: var(--text-secondary);
             font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
@@ -792,9 +808,13 @@
            ======================================== */
         @media (max-width: 768px) {
             .hero {
-                min-height: 90vh;
-                min-height: 90svh;
-                padding-bottom: var(--space-xl);
+                min-height: auto;
+                padding-top: calc(60px + var(--space-m));
+                padding-bottom: var(--space-l);
+            }
+
+            .hero-cta {
+                display: inline-block;
             }
 
             .pillar {
@@ -988,9 +1008,10 @@
                 <span class="word" aria-hidden="true">TechFreedom</span>
             </h1>
             <p class="hero-tagline">A clearer forecast for your organisation's digital future.</p>
+            <a href="#signup-cta" class="hero-cta">Join the first cohort</a>
             <div class="hero-intro">
                 <p>Most organisations can't see what's gathering overhead. You depend on platforms that set the terms, change their rules without warning, and leave you exposed when conditions change.</p>
-                <p>TechFreedom is a cohort programme for social purpose organisations ready to read the sky for themselves. Across three facilitated sessions, you'll map your technology dependencies, assess where the real risks lie, and build a practical roadmap toward greater independence.</p>
+                <p>TechFreedom is a three-session programme for social purpose organisations who want to understand their technology risks and do something about them. Working as a small cohort, you'll audit the tools you rely on, explore practical alternatives, and leave with a plan for reducing your dependency on Big Tech.</p>
             </div>
         </div>
 
