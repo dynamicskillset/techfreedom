@@ -101,7 +101,7 @@
 
         /* --- Alternatives Section --- */
         .alternatives-section {
-            padding: var(--space-m) 0 var(--space-l) 0;
+            padding: var(--space-m) 0 0 0;
         }
 
         .alternatives-section[hidden] {
@@ -111,6 +111,10 @@
         /* --- Tool Groups --- */
         .tool-group {
             margin-bottom: var(--space-xl);
+        }
+
+        .tool-group:last-child {
+            margin-bottom: var(--space-m);
         }
 
         .tool-group-header {
@@ -354,8 +358,7 @@
 
         /* --- Unlock Section --- */
         .unlock-section {
-            padding: var(--space-m) 0 var(--space-l) 0;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-warm) 40%, var(--bg-mist) 100%);
+            padding: 0 0 var(--space-l) 0;
         }
 
         .unlock-section[hidden] {
@@ -391,18 +394,26 @@
             padding: 0.85em 2em;
             font-family: var(--font-body);
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             background: var(--accent-amber);
             color: var(--text-primary);
+            text-decoration: none;
             border: none;
             border-radius: 4px;
-            cursor: default;
-            opacity: 0.7;
+            cursor: pointer;
             box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .unlock-card .unlock-btn:hover {
             color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
+        }
+
+        .unlock-card .unlock-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 2px;
         }
 
         .unlock-note {
@@ -467,6 +478,24 @@
                 transform: none;
             }
         }
+
+        /* Nav CTA (inline to avoid shared.css cache issues) */
+        .nav-cta {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5em 1.25em;
+            background: var(--accent-amber);
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+        }
+        .nav-cta:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -480,7 +509,7 @@
             <li><a href="/manifesto/">Manifesto</a></li>
             <li><a href="/alternatives/" aria-current="page">Alternatives</a></li>
         </ul>
-        <a href="/#signup-cta" class="nav-cta">Join the first cohort</a>
+        <a href="/programme/#signup-cta" class="nav-cta">Join the first cohort</a>
     </nav>
 
     <header class="alt-header">
@@ -517,9 +546,8 @@
             <div class="section-inner">
                 <div class="unlock-card reveal">
                     <h2 id="unlock-heading">Ready to make a move?</h2>
-                    <p>Join the first cohort to work through your migration options with a group of like-minded organisations. Get support, accountability, and practical guidance as you build your roadmap.</p>
-                    <a href="/#signup-cta" class="unlock-btn">Join the first cohort</a>
-                    <span class="unlock-note">First session towards the end of April 2026. £300 + VAT per organisation.</span>
+                    <p>Now you can see what's possible, the next step is building a practical plan to get there. The TechFreedom programme gives you the structure, support, and peer accountability to make it happen.</p>
+                    <a href="/programme/" class="unlock-btn">Explore the programme</a>
                 </div>
             </div>
         </section>
