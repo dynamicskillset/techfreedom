@@ -319,7 +319,7 @@
 
         /* --- Results Section --- */
         .results-section {
-            padding: var(--space-l) 0;
+            padding: var(--space-l) 0 var(--space-s) 0;
             background: var(--bg-primary);
         }
 
@@ -526,7 +526,7 @@
 
         /* --- Summary --- */
         .summary-section {
-            margin-bottom: var(--space-xl);
+            margin-bottom: var(--space-m);
             padding: var(--space-l);
             background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
             border: 1px solid var(--horizon);
@@ -676,55 +676,35 @@
         /* --- CTA Section --- */
         .cta-section {
             padding: var(--space-m) 0 var(--space-l) 0;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-warm) 40%, var(--bg-mist) 100%);
         }
 
         .cta-section[hidden] {
             display: none;
         }
 
-        .cta-section h2 {
-            margin-bottom: var(--space-xs);
-        }
-
-        .cta-pivot {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
-            color: var(--accent-amber);
-            margin-bottom: var(--space-l);
-            font-variation-settings: 'opsz' 36;
-        }
-
-        .cta-grid {
-            max-width: var(--measure);
-        }
-
-        .cta-card {
+        .cta-banner {
             padding: var(--space-m);
-            background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
-            border: 1px solid var(--horizon);
+            display: flex;
+            align-items: center;
+            gap: var(--space-m);
+            background: linear-gradient(135deg, rgba(212, 168, 67, 0.08) 0%, rgba(212, 168, 67, 0.03) 100%);
+            border: 1px solid rgba(212, 168, 67, 0.2);
             border-radius: 8px;
         }
 
-        .cta-card h3 {
-            font-size: 1.15rem;
-            font-weight: 400;
-            margin-bottom: var(--space-xs);
+        .cta-banner-text {
+            flex: 1;
         }
 
-        .cta-card p {
+        .cta-banner-text h2 {
+            font-size: clamp(1.25rem, 1rem + 1.25vw, 1.75rem);
+            margin-bottom: 0.25rem;
+        }
+
+        .cta-banner-text p {
             font-size: 0.95rem;
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: var(--space-s);
-        }
-
-        .cta-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: var(--space-s);
-            font-style: italic;
+            line-height: 1.6;
         }
 
         .cta-link {
@@ -736,6 +716,7 @@
             background: var(--accent-amber);
             padding: 0.65em 1.5em;
             border-radius: 4px;
+            white-space: nowrap;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
@@ -745,9 +726,21 @@
             box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
         }
 
-        .cta-link svg {
-            width: 0.85em;
-            height: 0.85em;
+        .cta-link:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 600px) {
+            .cta-banner {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .cta-link {
+                text-align: center;
+            }
         }
 
         /* --- Loading / Error States --- */
@@ -773,10 +766,6 @@
         @media (max-width: 768px) {
             .archetype-grid {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cta-grid {
-                grid-template-columns: 1fr;
             }
 
             .heatmap {
@@ -889,8 +878,7 @@
             .tool-chip {
                 animation: none;
             }
-            .archetype-card:hover,
-            .cta-card:hover {
+            .archetype-card:hover {
                 transform: none;
             }
         }
@@ -908,6 +896,24 @@
                 padding: 0;
             }
         }
+
+        /* Nav CTA (inline to avoid shared.css cache issues) */
+        .nav-cta {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5em 1.25em;
+            background: var(--accent-amber);
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+        }
+        .nav-cta:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -921,7 +927,7 @@
             <li><a href="/manifesto/">Manifesto</a></li>
             <li><a href="/alternatives/">Alternatives</a></li>
         </ul>
-        <a href="/#signup-cta" class="nav-cta">Join the first cohort</a>
+        <a href="/programme/#signup-cta" class="nav-cta">Join the first cohort</a>
     </nav>
 
     <header class="assess-header">
@@ -1038,12 +1044,12 @@
         <!-- ============ CTA ============ -->
         <section class="cta-section" id="cta-section" aria-labelledby="cta-heading" hidden>
             <div class="section-inner section-inner--wide">
-                <h2 id="cta-heading" class="reveal">Now explore your alternatives</h2>
-                <div class="cta-grid reveal reveal-delay-1">
-                    <div class="cta-card">
-                        <p>You've seen the risks. Now see what's possible. Browse alternatives for the tools in your stack and compare how they score across the same risk dimensions.</p>
-                        <a href="/alternatives/" class="cta-link">See alternatives</a>
+                <div class="cta-banner">
+                    <div class="cta-banner-text">
+                        <h2 id="cta-heading">Now explore your alternatives</h2>
+                        <p>Browse alternatives for the tools in your stack and compare how they score across the same risk dimensions.</p>
                     </div>
+                    <a href="/alternatives/" class="cta-link" id="cta-alternatives" aria-label="See alternatives to the tools in your assessment">See alternatives &rarr;</a>
                 </div>
             </div>
         </section>
