@@ -728,22 +728,21 @@
         }
 
         .cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35em;
+            display: inline-block;
             font-size: 0.95rem;
             font-weight: 600;
-            color: var(--white);
+            color: var(--text-primary);
             text-decoration: none;
-            background: var(--accent-sky);
-            padding: 0.6em 1.25em;
+            background: var(--accent-amber);
+            padding: 0.65em 1.5em;
             border-radius: 4px;
-            transition: background 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .cta-link:hover {
-            background: var(--accent-amber);
             color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
         }
 
         .cta-link svg {
@@ -919,7 +918,7 @@
         <a href="/" class="nav-wordmark"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
         <ul class="nav-links">
             <li><a href="/programme/">Programme</a></li>
-            <li><a href="/manifesto/">Principles</a></li>
+            <li><a href="/manifesto/">Manifesto</a></li>
             <li><a href="/alternatives/">Alternatives</a></li>
         </ul>
         <a href="/#signup-cta" class="nav-cta">Join the first cohort</a>
@@ -1037,14 +1036,13 @@
         </section>
 
         <!-- ============ CTA ============ -->
-        <section class="cta-section" id="cta-section" aria-labelledby="cta-heading">
+        <section class="cta-section" id="cta-section" aria-labelledby="cta-heading" hidden>
             <div class="section-inner section-inner--wide">
-                <h2 id="cta-heading" class="reveal">Ready to take the next step?</h2>
+                <h2 id="cta-heading" class="reveal">Now explore your alternatives</h2>
                 <div class="cta-grid reveal reveal-delay-1">
                     <div class="cta-card">
-                        <p>Work through your assessment with a cohort of like-minded organisations. You'll explore alternatives, understand your options, and build a practical migration plan together.</p>
-                        <p class="cta-meta">First session towards the end of April 2026. £300 + VAT per organisation.</p>
-                        <a href="/#signup-cta" class="cta-link" role="link">Register your interest</a>
+                        <p>You've seen the risks. Now see what's possible. Browse alternatives for the tools in your stack and compare how they score across the same risk dimensions.</p>
+                        <a href="/alternatives/" class="cta-link">See alternatives</a>
                     </div>
                 </div>
             </div>
@@ -1407,7 +1405,8 @@
             var ctaSection = document.getElementById('cta-section');
             resultsSection.hidden = false;
             ctaSection.hidden = false;
-            document.getElementById('next-step-nudge').hidden = false;
+            var nudge = document.getElementById('next-step-nudge');
+            if (nudge) nudge.hidden = false;
 
             // Set alternatives CTA link with selected tool slugs
             var altLink = document.getElementById('cta-alternatives');
