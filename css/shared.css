@@ -337,6 +337,10 @@ a:hover {
         --space-2xl: 6rem;
     }
 
+    .nav-cta {
+        display: none;
+    }
+
     .footer-inner {
         flex-direction: column;
         gap: var(--space-xs);
@@ -374,7 +378,4 @@ a:hover {
         font-size: 0.8rem;
     }
 
-    .nav-cta {
-        display: none;
-    }
 }
