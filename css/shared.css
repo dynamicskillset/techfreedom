@@ -341,6 +341,16 @@ a:hover {
         display: none;
     }
 
+    .nav-icon {
+        display: block;
+        width: 28px;
+        height: 28px;
+    }
+
+    .nav-wordmark-text {
+        display: none;
+    }
+
     .footer-inner {
         flex-direction: column;
         gap: var(--space-xs);
@@ -358,16 +368,6 @@ a:hover {
     .site-nav {
         padding-left: var(--space-s);
         padding-right: var(--space-s);
-    }
-
-    .nav-icon {
-        display: block;
-        width: 28px;
-        height: 28px;
-    }
-
-    .nav-wordmark-text {
-        display: none;
     }
 
     .nav-links {
