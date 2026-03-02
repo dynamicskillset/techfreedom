@@ -936,7 +936,7 @@
         <div class="section-inner section-inner--wide">
             <h1 class="reveal">Tech Stack Risk Assessment</h1>
             <p class="tagline reveal reveal-delay-1">Map your tech stack. See the risks.</p>
-            <p class="reveal reveal-delay-2">Select a preset archetype that matches your organisation, or build a custom stack. We'll score each tool across five risk dimensions: jurisdiction, continuity, surveillance, lock-in, and cost exposure.</p>
+            <p class="reveal reveal-delay-2">Choose a template that matches your organisation type, or create a custom list. We'll help you understand the risks in each tool: where your data sits, what happens if things change, who can see what, whether you could switch away, and the cost exposure.</p>
         </div>
     </header>
 
@@ -953,7 +953,7 @@
                 </div>
 
                 <div class="custom-builder reveal reveal-delay-3">
-                    <h3>Or build your own stack</h3>
+                    <h3 id="custom-builder-heading">Or add your own tools</h3>
                     <div class="search-wrapper">
                         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                             <circle cx="11" cy="11" r="8"/>
@@ -1031,16 +1031,6 @@
                     </table>
                 </div>
 
-                <!-- Radar Chart -->
-                <div class="radar-wrapper">
-                    <h3>Risk Profile Overview</h3>
-                    <div class="chart-container">
-                        <canvas id="radar-chart" aria-label="Radar chart showing aggregate risk scores across five dimensions"></canvas>
-                    </div>
-                    <div id="radar-text-alt" class="visually-hidden" aria-live="polite">
-                        <!-- Screen reader text equivalent -->
-                    </div>
-                </div>
 
                 <!-- Summary -->
                 <div class="summary-section">
@@ -1050,75 +1040,21 @@
                     </div>
                 </div>
 
-                <!-- Export Actions -->
-                <div class="export-actions">
-                    <button class="btn-secondary" id="btn-pdf" type="button">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="12" y1="18" x2="12" y2="12"/>
-                            <polyline points="9 15 12 18 15 15"/>
-                        </svg>
-                        Download PDF
-                    </button>
-                    <button class="btn-secondary" id="btn-share" type="button">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                            <circle cx="18" cy="5" r="3"/>
-                            <circle cx="6" cy="12" r="3"/>
-                            <circle cx="18" cy="19" r="3"/>
-                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                        </svg>
-                        Share via URL
-                    </button>
-                    <span class="copy-feedback" id="copy-feedback">Link copied!</span>
-                    <div class="share-url-display" id="share-url-display"></div>
-                </div>
-
-                <div class="next-step-nudge" id="next-step-nudge" hidden>
-                    <span class="nudge-arrow" aria-hidden="true">&#8595;</span>
-                    Ready to take action? <a href="#cta-section">See your options below</a>
-                </div>
             </div>
         </section>
 
         <!-- ============ CTA ============ -->
-        <section class="cta-section" id="cta-section" hidden aria-labelledby="cta-heading">
+        <section class="cta-section" id="cta-section" aria-labelledby="cta-heading">
             <div class="section-inner section-inner--wide">
-                <h2 id="cta-heading" class="reveal">The sky is clearing</h2>
-                <p class="cta-pivot reveal reveal-delay-1">You've seen the risks. Now see the way out.</p>
+                <h2 id="cta-heading" class="reveal">Ready to take the next step?</h2>
+                <p class="cta-pivot reveal reveal-delay-1">Join the first cohort: 20th April 2026. £300 per organisation.</p>
 
                 <div class="cta-grid reveal reveal-delay-2">
                     <div class="cta-card">
-                        <h3>Join the next cohort</h3>
-                        <p>Work through your tech stack with a small group of like-minded organisations. We'll map your risks, explore alternatives, and build a practical migration plan together.</p>
-                        <span class="cta-price">Free / subsidised</span>
-                        <a href="https://lu.ma/techfreedom" class="cta-link" target="_blank" rel="noopener">
-                            Find out more
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                                <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div class="cta-card">
-                        <h3>Get your alternatives guide</h3>
-                        <p>For each tool in your stack, we'll show you European and open-source alternatives with migration guides, trade-offs, and real costs.</p>
-                        <span class="cta-price">One-time purchase</span>
-                        <a href="/alternatives/" class="cta-link" id="cta-alternatives">
-                            See your alternatives
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                                <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div class="cta-card">
-                        <h3>Book bespoke support</h3>
-                        <p>We'll build a migration roadmap tailored to your organisation, including risk assessment, tool recommendations, and hands-on implementation support.</p>
-                        <span class="cta-price">Quote-based</span>
-                        <a href="https://cal.com/techfreedom" class="cta-link" target="_blank" rel="noopener">
-                            Book a call
+                        <h3>Join the first cohort</h3>
+                        <p>Work through your assessment with a cohort of like-minded organisations. You'll explore alternatives, understand your options, and build a practical migration plan together.</p>
+                        <a href="/#signup-cta" class="cta-link">
+                            Register your interest
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                                 <path d="M7 17L17 7M17 7H7M17 7v10"/>
                             </svg>
