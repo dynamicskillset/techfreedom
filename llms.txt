@@ -1,14 +1,14 @@
 # TechFreedom
 
-> See your technology clearly.
+> A clearer forecast for your organisation's digital future.
 
-TechFreedom helps organisations in the voluntary, community, and social enterprise (VCSE) sector understand their technology dependencies — and start making informed choices about them.
+TechFreedom helps social purpose organisations understand their technology dependencies and start making deliberate choices about them.
 
 ## What we do
 
-Most organisations don't choose their technology stack — they inherit it. Over time, a tangle of SaaS subscriptions, cloud services, and platform dependencies builds up, often without anyone noticing the risks. TechFreedom is a structured programme that helps you see what's really going on — and what your options are.
+Most organisations don't choose their technology stack; they inherit it. Over time, a tangle of SaaS subscriptions, cloud services, and platform dependencies builds up, often without anyone noticing the risks. TechFreedom is a three-session cohort programme that helps you see what's really going on, and what your options are.
 
-## Three pillars
+## Five risk lenses
 
 ### 1. Jurisdiction
 Where does your data actually live, and under whose laws? We help you map your data flows, understand jurisdictional exposure, and identify where sovereignty matters most for your organisation.
@@ -19,13 +19,37 @@ What happens when a key platform changes its pricing, terms, or simply disappear
 ### 3. Surveillance
 How much does your technology stack know about you, your staff, and the people you serve? We audit your tools for data collection practices, help you understand what's being gathered, and identify privacy-respecting alternatives.
 
+### 4. Lock-in
+How difficult would it be to leave a platform if you needed to? We look at data portability, open standards, interoperability, and the real effort involved in switching.
+
+### 5. Cost Exposure
+What happens when a vendor changes its pricing? We examine your exposure to price rises, introductory discount cliffs, and the true long-term cost of each tool.
+
+## Programme structure
+
+Three sessions, each two hours, spaced two to three weeks apart:
+
+1. **SEE: Mapping Invisible Reliance.** Build a complete technology inventory, categorise by importance, and identify invisible dependencies.
+2. **ASSESS: Making the Risks Explicit.** Score each tool across the five risk lenses and build a priority grid.
+3. **PLAN: From Analysis to Action.** Use the Three Horizons framework to create a concrete roadmap with actions, owners, and timelines.
+
+Cost: £300 + VAT per organisation. Cohort size: 6 to 10 organisations. First cohort launches towards the end of April 2026.
+
+## Tools database
+
+The programme includes a database of 27 commonly used tools (Google Workspace, Microsoft 365, Slack, Zoom, Salesforce, and others) pre-scored across the five risk lenses, alongside 27 curated alternatives (Nextcloud, CryptPad, Signal, Element/Matrix, Jitsi Meet, CiviCRM, and others).
+
+## Pages
+
+- **Landing page** (https://techfreedom.eu): Overview, three pillars, team, signup form
+- **Programme** (https://techfreedom.eu/programme/): Full programme details, sessions, pricing, FAQ, signup
+- **Manifesto** (https://techfreedom.eu/manifesto/): Seven principles for technology that serves your mission
+- **Assessment** (https://techfreedom.eu/assess/): Interactive tech stack risk assessment with organisation archetypes
+- **Alternatives** (https://techfreedom.eu/alternatives/): Side-by-side comparison of common tools and privacy-respecting alternatives
+
 ## Who we are
 
-TechFreedom is led by Tom Watson (tomcw.xyz, The Good Ship) and Doug Belshaw (dougbelshaw.com, Dynamic Skillset).
-
-## Get involved
-
-TechFreedom is currently in development. Sign up at https://techfreedom.eu to be notified when the first cohort opens.
+TechFreedom is led by Tom Watson (https://tomcw.xyz, The Good Ship) and Doug Belshaw (https://dougbelshaw.com, Dynamic Skillset).
 
 ## Contact
 
