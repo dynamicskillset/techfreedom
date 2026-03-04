@@ -15,6 +15,7 @@ jobs:
           storagePassword: "${{ secrets.BUNNY_STORAGE_ZONE_PASSWORD }}"
           pullZoneId: "${{ secrets.BUNNY_PULL_ZONE_ID }}"
           accessKey: "${{ secrets.BUNNY_API_KEY }}"
+          storageEndpoint: "uk.storage.bunnycdn.com"
           upload: "true"
           remove: "true"
           purgePullZone: "true"
