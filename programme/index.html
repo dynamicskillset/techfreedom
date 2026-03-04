@@ -603,29 +603,51 @@
 
         .cta-area {
             margin: 0 auto;
-            padding: var(--space-l);
-            background: linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(255,255,255,0.6) 100%);
-            border: 1px solid rgba(26, 35, 50, 0.06);
+            padding: var(--space-l) var(--space-xl);
+            background: var(--text-primary);
             border-radius: 8px;
-            max-width: 520px;
+            max-width: 640px;
+            text-align: center;
         }
 
         .cta-heading {
             font-family: var(--font-display);
-            font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+            font-size: clamp(1.3rem, 1.1rem + 0.75vw, 1.6rem);
             font-weight: 400;
             font-style: italic;
-            color: var(--text-primary);
+            color: #fff;
             margin-bottom: var(--space-xs);
             font-variation-settings: 'opsz' 36;
         }
 
         .cta-subtext {
             display: block;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: var(--space-m);
             line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.85em 1.75em;
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 4px 16px rgba(212, 168, 67, 0.3),
+                0 0 24px rgba(212, 168, 67, 0.15);
         }
 
         .signup-form .form-row {
@@ -712,11 +734,11 @@
         }
 
         .form-success {
-            color: var(--accent-sky);
+            color: rgba(255, 255, 255, 0.85);
         }
 
         .form-error {
-            color: var(--color-error);
+            color: #f5a5a5;
         }
 
         /* Responsive */
@@ -747,7 +769,7 @@
             }
 
             .cta-area {
-                padding: var(--space-m);
+                padding: var(--space-m) var(--space-m);
             }
         }
 
@@ -837,6 +859,17 @@
             </div>
         </section>
 
+        <!-- Top CTA -->
+        <section class="cta-section" style="padding-top: 0;">
+            <div class="section-inner">
+                <div class="cta-area reveal">
+                    <p class="cta-heading">Join the first cohort</p>
+                    <span class="cta-subtext">First session towards the end of April 2026. &pound;300 + VAT per organisation.</span>
+                    <a href="#signup-cta" class="cta-button">Register interest</a>
+                </div>
+            </div>
+        </section>
+
         <!-- Who it's for -->
         <section class="who-section">
             <div class="section-inner">
@@ -923,7 +956,7 @@
                 <article class="session reveal">
                     <p class="session-label">Session 3</p>
                     <h3>PLAN: From Analysis to Action</h3>
-                    <p class="session-intro">Analysis without action is just worry. In this final session, you'll build a concrete roadmap using the Three Horizons framework.</p>
+                    <p class="session-intro">Analysis without action is just worry. In this final session, you'll build a flexible roadmap using the Three Horizons framework.</p>
 
                     <div class="session-detail">
                         <h4>The Three Horizons</h4>
@@ -937,7 +970,7 @@
                     </div>
 
                     <div class="session-outcome">
-                        <p><strong>You'll leave with:</strong> A concrete roadmap with actions, owners, and timelines. A buddy to keep you accountable. Commitments you've made in front of peers. And an invitation into the alumni community.</p>
+                        <p><strong>You'll leave with:</strong> A flexible roadmap with actions, owners, and timelines. A buddy to keep you accountable. Commitments you've made in front of peers.</p>
                     </div>
                 </article>
             </div>
@@ -982,28 +1015,7 @@
                         <div class="include-icon" aria-hidden="true">&#9678;</div>
                         <div class="include-text">
                             <strong>TechFreedom Database</strong>
-                            <span>27 commonly-used tools pre-scored across five risk lenses, plus 27 curated alternatives with migration difficulty ratings</span>
-                        </div>
-                    </div>
-                    <div class="include-item reveal reveal-delay-2">
-                        <div class="include-icon" aria-hidden="true">&#9998;</div>
-                        <div class="include-text">
-                            <strong>Participant Workbook</strong>
-                            <span>Complete guide with manifesto, frameworks, worksheets, and space for reflection</span>
-                        </div>
-                    </div>
-                    <div class="include-item reveal reveal-delay-3">
-                        <div class="include-icon" aria-hidden="true">&#9740;</div>
-                        <div class="include-text">
-                            <strong>Cohort community</strong>
-                            <span>Shared channel, optional drop-in calls, a buddy for accountability</span>
-                        </div>
-                    </div>
-                    <div class="include-item reveal reveal-delay-3">
-                        <div class="include-icon" aria-hidden="true">&#10038;</div>
-                        <div class="include-text">
-                            <strong>Alumni network</strong>
-                            <span>Quarterly calls on rotating themes, persistent channel, 3&ndash;6 month check-ins</span>
+                            <span>A growing collection of commonly used tools pre-scored across five risk lenses, with curated alternatives and migration difficulty ratings</span>
                         </div>
                     </div>
                 </div>
@@ -1029,7 +1041,7 @@
                         <span class="pricing-value"><span class="price">&pound;300</span> + VAT per organisation</span>
 
                         <span class="pricing-label">Includes</span>
-                        <span class="pricing-value">Canvas, database, workbook, facilitation, cohort channel, alumni community</span>
+                        <span class="pricing-value">Canvas, database, facilitation, ongoing support</span>
 
                         <span class="pricing-label">Add-on</span>
                         <span class="pricing-value">1:1 surgery sessions available for working through specific blockers</span>
@@ -1047,7 +1059,7 @@
                     <li class="reveal"><strong>Peer learning:</strong> <span>You learn as much from other organisations facing similar challenges as from the facilitators.</span></li>
                     <li class="reveal reveal-delay-1"><strong>Accountability:</strong> <span>Public commitments and buddy pairing create structures that outlast the programme.</span></li>
                     <li class="reveal reveal-delay-2"><strong>Pacing:</strong> <span>Sessions spaced 2&ndash;3 weeks apart allow time for reflection and small shifts without overwhelming capacity.</span></li>
-                    <li class="reveal reveal-delay-3"><strong>Community:</strong> <span>The cohort becomes a community. Alumni stay connected through quarterly calls and a persistent channel.</span></li>
+                    <li class="reveal reveal-delay-3"><strong>Community:</strong> <span>The cohort becomes a community. Participants stay connected through office hours and check-ins.</span></li>
                     <li class="reveal reveal-delay-4"><strong>Collective power:</strong> <span>When organisations move together, they can share migration stories, recommend suppliers, pool resources, and build collective alternatives.</span></li>
                 </ul>
             </div>
@@ -1057,13 +1069,11 @@
         <section class="after-section">
             <div class="section-inner">
                 <h2 class="reveal">After the Programme</h2>
-                <p class="after-intro reveal reveal-delay-1">All participants join the TechFreedom alumni community:</p>
+                <p class="after-intro reveal reveal-delay-1">Support doesn't stop when the sessions end:</p>
                 <ul class="after-list reveal reveal-delay-2" role="list">
-                    <li>Persistent channel for ongoing questions and resource-sharing</li>
-                    <li>Quarterly community calls on rotating themes: jurisdiction, surveillance, AI &amp; data training, environmental impact</li>
-                    <li>Optional 1:1 surgery sessions for working through specific blockers</li>
-                    <li>3-month check-in: brief survey about Horizon 1 progress, barriers encountered, and unexpected shifts</li>
-                    <li>6-month reunion call: show-and-tell of changes made, peer learning, and harvesting insights for future cohorts</li>
+                    <li>A feedback and next steps call one month after the final session</li>
+                    <li>Office hours and drop-in sessions for ongoing questions and working through blockers</li>
+                    <li>A progress check-in after three months, focused on your Horizon 1 actions</li>
                 </ul>
             </div>
         </section>
@@ -1115,8 +1125,8 @@
                 </div>
 
                 <div class="faq-item reveal">
-                    <h3>Can we run TechFreedom for our network?</h3>
-                    <p>Yes. The programme can be licensed for delivery by partner organisations working with specific sectors or communities. Get in touch to discuss.</p>
+                    <h3>Can you run TechFreedom for our network?</h3>
+                    <p>Yes. We can run dedicated cohorts for networks, umbrella bodies, or groups of organisations in specific sectors or communities. Get in touch to discuss.</p>
                 </div>
             </div>
         </section>
