@@ -1,0 +1,20 @@
+name: Deploy to Bunny.net
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ayeressian/bunnycdn-storage-deploy@v2.2.2
+        with:
+          source: "."
+          storageZoneName: "${{ secrets.BUNNY_STORAGE_ZONE_NAME }}"
+          storagePassword: "${{ secrets.BUNNY_STORAGE_ZONE_PASSWORD }}"
+          pullZoneId: "${{ secrets.BUNNY_PULL_ZONE_ID }}"
+          accessKey: "${{ secrets.BUNNY_API_KEY }}"
+          upload: "true"
+          remove: "true"
+          purgePullZone: "true"
