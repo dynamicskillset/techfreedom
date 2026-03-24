@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=fraunces:400,400i,600,700|dm-sans:400,500,600,700" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1200px;
+  height: 1200px;
+  background: #F7F5F0;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+svg.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  padding: 72px 80px;
+  text-align: center;
+}
+
+.wordmark {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1A2332;
+  letter-spacing: -0.01em;
+}
+
+.wordmark em {
+  color: #D4A843;
+  font-style: normal;
+}
+
+.headline-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #D4A843;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 68px;
+  font-weight: 400;
+  line-height: 1.06;
+  color: #1A2332;
+  max-width: 840px;
+}
+
+.divider {
+  width: 44px;
+  height: 2px;
+  background: #D4A843;
+}
+
+.sessions {
+  display: flex;
+  gap: 16px;
+}
+
+.session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 28px;
+  background: rgba(26, 35, 50, 0.04);
+  border: 1px solid rgba(26, 35, 50, 0.1);
+  border-radius: 8px;
+  min-width: 196px;
+}
+
+.session-num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #636B78;
+}
+
+.session-verb {
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  font-weight: 600;
+  color: #1A2332;
+  letter-spacing: -0.02em;
+}
+
+.session-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #636B78;
+  letter-spacing: 0.02em;
+}
+
+.details {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0 36px;
+}
+
+.detail-item + .detail-item {
+  border-left: 1px solid rgba(26, 35, 50, 0.12);
+}
+
+.detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #636B78;
+}
+
+.detail-value {
+  font-size: 19px;
+  font-weight: 500;
+  color: #1A2332;
+  white-space: nowrap;
+}
+
+.cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cta-btn {
+  background: #1A2332;
+  color: #F7F5F0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 18px 44px;
+  border-radius: 6px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-btn::after {
+  content: '→';
+  font-size: 22px;
+}
+
+.url {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: #636B78;
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<svg class="bg" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glowCentre" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D4A843" stop-opacity="0.1"/>
+      <stop offset="60%" stop-color="#D4A843" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#D4A843" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warmGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8E5DD" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#E8E5DD" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="0" cy="1200" rx="600" ry="500" fill="url(#warmGlow)"/>
+  <ellipse cx="750" cy="420" rx="500" ry="420" fill="url(#glowCentre)"/>
+  <g transform="translate(750, 420)" fill="none" stroke="#1A2332">
+    <ellipse rx="70"  ry="58"  stroke-width="0.8" opacity="0.08"/>
+    <ellipse rx="145" ry="120" stroke-width="0.7" opacity="0.06"/>
+    <ellipse rx="235" ry="195" stroke-width="0.6" opacity="0.045"/>
+    <ellipse rx="345" ry="285" stroke-width="0.5" opacity="0.035"/>
+    <ellipse rx="470" ry="390" stroke-width="0.4" opacity="0.025"/>
+    <ellipse rx="610" ry="505" stroke-width="0.3" opacity="0.02"/>
+    <ellipse rx="770" ry="640" stroke-width="0.25" opacity="0.015"/>
+  </g>
+</svg>
+
+<div class="content">
+
+  <div class="wordmark">Tech<em>Freedom</em></div>
+
+  <div class="headline-block">
+    <div class="eyebrow">Technology sovereignty for social purpose organisations</div>
+    <h1>A clearer forecast<br>for your organisation's<br>digital future.</h1>
+    <div class="divider"></div>
+  </div>
+
+  <div class="sessions">
+    <div class="session">
+      <span class="session-num">Session 1</span>
+      <span class="session-verb">SEE</span>
+      <span class="session-title">Map your dependencies</span>
+    </div>
+    <div class="session">
+      <span class="session-num">Session 2</span>
+      <span class="session-verb">ASSESS</span>
+      <span class="session-title">Score the risks</span>
+    </div>
+    <div class="session">
+      <span class="session-num">Session 3</span>
+      <span class="session-verb">PLAN</span>
+      <span class="session-title">Build your roadmap</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="detail-item">
+      <span class="detail-label">Dates</span>
+      <span class="detail-value">22 Apr · 6 May · 20 May 2026</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-label">Time</span>
+      <span class="detail-value">Wed 13:00–15:00 BST</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-label">Price</span>
+      <span class="detail-value">£300 + VAT</span>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-btn">Book your place</div>
+    <div class="url">techfreedom.eu</div>
+  </div>
+
+</div>
+
+</body>
+</html>
