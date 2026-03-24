@@ -607,21 +607,11 @@
             line-height: 1.5;
         }
 
-        .drift-form-wrapper {
-            width: 100%;
-        }
-
-        .drift-form-wrapper iframe {
-            width: 100% !important;
-            max-width: 100% !important;
-            height: 250px !important;
-            border: none !important;
-            scrollbar-width: none;
-            overflow: hidden;
-        }
-
-        .drift-form-wrapper iframe::-webkit-scrollbar {
-            display: none;
+        .cta-dates {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: var(--space-xs) 0 var(--space-s);
+            line-height: 1.6;
         }
 
         @keyframes gentlePulse {
@@ -1130,26 +1120,9 @@
 
                 <div class="cta-area reveal reveal-delay-2">
                     <p class="cta-heading">Join the first cohort</p>
-                    <span class="cta-subtext">First session towards the end of April 2026. £300 +VAT per organisation.</span>
-                    <div class="drift-form-wrapper">
-                        <iframe src="https://driftforms.app/f/techfreedom-sign-up-BRp1Gi?embed=true&hideTitle=true" scrolling="no" loading="lazy"></iframe>
-                    </div>
-                    <p class="cta-disclaimer">We'll only use your email to contact you about TechFreedom. It won't be sold or shared for any other reason.</p>
-                    <script>
-                    (function() {
-                        var wrapper = document.querySelector('.drift-form-wrapper');
-                        if (!wrapper) return;
-                        new MutationObserver(function(mutations) {
-                            mutations.forEach(function(m) {
-                                if (m.type === 'attributes' && m.attributeName === 'style' && m.target.tagName === 'IFRAME') {
-                                    m.target.style.setProperty('height', '220px', 'important');
-                                    m.target.style.setProperty('width', '100%', 'important');
-                                    m.target.style.setProperty('border', 'none', 'important');
-                                }
-                            });
-                        }).observe(wrapper, { attributes: true, attributeFilter: ['style'], subtree: true });
-                    })();
-                    </script>
+                    <span class="cta-subtext">&pound;300 + VAT per organisation.</span>
+                    <p class="cta-dates">Sessions on Wednesdays: 22 April, 6 May and 20 May 2026, 13:00&ndash;15:00 BST (UTC+1)</p>
+                    <a href="https://buy.stripe.com/9B6dR8gM8fpXesvdEIa7C00" class="cta-button" target="_blank" rel="noopener">Book your place</a>
                 </div>
             </div>
         </section>
