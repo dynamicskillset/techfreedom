@@ -43,6 +43,7 @@ The programme includes a database of 27 commonly used tools (Google Workspace, M
 
 - **Landing page** (https://techfreedom.eu): Overview, three pillars, team, signup form
 - **Programme** (https://techfreedom.eu/programme/): Full programme details, sessions, pricing, FAQ, signup
+- **Lenses** (https://techfreedom.eu/lenses/): The five risk lenses explained in depth, with the ten pairwise compounding risks and an interactive spotlight visualisation
 - **Manifesto** (https://techfreedom.eu/manifesto/): Seven principles for technology that serves your mission
 - **Assessment** (https://techfreedom.eu/assess/): Interactive tech stack risk assessment with organisation archetypes
 - **Alternatives** (https://techfreedom.eu/alternatives/): Side-by-side comparison of common tools and privacy-respecting alternatives

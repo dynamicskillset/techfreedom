@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Five Risk Lenses — TechFreedom</title>
+    <meta name="description" content="Five risk lenses, ten compounding overlaps, one central dependency risk. The analytical framework at the heart of TechFreedom.">
+    <link rel="canonical" href="https://techfreedom.eu/lenses/">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://techfreedom.eu/lenses/">
+    <meta property="og:title" content="The Five Risk Lenses — TechFreedom">
+    <meta property="og:description" content="Five risk lenses, ten compounding overlaps, one central dependency risk. The analytical framework at the heart of TechFreedom.">
+    <meta property="og:image" content="https://techfreedom.eu/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:site_name" content="TechFreedom">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Five Risk Lenses — TechFreedom">
+    <meta name="twitter:description" content="Five risk lenses, ten compounding overlaps, one central dependency risk. The analytical framework at the heart of TechFreedom.">
+    <meta name="twitter:image" content="https://techfreedom.eu/og-image.png">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "The Five Risk Lenses — TechFreedom",
+        "description": "Five risk lenses, ten compounding overlaps, one central dependency risk. The analytical framework at the heart of TechFreedom.",
+        "url": "https://techfreedom.eu/lenses/",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "TechFreedom",
+            "url": "https://techfreedom.eu"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Technology risk assessment for social purpose organisations"
+        }
+    }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A2332'/%3E%3Ctext x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23F7F5F0' text-anchor='middle'%3ETf%3C/text%3E%3C/svg%3E">
+    <script defer data-domain="techfreedom.eu" src="https://plausible.io/js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/shared.css">
+    <style>
+        /* ========================================
+           LENSES PAGE STYLES
+           ======================================== */
+
+        /* Page header */
+        .lenses-header {
+            position: relative;
+            padding: calc(var(--space-xl) + 60px) 0 var(--space-l);
+            background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-primary) 100%);
+            overflow: hidden;
+        }
+
+        .lenses-header .section-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .lenses-header h1 {
+            margin-bottom: var(--space-xs);
+        }
+
+        .lenses-header .lenses-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0;
+        }
+
+        /* Decorative pentagon rings in header */
+        .lenses-atmosphere {
+            position: absolute;
+            top: 50%;
+            right: -6%;
+            transform: translateY(-50%);
+            width: clamp(200px, 35vw, 420px);
+            height: clamp(200px, 35vw, 420px);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        /* ---- Five lens cards ---- */
+        .lens-cards-section {
+            padding: var(--space-xl) 0;
+            background: var(--bg-primary);
+        }
+
+        .lens-cards-intro {
+            max-width: var(--measure);
+            margin-bottom: var(--space-l);
+        }
+
+        .lens-cards {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-m);
+        }
+
+        .lens-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--space-s) var(--space-m);
+            padding: var(--space-m);
+            background: var(--bg-warm);
+            border: 1px solid var(--horizon);
+            border-radius: 6px;
+            align-items: start;
+        }
+
+        .lens-card-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--text-tertiary);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            grid-row: 1 / 3;
+            padding-top: 0.15em;
+            min-width: 2.5rem;
+        }
+
+        .lens-card-name {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 0.2em;
+            line-height: 1.2;
+        }
+
+        .lens-card-question {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin: 0 0 0.6em;
+        }
+
+        .lens-card-body {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0;
+            grid-column: 2;
+        }
+
+        @media (max-width: 600px) {
+            .lens-card {
+                grid-template-columns: 1fr;
+            }
+            .lens-card-number {
+                grid-row: auto;
+                font-size: 1.4rem;
+            }
+            .lens-card-body {
+                grid-column: 1;
+            }
+        }
+
+        /* ---- Spotlight stage ---- */
+        .spotlight-stage {
+            background: #1a1a2e;
+            /* Gradient fade-in from cream at top */
+            padding: 0;
+            position: relative;
+        }
+
+        /* Gradient transitions at top and bottom edges */
+        .spotlight-stage::before,
+        .spotlight-stage::after {
+            content: '';
+            display: block;
+            height: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .spotlight-stage::before {
+            background: linear-gradient(to bottom, var(--bg-primary), transparent);
+        }
+
+        .spotlight-stage::after {
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+        }
+
+        .spotlight-inner {
+            padding: var(--space-m) 0 var(--space-l);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spotlight-heading {
+            color: #e0e0e0;
+            text-align: center;
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-weight: 400;
+            margin-bottom: var(--space-s);
+            letter-spacing: 0.01em;
+        }
+
+        /* Stage container — responsive */
+        .stage-container {
+            position: relative;
+            width: min(820px, 90vw);
+            aspect-ratio: 1;
+            flex-shrink: 0;
+            margin: 0 auto;
+        }
+
+        .stage {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, #0a0a18 0%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        /* Spotlight circles — additive blending */
+        .spotlight {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .centre-glow {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Lens labels around the outside */
+        .lens-label {
+            position: absolute;
+            text-align: center;
+            font-weight: 700;
+            font-size: clamp(0.65rem, 1.5vw, 0.9rem);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+            pointer-events: none;
+            color: #fff;
+        }
+
+        .lens-label .dot {
+            display: inline-block;
+            width: clamp(8px, 1.5vw, 14px);
+            height: clamp(8px, 1.5vw, 14px);
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        /* Overlap labels */
+        .overlap-label {
+            position: absolute;
+            text-align: center;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            max-width: 19.5%;
+            background: rgba(10, 10, 24, 0.8);
+            border-radius: 8px;
+            padding: 5px 10px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .overlap-label .colour-name {
+            font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .overlap-label .risk-name {
+            font-size: clamp(0.5rem, 1.1vw, 0.7rem);
+            font-weight: 500;
+            color: #ccc;
+            display: block;
+            line-height: 1.3;
+        }
+
+        /* Centre label */
+        .centre-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+            background: rgba(10, 10, 24, 0.65);
+            border-radius: 10px;
+            padding: 8px 16px;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .centre-label .colour-name {
+            font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .centre-label .risk-name {
+            font-size: clamp(0.6rem, 1.3vw, 0.75rem);
+            font-weight: 600;
+            color: #ffffffdd;
+            text-shadow: 0 0 12px rgba(255,255,255,0.5);
+        }
+
+        /* Hide overlap labels at very small sizes where they become illegible */
+        @media (max-width: 500px) {
+            .overlap-label { display: none; }
+            .lens-label { font-size: 0.55rem; letter-spacing: 0.04em; }
+        }
+
+        /* Screen-reader-only */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* ---- Dependency risk section ---- */
+        .dependency-section {
+            padding: var(--space-xl) 0;
+            background: var(--bg-primary);
+        }
+
+        .dependency-section h2 {
+            margin-bottom: var(--space-s);
+        }
+
+        .dependency-section p {
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .dependency-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .dependency-callout {
+            margin: var(--space-m) 0 0;
+            padding: var(--space-s) var(--space-m);
+            background: var(--bg-warm);
+            border-left: 3px solid var(--accent-amber);
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ---- Pairings section ---- */
+        .pairings-section {
+            padding: var(--space-xl) 0;
+            background: var(--bg-warm);
+        }
+
+        .pairings-section h2 {
+            margin-bottom: var(--space-xs);
+        }
+
+        .pairings-intro {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-l);
+            max-width: var(--measure);
+        }
+
+        .pairing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-s);
+        }
+
+        @media (max-width: 640px) {
+            .pairing-grid { grid-template-columns: 1fr; }
+        }
+
+        .pairing-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--horizon);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .pairing-card summary {
+            list-style: none;
+            cursor: pointer;
+            padding: var(--space-s) var(--space-m);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-s);
+            user-select: none;
+        }
+
+        .pairing-card summary::-webkit-details-marker { display: none; }
+
+        .pairing-card summary:hover {
+            background: var(--bg-warm);
+        }
+
+        .pairing-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 2px;
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+
+        .pairing-summary-text {
+            flex: 1;
+        }
+
+        .pairing-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.15em;
+            line-height: 1.25;
+        }
+
+        .pairing-lenses {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            display: block;
+        }
+
+        .pairing-chevron {
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+            margin-top: 4px;
+            color: var(--text-tertiary);
+            transition: transform 0.2s ease;
+        }
+
+        .pairing-card[open] .pairing-chevron {
+            transform: rotate(180deg);
+        }
+
+        .pairing-body {
+            padding: 0 var(--space-m) var(--space-s);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            border-top: 1px solid var(--horizon);
+        }
+
+        /* ---- Connections section ---- */
+        .connections-section {
+            padding: var(--space-xl) 0;
+            background: var(--bg-primary);
+        }
+
+        .connections-section h2 {
+            margin-bottom: var(--space-m);
+        }
+
+        .connections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-s);
+            margin-bottom: var(--space-l);
+        }
+
+        @media (max-width: 640px) {
+            .connections-grid { grid-template-columns: 1fr; }
+        }
+
+        .connection-card {
+            display: block;
+            padding: var(--space-m);
+            background: var(--bg-warm);
+            border: 1px solid var(--horizon);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .connection-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(26, 35, 50, 0.08);
+            color: var(--text-primary);
+        }
+
+        .connection-card-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            display: block;
+            margin-bottom: 0.4em;
+        }
+
+        .connection-card-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.4em;
+        }
+
+        .connection-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .lenses-cta {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-radius: 6px;
+            padding: var(--space-m) var(--space-l);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-m);
+            flex-wrap: wrap;
+        }
+
+        .lenses-cta-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .lenses-cta-text p {
+            font-size: 1rem;
+            color: #ccd0d8;
+            margin: 0.25em 0 0;
+        }
+
+        .lenses-cta h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .lenses-cta .cta-btn {
+            display: inline-block;
+            padding: 0.75em 1.75em;
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: 4px;
+            white-space: nowrap;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .lenses-cta .cta-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(212, 168, 67, 0.4);
+        }
+
+        /* Nav CTA */
+        .nav-cta {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5em 1.25em;
+            background: var(--accent-amber);
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(212, 168, 67, 0.2);
+        }
+        .nav-cta:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212, 168, 67, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-wordmark"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
+        <ul class="nav-links">
+            <li><a href="/programme/">Programme</a></li>
+            <li><a href="/lenses/" aria-current="page">Lenses</a></li>
+            <li><a href="/manifesto/">Manifesto</a></li>
+            <li><a href="/alternatives/">Alternatives</a></li>
+        </ul>
+        <a href="/programme/#signup-cta" class="nav-cta">Join the pilot cohort</a>
+    </nav>
+
+    <main id="main-content" tabindex="-1">
+
+        <!-- Header -->
+        <header class="lenses-header">
+            <svg class="lenses-atmosphere" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <!-- Decorative pentagon rings -->
+                <polygon points="210,30 380,148 320,350 100,350 40,148" fill="none" stroke="currentColor" stroke-width="0.8" color="#1A2332"/>
+                <polygon points="210,70 350,170 298,330 122,330 70,170" fill="none" stroke="currentColor" stroke-width="0.5" color="#1A2332"/>
+                <polygon points="210,110 320,192 276,310 144,310 100,192" fill="none" stroke="currentColor" stroke-width="0.3" color="#1A2332"/>
+                <!-- Radial lines from centre -->
+                <line x1="210" y1="210" x2="210" y2="30" stroke="currentColor" stroke-width="0.4" color="#1A2332" opacity="0.5"/>
+                <line x1="210" y1="210" x2="380" y2="148" stroke="currentColor" stroke-width="0.4" color="#1A2332" opacity="0.5"/>
+                <line x1="210" y1="210" x2="320" y2="350" stroke="currentColor" stroke-width="0.4" color="#1A2332" opacity="0.5"/>
+                <line x1="210" y1="210" x2="100" y2="350" stroke="currentColor" stroke-width="0.4" color="#1A2332" opacity="0.5"/>
+                <line x1="210" y1="210" x2="40" y2="148" stroke="currentColor" stroke-width="0.4" color="#1A2332" opacity="0.5"/>
+            </svg>
+            <div class="section-inner">
+                <h1 class="reveal">The Five Risk Lenses</h1>
+                <p class="lenses-subtitle reveal reveal-delay-1">Five lenses. Ten compounding overlaps. One central dependency risk.</p>
+            </div>
+        </header>
+
+        <!-- Five lens cards -->
+        <section class="lens-cards-section" aria-labelledby="lenses-heading">
+            <div class="section-inner">
+                <p class="lens-cards-intro reveal">These are the five lenses TechFreedom uses to assess a technology tool or platform. Each one asks a different question about risk. Scored together, they reveal something that no single question can: the overall shape of an organisation's dependency on tools it does not control.</p>
+
+                <ol class="lens-cards" id="lenses-heading">
+                    <li class="lens-card reveal">
+                        <span class="lens-card-number">01</span>
+                        <span class="lens-card-name">Jurisdiction</span>
+                        <p class="lens-card-question">Where does your data actually live, and under whose laws?</p>
+                        <p class="lens-card-body">Most organisations assume that data stored in a European data centre is governed by European law. This is not always the case. The nationality of the company that owns the platform, and the laws that govern its parent company, can determine who has the right to access your data. This lens asks: if a government agency came for your data, which government would it be?</p>
+                    </li>
+                    <li class="lens-card reveal reveal-delay-1">
+                        <span class="lens-card-number">02</span>
+                        <span class="lens-card-name">Continuity</span>
+                        <p class="lens-card-question">What happens when a platform changes the rules, the pricing, or simply disappears?</p>
+                        <p class="lens-card-body">Platforms make changes that are entirely within their rights and entirely outside your control. Pricing tiers collapse, features disappear behind paywalls, services are sunset. This lens asks: if this tool were unavailable tomorrow, what would break, and how quickly could you recover? It is a question about dependency depth, not just backup habits.</p>
+                    </li>
+                    <li class="lens-card reveal reveal-delay-2">
+                        <span class="lens-card-number">03</span>
+                        <span class="lens-card-name">Surveillance</span>
+                        <p class="lens-card-question">How much does your tech stack know about you, your staff, and the people you serve?</p>
+                        <p class="lens-card-body">Data collection is rarely disclosed clearly, and its implications are even less often considered. Social purpose organisations often hold information about vulnerable people whose privacy matters enormously. This lens asks: what is the surveillance footprint of each tool, and who benefits from the data that is collected? The answer is frequently not the organisation itself.</p>
+                    </li>
+                    <li class="lens-card reveal reveal-delay-3">
+                        <span class="lens-card-number">04</span>
+                        <span class="lens-card-name">Lock-in</span>
+                        <p class="lens-card-question">Could you leave if you wanted to? What would it cost?</p>
+                        <p class="lens-card-body">Switching costs are not just financial. They include the time to migrate data, the learning curve for staff, the loss of integrations, and the institutional knowledge embedded in how a tool has been configured. This lens asks: is your data portable, are there open standards, and what would a realistic exit actually look like? Some tools are genuinely easy to leave. Many are not.</p>
+                    </li>
+                    <li class="lens-card reveal reveal-delay-4">
+                        <span class="lens-card-number">05</span>
+                        <span class="lens-card-name">Cost Exposure</span>
+                        <p class="lens-card-question">How exposed are you to price changes and eliminated free tiers?</p>
+                        <p class="lens-card-body">Free tiers, nonprofit discounts, and introductory pricing are commercial decisions, not commitments. Vendors adjust them when the business case changes. This lens asks: what is the true long-term cost of this tool, and what would happen to your budget if the current pricing changed substantially? Many organisations discover this risk only when it is already a crisis.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Spotlight visualisation -->
+        <section class="spotlight-stage" aria-label="Risk lens visualisation">
+            <div class="spotlight-inner">
+                <p class="spotlight-heading">Where lenses overlap, risks compound</p>
+
+                <div class="stage-container" role="img" aria-label="Diagram of five coloured spotlights representing risk lenses: Jurisdiction (blue), Continuity (green), Surveillance (red), Lock-in (purple), and Cost Exposure (orange). Where spotlights overlap, new colours form, each representing a compounding risk. At the centre, all five converge into white light, representing total dependency risk.">
+                    <div class="stage" id="stage" aria-hidden="true"></div>
+
+                    <div class="visually-hidden">
+                        <h2>Risk lens overlaps</h2>
+                        <ul>
+                            <li>Teal: Jurisdiction plus Continuity. Regulatory exile. Foreign law, then the platform vanishes.</li>
+                            <li>Lavender: Jurisdiction plus Surveillance. Extraterritorial extraction. Your data under laws permitting surveillance you would never consent to.</li>
+                            <li>Indigo: Jurisdiction plus Lock-in. Captive to a foreign regime. Cannot leave, and the legal framework is not yours.</li>
+                            <li>Steel: Jurisdiction plus Cost Exposure. Price hikes, no exit. Vendor raises prices; foreign law makes migration harder.</li>
+                            <li>Yellow: Continuity plus Surveillance. Dead platform, living data. Service dies, but your behavioural data persists.</li>
+                            <li>Slate: Continuity plus Lock-in. The sunk cost trap. Platform declining, but you have built too deep to leave.</li>
+                            <li>Lime: Continuity plus Cost Exposure. The boiling frog. Gradual price increases on a platform you depend on.</li>
+                            <li>Magenta: Surveillance plus Lock-in. The panopticon you cannot leave. The more you use it, the more it knows; the more it knows, the harder to go.</li>
+                            <li>Vermilion: Surveillance plus Cost Exposure. Free means you are the product. The zero-cost tier is subsidised by data extraction.</li>
+                            <li>Bronze: Lock-in plus Cost Exposure. The ratchet. You cannot leave, so they charge what they like.</li>
+                            <li>White light: All five lenses converge. Dependency risk. A single point of failure where risks multiply.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Lens labels positioned outside the circle -->
+                    <div class="lens-label" style="top: -8px; left: 50%; transform: translateX(-50%);" aria-hidden="true">
+                        <span class="dot" style="background: #4488ff;"></span>Jurisdiction
+                    </div>
+                    <div class="lens-label" style="top: 28%; right: -20px; transform: translateY(-50%);" aria-hidden="true">
+                        <span class="dot" style="background: #33cc66;"></span>Continuity
+                    </div>
+                    <div class="lens-label" style="bottom: 8%; right: 2%;" aria-hidden="true">
+                        <span class="dot" style="background: #ff4455;"></span>Surveillance
+                    </div>
+                    <div class="lens-label" style="bottom: 8%; left: 2%;" aria-hidden="true">
+                        <span class="dot" style="background: #aa44dd;"></span>Lock-in
+                    </div>
+                    <div class="lens-label" style="top: 28%; left: -20px; transform: translateY(-50%);" aria-hidden="true">
+                        <span class="dot" style="background: #ff9922;"></span>Cost Exposure
+                    </div>
+
+                    <!-- 10 pairwise overlap labels -->
+                    <!-- Jurisdiction × Continuity = Teal -->
+                    <div class="overlap-label" style="top: 24%; left: 62%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #55ddaa;">Teal</span>
+                        <span class="risk-name">Regulatory exile</span>
+                    </div>
+                    <!-- Jurisdiction × Cost Exposure = Steel -->
+                    <div class="overlap-label" style="top: 24%; left: 38%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #bbaa88;">Steel</span>
+                        <span class="risk-name">Price hikes, no exit</span>
+                    </div>
+                    <!-- Continuity × Surveillance = Yellow -->
+                    <div class="overlap-label" style="top: 54%; left: 76%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #ddcc44;">Yellow</span>
+                        <span class="risk-name">Dead platform, living data</span>
+                    </div>
+                    <!-- Lock-in × Cost Exposure = Bronze -->
+                    <div class="overlap-label" style="top: 54%; left: 24%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #dd8844;">Bronze</span>
+                        <span class="risk-name">The ratchet</span>
+                    </div>
+                    <!-- Surveillance × Lock-in = Magenta -->
+                    <div class="overlap-label" style="top: 76%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true">
+                        <span class="colour-name" style="color: #ee66bb;">Magenta</span>
+                        <span class="risk-name">The panopticon you cannot leave</span>
+                    </div>
+                    <!-- Jurisdiction × Surveillance = Lavender -->
+                    <div class="overlap-label" style="top: 38%; left: 70%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #cc88ff;">Lavender</span>
+                        <span class="risk-name">Extraterritorial extraction</span>
+                    </div>
+                    <!-- Jurisdiction × Lock-in = Indigo -->
+                    <div class="overlap-label" style="top: 38%; left: 30%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #8877ff;">Indigo</span>
+                        <span class="risk-name">Captive to a foreign regime</span>
+                    </div>
+                    <!-- Continuity × Lock-in = Slate -->
+                    <div class="overlap-label" style="top: 66%; left: 66%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #99bbdd;">Slate</span>
+                        <span class="risk-name">The sunk cost trap</span>
+                    </div>
+                    <!-- Continuity × Cost Exposure = Lime -->
+                    <div class="overlap-label" style="top: 36%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true">
+                        <span class="colour-name" style="color: #bbee55;">Lime</span>
+                        <span class="risk-name">The boiling frog</span>
+                    </div>
+                    <!-- Surveillance × Cost Exposure = Vermilion -->
+                    <div class="overlap-label" style="top: 66%; left: 34%;" aria-hidden="true">
+                        <span class="colour-name" style="color: #ff8855;">Vermilion</span>
+                        <span class="risk-name">Free means you are the product</span>
+                    </div>
+
+                    <!-- Centre: all five overlap = White -->
+                    <div class="centre-label" aria-hidden="true">
+                        <span class="colour-name">White light</span>
+                        <span class="risk-name">Dependency risk</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dependency risk explanation -->
+        <section class="dependency-section" aria-labelledby="dependency-heading">
+            <div class="section-inner">
+                <h2 id="dependency-heading" class="reveal">The risk at the centre</h2>
+                <p class="reveal">When a tool scores high across several lenses at once, something important happens: the risks stop being separate problems and start behaving as a single compounding one. A tool that sits under foreign jurisdiction, that you cannot easily leave, and that collects significant data about your beneficiaries is not three problems. It is one problem with three reinforcing dimensions.</p>
+                <p class="reveal reveal-delay-1">The thing that sits at the centre of all five lenses is <strong>dependency risk</strong>: the degree to which an organisation has ceded control over a critical function to an external party whose interests may diverge from theirs. A tool scoring high across all five lenses represents a single point of failure. The organisation has effectively outsourced a core capability to an entity it does not control, cannot leave, cannot audit, and cannot budget for reliably.</p>
+                <blockquote class="dependency-callout reveal reveal-delay-2">
+                    The risks are not additive. They are multiplicative. This is why TechFreedom looks at the overall shape of a technology stack, not just individual scores.
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Ten pairings -->
+        <section class="pairings-section" aria-labelledby="pairings-heading">
+            <div class="section-inner--wide">
+                <h2 id="pairings-heading" class="reveal">The ten pairwise risks</h2>
+                <p class="pairings-intro reveal">Every combination of two lenses produces a distinct compounding risk with its own character. These are the ten pairings, each named for the situation it describes. Select any to read the full explanation.</p>
+
+                <div class="pairing-grid reveal reveal-delay-1">
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #55ddaa;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">Regulatory exile</span>
+                                <span class="pairing-lenses">Jurisdiction + Continuity</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            A platform under foreign law that then changes its terms or shuts down leaves you with no data and no recourse. You are subject to a legal regime that was never designed to protect you, and the service you depended on is gone.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #cc88ff;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">Extraterritorial extraction</span>
+                                <span class="pairing-lenses">Jurisdiction + Surveillance</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            Your data lives under a legal regime that permits surveillance you would never consent to domestically. Think of US CLOUD Act obligations meeting GDPR-governed beneficiary data. The platform collects it; a foreign government can access it.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #8877ff;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">Captive to a foreign regime</span>
+                                <span class="pairing-lenses">Jurisdiction + Lock-in</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            You cannot leave, and the legal framework governing your data is not yours to influence. The worst of both worlds: the tool is sticky and the law is foreign. Any remedies available to you are, practically speaking, inaccessible.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #bbaa88;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">Price hikes, no exit</span>
+                                <span class="pairing-lenses">Jurisdiction + Cost Exposure</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            The vendor raises prices and your data is governed by laws that make migration harder, or where portable formats are not mandated. You pay more because leaving is genuinely difficult, and the legal framework gives you little leverage.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #ddcc44;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">Dead platform, living data</span>
+                                <span class="pairing-lenses">Continuity + Surveillance</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            The service disappears but your behavioural data persists in their systems or those of their acquirers. The platform is gone; the data it collected is not. What happens to it, and who now controls it, may be impossible to determine.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #99bbdd;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">The sunk cost trap</span>
+                                <span class="pairing-lenses">Continuity + Lock-in</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            The platform is clearly declining but you have built so deeply on it that leaving is as painful as staying. The integration work, the training, the workflows: all of it becomes an argument for remaining on a sinking ship.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #bbee55;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">The boiling frog</span>
+                                <span class="pairing-lenses">Continuity + Cost Exposure</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            Gradual price increases on a platform you have come to depend on, with no guarantee of stability. Each individual increase seems manageable. The cumulative effect, over time, on an organisation without the reserves to absorb it, is not.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #ee66bb;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">The panopticon you cannot leave</span>
+                                <span class="pairing-lenses">Surveillance + Lock-in</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            The more you use it, the more it knows. The more it knows, the harder it is to go. Google Workspace for nonprofits is the clearest example: years of documents, email history, and integrations make the platform progressively harder to leave, while it accumulates an ever-deeper picture of the organisation.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #ff8855;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">Free means you are the product</span>
+                                <span class="pairing-lenses">Surveillance + Cost Exposure</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            The zero-cost tier is subsidised by data extraction. When the free tier ends, you pay twice: once in money, once in the data that was already collected. The apparent saving was always a deferred cost, and the data collected does not come back.
+                        </div>
+                    </details>
+
+                    <details class="pairing-card">
+                        <summary>
+                            <span class="pairing-swatch" style="background: #dd8844;" aria-hidden="true"></span>
+                            <span class="pairing-summary-text">
+                                <span class="pairing-title">The ratchet</span>
+                                <span class="pairing-lenses">Lock-in + Cost Exposure</span>
+                            </span>
+                            <svg class="pairing-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </summary>
+                        <div class="pairing-body">
+                            You cannot leave, so they can charge what they like. Salesforce for nonprofits after the free licences run out is the clearest example. The switching cost is so high that price increases become, in practice, unavoidable. The ratchet only turns one way.
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Connections -->
+        <section class="connections-section" aria-labelledby="connections-heading">
+            <div class="section-inner">
+                <h2 id="connections-heading" class="reveal">Put the lenses to work</h2>
+
+                <div class="connections-grid reveal reveal-delay-1">
+                    <a href="/assess/" class="connection-card">
+                        <span class="connection-card-label">Tool</span>
+                        <span class="connection-card-title">Risk Assessment</span>
+                        <span class="connection-card-desc">Score your own tech stack across all five lenses using the interactive assessment tool.</span>
+                    </a>
+                    <a href="/alternatives/" class="connection-card">
+                        <span class="connection-card-label">Database</span>
+                        <span class="connection-card-title">Alternatives</span>
+                        <span class="connection-card-desc">Browse tools pre-scored across all five lenses, with curated alternatives for each.</span>
+                    </a>
+                    <a href="/programme/" class="connection-card">
+                        <span class="connection-card-label">Programme</span>
+                        <span class="connection-card-title">The Cohort</span>
+                        <span class="connection-card-desc">Apply the lenses to your own stack with expert facilitation and peer support.</span>
+                    </a>
+                </div>
+
+                <div class="lenses-cta reveal reveal-delay-2">
+                    <div class="lenses-cta-text">
+                        <h3>Ready to assess your own stack?</h3>
+                        <p>Join a cohort of organisations doing this work together. Three sessions, real analysis, a flexible roadmap.</p>
+                    </div>
+                    <a href="/programme/#signup-cta" class="cta-btn">Join the pilot cohort</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="section-inner">
+            <div class="footer-inner">
+                <p class="footer-copyright">&copy; CC BY TechFreedom 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Navigation scroll effect
+            var nav = document.querySelector('.site-nav');
+            function handleScroll() {
+                nav.classList.toggle('scrolled', window.scrollY > 40);
+            }
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            handleScroll();
+
+            // Reveal on scroll (with reduced-motion fallback)
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion) {
+                var revealObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    revealObserver.observe(el);
+                });
+            } else {
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    el.classList.add('visible');
+                });
+            }
+
+            // Spotlight generation — proportional to container width
+            var stage = document.getElementById('stage');
+            if (!stage) return;
+
+            // Use a ResizeObserver so the diagram is always correct at any size
+            var drawn = false;
+            function drawSpotlights() {
+                if (drawn) return;
+                var container = stage.parentElement;
+                var size = container.offsetWidth;
+                if (size === 0) return;
+
+                drawn = true;
+
+                var cx = size * 0.5;
+                var cy = size * 0.512;     // slight vertical offset to match original
+                var R  = size * 0.213;     // pentagon radius (175/820)
+                var spotR = size * 0.317;  // spotlight radius (260/820)
+
+                var lenses = [
+                    { colour: [68, 136, 255],  angle: -90 },         // Jurisdiction
+                    { colour: [51, 204, 102],  angle: -90 + 72 },    // Continuity
+                    { colour: [255, 68, 85],   angle: -90 + 144 },   // Surveillance
+                    { colour: [170, 68, 221],  angle: -90 + 216 },   // Lock-in
+                    { colour: [255, 153, 34],  angle: -90 + 288 },   // Cost Exposure
+                ];
+
+                lenses.forEach(function(lens) {
+                    var rad = lens.angle * Math.PI / 180;
+                    var x = cx + R * Math.cos(rad);
+                    var y = cy + R * Math.sin(rad);
+                    var el = document.createElement('div');
+                    el.className = 'spotlight';
+                    var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
+                    el.style.width  = spotR * 2 + 'px';
+                    el.style.height = spotR * 2 + 'px';
+                    el.style.left   = (x - spotR) + 'px';
+                    el.style.top    = (y - spotR) + 'px';
+                    el.style.background = 'radial-gradient(circle, rgba(' + r + ',' + g + ',' + b + ',0.85) 0%, rgba(' + r + ',' + g + ',' + b + ',0.6) 25%, rgba(' + r + ',' + g + ',' + b + ',0.35) 45%, rgba(' + r + ',' + g + ',' + b + ',0.1) 65%, rgba(' + r + ',' + g + ',' + b + ',0.0) 80%)';
+                    stage.appendChild(el);
+                });
+
+                // White glow at centre
+                var glowR = size * 0.098; // 80/820
+                var glow = document.createElement('div');
+                glow.className = 'centre-glow';
+                glow.style.width  = glowR * 2 + 'px';
+                glow.style.height = glowR * 2 + 'px';
+                glow.style.left   = (cx - glowR) + 'px';
+                glow.style.top    = (cy - glowR) + 'px';
+                glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.0) 70%)';
+                glow.style.mixBlendMode = 'screen';
+                stage.appendChild(glow);
+            }
+
+            if (window.ResizeObserver) {
+                var ro = new ResizeObserver(drawSpotlights);
+                ro.observe(stage.parentElement);
+            } else {
+                drawSpotlights();
+            }
+
+        })();
+    </script>
+</body>
+</html>
