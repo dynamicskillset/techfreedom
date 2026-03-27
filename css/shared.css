@@ -197,6 +197,8 @@ a:hover {
 
 .section-inner--wide {
     max-width: var(--measure-wide);
+    margin: 0 auto;
+    padding: 0 var(--space-m);
 }
 
 /* ========================================
