@@ -148,7 +148,7 @@ export default function GameOverScreen({ state, onPlayAgain, onSubmitScore, scor
               <InitialsEntry onSubmit={handleInitials} />
             </>
           ) : (
-            <div>
+            <div className="mb-6">
               {scoreSubmitted && (
                 <p className="font-mono text-xs text-green-glow uppercase tracking-wider mb-4">
                   Score recorded
