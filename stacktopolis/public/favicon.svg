@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="4" fill="#F7F5F0"/>
+  <!-- Ground diamond -->
+  <polygon points="16,28 28,22 16,16 4,22" fill="#E8E5DD" stroke="#E0DDD5" stroke-width="0.5"/>
+  <!-- Small EU brick building -->
+  <polygon points="8,20 14,17 14,12 8,15" fill="#c17f4a"/>
+  <polygon points="14,17 20,20 20,15 14,12" fill="#8b5e3c"/>
+  <polygon points="8,15 14,12 20,15 14,18" fill="#e0a870"/>
+  <!-- Tall US glass building -->
+  <polygon points="14,22 20,19 20,8 14,11" fill="#4a90d9"/>
+  <polygon points="20,19 26,22 26,11 20,8" fill="#2c5f8a"/>
+  <polygon points="14,11 20,8 26,11 20,14" fill="#8ab4e8"/>
+  <!-- Small self-hosted shed -->
+  <polygon points="4,26 8,24 8,20 4,22" fill="#5a7a5a"/>
+  <polygon points="8,24 12,26 12,22 8,20" fill="#3d5a3d"/>
+  <polygon points="4,22 8,20 12,22 8,24" fill="#7a9a7a"/>
+  <!-- Tiny fire on the US building -->
+  <polygon points="17,8 18,5 19,8" fill="#C62828" opacity="0.8"/>
+  <polygon points="17.5,8 18,6 18.5,8" fill="#B85400" opacity="0.9"/>
+</svg>
