@@ -16,25 +16,27 @@ TechFreedom is a three-session cohort programme that examines your technology th
 - **Lock-in**: How difficult would it be to switch away?
 - **Cost Exposure**: What happens when pricing changes?
 
-The programme follows three stages: **SEE** (map your dependencies), **ASSESS** (score the risks), and **PLAN** (build a roadmap). £300 + VAT per organisation, 6-10 organisations per cohort.
+The programme follows three stages: **SEE** (map your dependencies), **ASSESS** (score the risks), and **PLAN** (build a roadmap). £300 + VAT per person, 6-10 organisations per cohort.
 
 ## Pages
 
 - `/` Landing page
 - `/programme/` Programme details (three sessions, pricing, FAQ, signup)
 - `/manifesto/` Seven principles for technology that serves your mission
+- `/lenses/` The five risk lenses and their compounding overlaps
 - `/assess/` Interactive tech stack risk assessment (choose an archetype or build your own)
 - `/alternatives/` Alternative tools comparison (27 common tools + 27 alternatives)
+- `/stacktopolis/` Satirical survival game about digital sovereignty (Vite + React)
 
 ## Tech
 
-No build step, no framework. HTML, CSS, and vanilla JS.
+Static HTML, CSS, and vanilla JS for the main site. Stacktopolis is a Vite + React app built during deployment.
 
 - **Typography**: Fraunces + DM Sans via [Bunny Fonts](https://fonts.bunny.net) (privacy-friendly)
 - **Analytics**: [Plausible](https://plausible.io) (privacy-friendly)
 - **Animations**: CSS keyframes + Intersection Observer
-- **Forms**: Netlify Forms with honeypot spam protection
-- **Hosting**: Netlify (auto-deploys from `main`)
+- **Payments**: Stripe
+- **Hosting**: BunnyCDN (auto-deploys from `main` via GitHub Actions)
 
 ## Local preview
 
