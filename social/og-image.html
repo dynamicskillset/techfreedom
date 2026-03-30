@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=fraunces:400,400i,600,700|dm-sans:400,500,600,700" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1200px;
+  height: 630px;
+  background: #1A2332;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 1;
+}
+
+svg.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 52px 64px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.wordmark {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #F7F5F0;
+  letter-spacing: -0.01em;
+}
+
+.wordmark em {
+  color: #D4A843;
+  font-style: normal;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #D4A843;
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 58px;
+  font-weight: 400;
+  line-height: 1.07;
+  color: #F7F5F0;
+  margin-bottom: 30px;
+  max-width: 720px;
+}
+
+.divider {
+  width: 44px;
+  height: 2px;
+  background: #D4A843;
+  margin-bottom: 28px;
+}
+
+.description {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(247, 245, 240, 0.6);
+  line-height: 1.5;
+  max-width: 560px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 36px;
+}
+
+.url {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(247, 245, 240, 0.35);
+  letter-spacing: 0.01em;
+}
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<svg class="bg" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D4A843" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#D4A843" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#D4A843" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cornerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2B6AB0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#2B6AB0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="0" cy="630" rx="400" ry="300" fill="url(#cornerGlow)"/>
+  <ellipse cx="1050" cy="160" rx="300" ry="240" fill="url(#glow)"/>
+  <g transform="translate(1050, 160)" fill="none" stroke="#D4A843">
+    <ellipse rx="65"  ry="52"  stroke-width="1"   opacity="0.22"/>
+    <ellipse rx="130" ry="104" stroke-width="0.9" opacity="0.16"/>
+    <ellipse rx="210" ry="168" stroke-width="0.8" opacity="0.11"/>
+    <ellipse rx="305" ry="244" stroke-width="0.6" opacity="0.07"/>
+    <ellipse rx="415" ry="332" stroke-width="0.5" opacity="0.05"/>
+    <ellipse rx="540" ry="432" stroke-width="0.4" opacity="0.035"/>
+    <ellipse rx="680" ry="544" stroke-width="0.3" opacity="0.025"/>
+  </g>
+</svg>
+
+<div class="content">
+  <div class="top">
+    <div class="wordmark">Tech<em>Freedom</em></div>
+  </div>
+
+  <div class="main">
+    <div class="eyebrow">Technology sovereignty for social purpose organisations</div>
+    <h1>A clearer forecast<br>for your organisation's<br>digital future.</h1>
+    <div class="divider"></div>
+    <div class="description">Helping VCSE organisations understand their technology dependencies and start making deliberate choices.</div>
+  </div>
+
+  <div class="footer">
+    <div class="url">techfreedom.eu</div>
+  </div>
+</div>
+
+</body>
+</html>
