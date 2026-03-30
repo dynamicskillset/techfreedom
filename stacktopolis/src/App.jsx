@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import { useGame } from './hooks/useGame'
-import { useLocalScores } from './hooks/useLocalScores'
+import { useLeaderboard } from './hooks/useLeaderboard'
 import TitleScreen from './components/screens/TitleScreen'
 import GameScreen from './components/screens/GameScreen'
 import GameOverScreen from './components/screens/GameOverScreen'
@@ -9,7 +9,7 @@ import MobileGate from './components/ui/MobileGate'
 
 function App() {
   const { state, actions } = useGame()
-  const { scores, addScore } = useLocalScores()
+  const { scores, addScore } = useLeaderboard()
   const [scoreSubmitted, setScoreSubmitted] = useState(false)
 
   const handleSubmitScore = useCallback((scoreData) => {

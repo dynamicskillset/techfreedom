@@ -1,0 +1,14 @@
+{
+  "name": "stacktopolis-leaderboard",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create stacktopolis-leaderboard",
+    "db:init": "wrangler d1 execute stacktopolis-leaderboard --file=schema.sql",
+    "db:init:local": "wrangler d1 execute stacktopolis-leaderboard --local --file=schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
