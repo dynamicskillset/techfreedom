@@ -14,6 +14,8 @@ export const DIFFICULTIES = {
     startingTools: 5,
     usWeight: 0.3,
     degradedCount: 0,
+    rampQuarters: 5,   // quarters to reach full drift speed
+    rampFloor: 0.2,    // starting drift multiplier (20%)
   },
   normal: {
     label: 'Normal',
@@ -25,6 +27,8 @@ export const DIFFICULTIES = {
     startingTools: 6,
     usWeight: 0.5,
     degradedCount: 1,
+    rampQuarters: 4,   // quarters to reach full drift speed
+    rampFloor: 0.25,   // starting drift multiplier (25%)
   },
   hard: {
     label: 'Hard',
@@ -36,6 +40,8 @@ export const DIFFICULTIES = {
     startingTools: 8,
     usWeight: 0.7,
     degradedCount: 2,
+    rampQuarters: 2,   // quarters to reach full drift speed
+    rampFloor: 0.5,    // starting drift multiplier (50%)
   },
 }
 

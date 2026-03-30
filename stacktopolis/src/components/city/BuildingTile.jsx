@@ -226,7 +226,10 @@ function BuildingTile({ tool, categoryId, onClick, isSelected, onClickEmpty }) {
         aria-hidden="true"
       />
 
-      <span className="text-xs font-mono text-terminal-muted text-center truncate w-full mt-1 select-none">
+      <span className="text-[10px] font-mono text-amber-glow uppercase tracking-wider text-center w-full mt-1 select-none">
+        {CATEGORY_LABELS[categoryId]}
+      </span>
+      <span className="text-[10px] font-mono text-terminal-muted text-center truncate w-full select-none leading-tight">
         {tool.name}
       </span>
     </Wrapper>
