@@ -1,12 +1,17 @@
+import { useEffect, useRef } from 'react'
 import { Pause } from 'lucide-react'
 
 export default function PauseOverlay({ onResume }) {
+  const ref = useRef(null)
+  useEffect(() => { ref.current?.focus() }, [])
+
   return (
     <div
+      ref={ref}
       className="absolute inset-0 z-50 flex items-center justify-center bg-terminal-bg/80 backdrop-blur-sm"
       onClick={onResume}
       onKeyDown={(e) => { if (e.key === 'Escape' || e.key === ' ') { e.preventDefault(); onResume() } }}
-      tabIndex={0}
+      tabIndex={-1}
       role="dialog"
       aria-modal="true"
       aria-label="Game paused. Click or press space to resume."

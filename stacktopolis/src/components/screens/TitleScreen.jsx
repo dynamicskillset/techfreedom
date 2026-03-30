@@ -260,6 +260,7 @@ export default function TitleScreen({ onStartGame, highScores }) {
                 <button
                   key={key}
                   onClick={() => setSelectedDifficulty(key)}
+                  aria-pressed={isSelected}
                   className={`px-4 py-1.5 min-h-[36px] font-mono text-xs uppercase tracking-wider rounded-full transition-colors ${
                     isSelected
                       ? 'bg-terminal-border text-terminal-text'

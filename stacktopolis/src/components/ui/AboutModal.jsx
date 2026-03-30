@@ -1,15 +1,36 @@
+import { useEffect, useRef } from 'react'
 import { X } from 'lucide-react'
 
 export default function AboutModal({ onClose }) {
+  const backdropRef = useRef(null)
+
+  useEffect(() => {
+    const dialog = backdropRef.current
+    if (!dialog) return
+    const focusable = dialog.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])')
+    if (focusable.length) focusable[0].focus()
+
+    function trapFocus(e) {
+      if (e.key !== 'Tab' || !focusable.length) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+    dialog.addEventListener('keydown', trapFocus)
+    return () => dialog.removeEventListener('keydown', trapFocus)
+  }, [])
+
   return (
     <div
+      ref={backdropRef}
       className="absolute inset-0 z-50 flex items-center justify-center bg-terminal-bg/80 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="About Stacktopolis"
       onKeyDown={(e) => { if (e.key === 'Escape') onClose() }}
-      tabIndex={0}
+      tabIndex={-1}
     >
       <div
         className="bg-terminal-surface border border-terminal-border rounded-lg p-8 max-w-lg w-full mx-4 animate-fade-in"

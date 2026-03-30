@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useEffect } from 'react'
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react'
 import NewsTicker from '../layout/NewsTicker'
 import CityGrid from '../city/CityGrid'
 import CityAmbience from '../city/CityAmbience'
@@ -77,6 +77,26 @@ export default function GameScreen({ state, actions }) {
     if (state.isPaused) actions.togglePause()
   }, [state.isPaused, actions])
 
+  // Live region for screen reader announcements
+  const [announcement, setAnnouncement] = useState('')
+  const prevQueueLen = useRef(state.colleagueQueue.length)
+  const prevQuarter = useRef(state.quarter)
+
+  useEffect(() => {
+    if (state.colleagueQueue.length > prevQueueLen.current) {
+      const newest = state.colleagueQueue[state.colleagueQueue.length - 1]
+      if (newest) setAnnouncement(`${newest.colleagueName} has arrived with a decision`)
+    }
+    prevQueueLen.current = state.colleagueQueue.length
+  }, [state.colleagueQueue.length])
+
+  useEffect(() => {
+    if (state.quarter > prevQuarter.current) {
+      setAnnouncement(`Quarter ${state.quarter}. Budget: ${state.budget}. Morale: ${state.morale}.`)
+    }
+    prevQuarter.current = state.quarter
+  }, [state.quarter, state.budget, state.morale])
+
   // Manual line overrides auto advisor line
   const displayLine = manualLine || advisorLine
   // Clear manual line after it's been shown
@@ -88,6 +108,7 @@ export default function GameScreen({ state, actions }) {
     <div
       className={`min-h-screen flex flex-col relative crt-scanlines bg-terminal-bg ${state.shakeScreen ? 'animate-shake' : ''}`}
     >
+      <div className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</div>
       <Skyline dangerLevel={dangerLevel} />
 
       <div
@@ -108,7 +129,7 @@ export default function GameScreen({ state, actions }) {
 
       <NewsTicker headlines={state.pastHeadlines} />
 
-      <main className="flex-1 grid grid-cols-1 lg:grid-cols-5 gap-3 p-3 sm:p-4 overflow-y-auto relative z-10">
+      <main id="main-content" className="flex-1 grid grid-cols-1 lg:grid-cols-5 gap-3 p-3 sm:p-4 overflow-y-auto relative z-10">
         {/* Left column: City + Inspector + Advisor */}
         <section className="lg:col-span-3 min-h-0 flex flex-col" aria-label="City grid and advisor">
           <h2 className={`font-mono text-xs uppercase tracking-widest text-terminal-muted mb-2 ${isGlitching ? 'animate-glitch' : ''}`}>
