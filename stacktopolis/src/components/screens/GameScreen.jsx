@@ -77,22 +77,24 @@ export default function GameScreen({ state, actions }) {
     if (state.isPaused) actions.togglePause()
   }, [state.isPaused, actions])
 
-  // Live region for screen reader announcements
-  const [announcement, setAnnouncement] = useState('')
+  // Live region for screen reader announcements (ref-based to avoid setState in effects)
+  const liveRef = useRef(null)
   const prevQueueLen = useRef(state.colleagueQueue.length)
   const prevQuarter = useRef(state.quarter)
 
   useEffect(() => {
+    if (!liveRef.current) return
     if (state.colleagueQueue.length > prevQueueLen.current) {
       const newest = state.colleagueQueue[state.colleagueQueue.length - 1]
-      if (newest) setAnnouncement(`${newest.colleagueName} has arrived with a decision`)
+      if (newest) liveRef.current.textContent = `${newest.colleagueName} has arrived with a decision`
     }
     prevQueueLen.current = state.colleagueQueue.length
-  }, [state.colleagueQueue.length])
+  }, [state.colleagueQueue.length, state.colleagueQueue])
 
   useEffect(() => {
+    if (!liveRef.current) return
     if (state.quarter > prevQuarter.current) {
-      setAnnouncement(`Quarter ${state.quarter}. Budget: ${state.budget}. Morale: ${state.morale}.`)
+      liveRef.current.textContent = `Quarter ${state.quarter}. Budget: ${state.budget}. Morale: ${state.morale}.`
     }
     prevQuarter.current = state.quarter
   }, [state.quarter, state.budget, state.morale])
@@ -108,7 +110,7 @@ export default function GameScreen({ state, actions }) {
     <div
       className={`min-h-screen flex flex-col relative crt-scanlines bg-terminal-bg ${state.shakeScreen ? 'animate-shake' : ''}`}
     >
-      <div className="sr-only" aria-live="polite" aria-atomic="true">{announcement}</div>
+      <div ref={liveRef} className="sr-only" aria-live="polite" aria-atomic="true" />
       <Skyline dangerLevel={dangerLevel} />
 
       <div
