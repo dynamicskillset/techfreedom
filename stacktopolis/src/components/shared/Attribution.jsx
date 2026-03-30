@@ -15,7 +15,7 @@ export default function Attribution({ onAbout }) {
       </div>
       <div className="flex items-center justify-center gap-3">
         <a
-          href="https://github.com/dynamicskillset/stacktopolis"
+          href="https://github.com/dynamicskillset/techfreedom"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 hover:text-terminal-text transition-colors"
