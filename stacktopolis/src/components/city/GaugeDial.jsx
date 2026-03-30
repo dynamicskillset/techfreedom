@@ -17,7 +17,7 @@ function describeArc(cx, cy, r, startAngle, sweepDeg) {
 const ARC_START = 210
 const FULL_SWEEP = 240
 
-export default function GaugeDial({ label, value, colour, onClick }) {
+export default function GaugeDial({ label, value, colour, onClick, showAlert = true }) {
   const cx = 45
   const cy = 45
   const r = 34
@@ -86,7 +86,7 @@ export default function GaugeDial({ label, value, colour, onClick }) {
 
         <DeltaIndicator value={value} label={label} />
 
-        {isAlert && (
+        {isAlert && showAlert && (
           <span
             className="absolute top-1 right-1 block w-2 h-2 rounded-full bg-danger animate-pulse-glow"
             style={{ boxShadow: '0 0 6px var(--color-danger)' }}

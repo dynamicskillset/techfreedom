@@ -127,9 +127,9 @@ export default function GameOverScreen({ state, onPlayAgain, onSubmitScore, scor
             Risk Assessment
           </h3>
           <div className="flex justify-center gap-8">
-            <GaugeDial label="Jurisdiction" value={state.jurisdiction} colour="var(--color-risk-jurisdiction)" />
-            <GaugeDial label="Continuity" value={state.continuity} colour="var(--color-risk-continuity)" />
-            <GaugeDial label="Surveillance" value={state.surveillance} colour="var(--color-risk-surveillance)" />
+            <GaugeDial label="Jurisdiction" value={state.jurisdiction} colour="var(--color-risk-jurisdiction)" showAlert={false} />
+            <GaugeDial label="Continuity" value={state.continuity} colour="var(--color-risk-continuity)" showAlert={false} />
+            <GaugeDial label="Surveillance" value={state.surveillance} colour="var(--color-risk-surveillance)" showAlert={false} />
           </div>
         </div>
 
