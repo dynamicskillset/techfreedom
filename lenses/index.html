@@ -172,12 +172,10 @@
         /* ---- Spotlight stage ---- */
         .spotlight-stage {
             background: #1a1a2e;
-            /* Gradient fade-in from cream at top */
             padding: 0;
             position: relative;
         }
 
-        /* Gradient transitions at top and bottom edges */
         .spotlight-stage::before,
         .spotlight-stage::after {
             content: '';
@@ -203,32 +201,34 @@
         }
 
         .spotlight-heading {
-            color: #e0e0e0;
+            color: #aaaacc;
             text-align: center;
-            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-size: clamp(1rem, 3vw, 1.05rem);
+            font-style: italic;
             font-weight: 400;
             margin-bottom: var(--space-s);
             letter-spacing: 0.01em;
         }
 
-        /* Stage container — responsive */
         .stage-container {
             position: relative;
-            width: min(820px, 90vw);
-            aspect-ratio: 1;
+            width: min(960px, 95vw);
+            aspect-ratio: 960 / 900;
             flex-shrink: 0;
             margin: 0 auto;
         }
 
         .stage {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 4.17%;
+            width: 91.67%;
+            height: 97.78%;
             border-radius: 50%;
             background: radial-gradient(circle, #0a0a18 0%, #1a1a2e 100%);
             overflow: hidden;
         }
 
-        /* Spotlight circles — additive blending */
         .spotlight {
             position: absolute;
             border-radius: 50%;
@@ -242,12 +242,11 @@
             pointer-events: none;
         }
 
-        /* Lens labels around the outside */
         .lens-label {
             position: absolute;
             text-align: center;
             font-weight: 700;
-            font-size: clamp(0.65rem, 1.5vw, 0.9rem);
+            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
             text-transform: uppercase;
             letter-spacing: 0.08em;
             white-space: nowrap;
@@ -265,38 +264,36 @@
             border: 2px solid rgba(255,255,255,0.3);
         }
 
-        /* Overlap labels */
         .overlap-label {
             position: absolute;
             text-align: center;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            max-width: 19.5%;
-            background: rgba(10, 10, 24, 0.8);
+            max-width: 19%;
+            background: rgba(10, 10, 24, 0.82);
             border-radius: 8px;
-            padding: 5px 10px;
+            padding: 6px 12px;
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
         }
 
-        .overlap-label .colour-name {
-            font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+        .overlap-label .phrase {
+            font-size: clamp(0.55rem, 1.2vw, 0.8rem);
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            color: #fff;
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
+            line-height: 1.25;
         }
 
-        .overlap-label .risk-name {
-            font-size: clamp(0.5rem, 1.1vw, 0.7rem);
+        .overlap-label .pairing {
+            font-size: clamp(0.45rem, 1vw, 0.68rem);
             font-weight: 500;
-            color: #ccc;
+            color: #999;
             display: block;
             line-height: 1.3;
         }
 
-        /* Centre label */
         .centre-label {
             position: absolute;
             top: 50%;
@@ -310,31 +307,30 @@
             padding: 8px 16px;
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.25);
         }
 
-        .centre-label .colour-name {
-            font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+        .centre-label .phrase {
+            font-size: clamp(0.7rem, 1.5vw, 0.95rem);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
             color: #fff;
             text-shadow: 0 0 20px rgba(255,255,255,0.8);
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
-        .centre-label .risk-name {
-            font-size: clamp(0.6rem, 1.3vw, 0.75rem);
-            font-weight: 600;
-            color: #ffffffdd;
-            text-shadow: 0 0 12px rgba(255,255,255,0.5);
+        .centre-label .pairing {
+            font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+            font-weight: 500;
+            color: #ffffffbb;
+            text-shadow: 0 0 12px rgba(255,255,255,0.4);
         }
 
-        /* Hide overlap labels at very small sizes where they become illegible */
         @media (max-width: 500px) {
             .overlap-label { display: none; }
-            .lens-label { font-size: 0.55rem; letter-spacing: 0.04em; }
+            .lens-label { font-size: 0.5rem; letter-spacing: 0.04em; }
         }
 
         /* Screen-reader-only */
@@ -712,99 +708,93 @@
             <div class="spotlight-inner">
                 <p class="spotlight-heading">Where lenses overlap, risks compound</p>
 
-                <div class="stage-container" role="img" aria-label="Diagram of five coloured spotlights representing risk lenses: Jurisdiction (blue), Continuity (green), Surveillance (red), Lock-in (purple), and Cost Exposure (orange). Where spotlights overlap, new colours form, each representing a compounding risk. At the centre, all five converge into white light, representing total dependency risk.">
+                <div class="stage-container" role="img" aria-label="Diagram of five coloured spotlights representing risk lenses. Where they overlap, compounding risks are named. At the centre, all five converge, representing total dependency risk.">
                     <div class="stage" id="stage" aria-hidden="true"></div>
 
                     <div class="visually-hidden">
                         <h2>Risk lens overlaps</h2>
                         <ul>
-                            <li>Teal: Jurisdiction plus Continuity. Regulatory exile. Foreign law, then the platform vanishes.</li>
-                            <li>Lavender: Jurisdiction plus Surveillance. Extraterritorial extraction. Your data under laws permitting surveillance you would never consent to.</li>
-                            <li>Indigo: Jurisdiction plus Lock-in. Captive to a foreign regime. Cannot leave, and the legal framework is not yours.</li>
-                            <li>Steel: Jurisdiction plus Cost Exposure. Price hikes, no exit. Vendor raises prices; foreign law makes migration harder.</li>
-                            <li>Yellow: Continuity plus Surveillance. Dead platform, living data. Service dies, but your behavioural data persists.</li>
-                            <li>Slate: Continuity plus Lock-in. The sunk cost trap. Platform declining, but you have built too deep to leave.</li>
-                            <li>Lime: Continuity plus Cost Exposure. The boiling frog. Gradual price increases on a platform you depend on.</li>
-                            <li>Magenta: Surveillance plus Lock-in. The panopticon you cannot leave. The more you use it, the more it knows; the more it knows, the harder to go.</li>
-                            <li>Vermilion: Surveillance plus Cost Exposure. Free means you are the product. The zero-cost tier is subsidised by data extraction.</li>
-                            <li>Bronze: Lock-in plus Cost Exposure. The ratchet. You cannot leave, so they charge what they like.</li>
-                            <li>White light: All five lenses converge. Dependency risk. A single point of failure where risks multiply.</li>
+                            <li>Jurisdiction times Continuity: Regulatory exile</li>
+                            <li>Jurisdiction times Surveillance: Extraterritorial extraction</li>
+                            <li>Jurisdiction times Lock-in: Captive to a foreign regime</li>
+                            <li>Jurisdiction times Cost Exposure: Price hikes, no exit</li>
+                            <li>Continuity times Surveillance: Dead platform, living data</li>
+                            <li>Continuity times Lock-in: The sunk cost trap</li>
+                            <li>Continuity times Cost Exposure: The boiling frog</li>
+                            <li>Surveillance times Lock-in: The panopticon you cannot leave</li>
+                            <li>Surveillance times Cost Exposure: Free means you are the product</li>
+                            <li>Lock-in times Cost Exposure: The ratchet</li>
+                            <li>All five lenses converge: Dependency risk</li>
                         </ul>
                     </div>
 
-                    <!-- Lens labels positioned outside the circle -->
+                    <!-- Lens labels -->
                     <div class="lens-label" style="top: -8px; left: 50%; transform: translateX(-50%);" aria-hidden="true">
                         <span class="dot" style="background: #4488ff;"></span>Jurisdiction
                     </div>
-                    <div class="lens-label" style="top: 28%; right: -20px; transform: translateY(-50%);" aria-hidden="true">
+                    <div class="lens-label" style="top: 28%; right: 12px; transform: translateY(-50%);" aria-hidden="true">
                         <span class="dot" style="background: #33cc66;"></span>Continuity
                     </div>
-                    <div class="lens-label" style="bottom: 8%; right: 2%;" aria-hidden="true">
+                    <div class="lens-label" style="bottom: 6%; right: 4%;" aria-hidden="true">
                         <span class="dot" style="background: #ff4455;"></span>Surveillance
                     </div>
-                    <div class="lens-label" style="bottom: 8%; left: 2%;" aria-hidden="true">
+                    <div class="lens-label" style="bottom: 6%; left: 4%;" aria-hidden="true">
                         <span class="dot" style="background: #aa44dd;"></span>Lock-in
                     </div>
-                    <div class="lens-label" style="top: 28%; left: -20px; transform: translateY(-50%);" aria-hidden="true">
+                    <div class="lens-label" style="top: 28%; left: 12px; transform: translateY(-50%);" aria-hidden="true">
                         <span class="dot" style="background: #ff9922;"></span>Cost Exposure
                     </div>
 
-                    <!-- 10 pairwise overlap labels -->
-                    <!-- Jurisdiction × Continuity = Teal -->
-                    <div class="overlap-label" style="top: 24%; left: 62%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #55ddaa;">Teal</span>
-                        <span class="risk-name">Regulatory exile</span>
+                    <!-- Outer ring: adjacent pairs -->
+                    <div class="overlap-label" style="top: 19%; left: 65%;" aria-hidden="true">
+                        <span class="phrase">Regulatory exile</span>
+                        <span class="pairing">Jurisdiction × Continuity</span>
                     </div>
-                    <!-- Jurisdiction × Cost Exposure = Steel -->
-                    <div class="overlap-label" style="top: 24%; left: 38%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #bbaa88;">Steel</span>
-                        <span class="risk-name">Price hikes, no exit</span>
+                    <div class="overlap-label" style="top: 19%; left: 35%;" aria-hidden="true">
+                        <span class="phrase">Price hikes, no exit</span>
+                        <span class="pairing">Jurisdiction × Cost Exposure</span>
                     </div>
-                    <!-- Continuity × Surveillance = Yellow -->
-                    <div class="overlap-label" style="top: 54%; left: 76%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #ddcc44;">Yellow</span>
-                        <span class="risk-name">Dead platform, living data</span>
+                    <div class="overlap-label" style="top: 55%; left: 80%;" aria-hidden="true">
+                        <span class="phrase">Dead platform, living data</span>
+                        <span class="pairing">Continuity × Surveillance</span>
                     </div>
-                    <!-- Lock-in × Cost Exposure = Bronze -->
-                    <div class="overlap-label" style="top: 54%; left: 24%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #dd8844;">Bronze</span>
-                        <span class="risk-name">The ratchet</span>
+                    <div class="overlap-label" style="top: 55%; left: 20%;" aria-hidden="true">
+                        <span class="phrase">The ratchet</span>
+                        <span class="pairing">Lock-in × Cost Exposure</span>
                     </div>
-                    <!-- Surveillance × Lock-in = Magenta -->
-                    <div class="overlap-label" style="top: 76%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true">
-                        <span class="colour-name" style="color: #ee66bb;">Magenta</span>
-                        <span class="risk-name">The panopticon you cannot leave</span>
-                    </div>
-                    <!-- Jurisdiction × Surveillance = Lavender -->
-                    <div class="overlap-label" style="top: 38%; left: 70%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #cc88ff;">Lavender</span>
-                        <span class="risk-name">Extraterritorial extraction</span>
-                    </div>
-                    <!-- Jurisdiction × Lock-in = Indigo -->
-                    <div class="overlap-label" style="top: 38%; left: 30%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #8877ff;">Indigo</span>
-                        <span class="risk-name">Captive to a foreign regime</span>
-                    </div>
-                    <!-- Continuity × Lock-in = Slate -->
-                    <div class="overlap-label" style="top: 66%; left: 66%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #99bbdd;">Slate</span>
-                        <span class="risk-name">The sunk cost trap</span>
-                    </div>
-                    <!-- Continuity × Cost Exposure = Lime -->
-                    <div class="overlap-label" style="top: 36%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true">
-                        <span class="colour-name" style="color: #bbee55;">Lime</span>
-                        <span class="risk-name">The boiling frog</span>
-                    </div>
-                    <!-- Surveillance × Cost Exposure = Vermilion -->
-                    <div class="overlap-label" style="top: 66%; left: 34%;" aria-hidden="true">
-                        <span class="colour-name" style="color: #ff8855;">Vermilion</span>
-                        <span class="risk-name">Free means you are the product</span>
+                    <div class="overlap-label" style="top: 80%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true">
+                        <span class="phrase">The panopticon you can't leave</span>
+                        <span class="pairing">Surveillance × Lock-in</span>
                     </div>
 
-                    <!-- Centre: all five overlap = White -->
+                    <!-- Middle ring: skip-one pairs -->
+                    <div class="overlap-label" style="top: 36%; left: 72%;" aria-hidden="true">
+                        <span class="phrase">Extraterritorial extraction</span>
+                        <span class="pairing">Jurisdiction × Surveillance</span>
+                    </div>
+                    <div class="overlap-label" style="top: 36%; left: 28%;" aria-hidden="true">
+                        <span class="phrase">Captive to a foreign regime</span>
+                        <span class="pairing">Jurisdiction × Lock-in</span>
+                    </div>
+                    <div class="overlap-label" style="top: 69%; left: 68%;" aria-hidden="true">
+                        <span class="phrase">The sunk cost trap</span>
+                        <span class="pairing">Continuity × Lock-in</span>
+                    </div>
+                    <div class="overlap-label" style="top: 69%; left: 32%;" aria-hidden="true">
+                        <span class="phrase">Free means you're the product</span>
+                        <span class="pairing">Surveillance × Cost Exposure</span>
+                    </div>
+
+                    <!-- Inner ring -->
+                    <div class="overlap-label" style="top: 33%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true">
+                        <span class="phrase">The boiling frog</span>
+                        <span class="pairing">Continuity × Cost Exposure</span>
+                    </div>
+
+                    <!-- Centre -->
                     <div class="centre-label" aria-hidden="true">
-                        <span class="colour-name">White light</span>
-                        <span class="risk-name">Dependency risk</span>
+                        <span class="phrase">Dependency risk</span>
+                        <span class="pairing">All five lenses converge</span>
                     </div>
                 </div>
             </div>
@@ -1049,66 +1039,65 @@
                 });
             }
 
-            // Spotlight generation — proportional to container width
+
+            // Spotlight generation — proportional to container
             var stage = document.getElementById('stage');
-            if (!stage) return;
+            if (stage) {
+                var drawn = false;
+                function drawSpotlights() {
+                    if (drawn) return;
+                    var container = stage.parentElement;
+                    var w = container.offsetWidth;
+                    if (w === 0) return;
+                    drawn = true;
 
-            // Use a ResizeObserver so the diagram is always correct at any size
-            var drawn = false;
-            function drawSpotlights() {
-                if (drawn) return;
-                var container = stage.parentElement;
-                var size = container.offsetWidth;
-                if (size === 0) return;
+                    // Scale from the 960px reference design
+                    var s = w / 960;
+                    var cx = 480 * s, cy = 460 * s;
+                    var R = 185 * s;
+                    var spotR = 275 * s;
 
-                drawn = true;
+                    var lenses = [
+                        { colour: [68, 136, 255],  angle: -90 },
+                        { colour: [51, 204, 102],  angle: -90 + 72 },
+                        { colour: [255, 68, 85],   angle: -90 + 144 },
+                        { colour: [170, 68, 221],  angle: -90 + 216 },
+                        { colour: [255, 153, 34],  angle: -90 + 288 },
+                    ];
 
-                var cx = size * 0.5;
-                var cy = size * 0.512;     // slight vertical offset to match original
-                var R  = size * 0.213;     // pentagon radius (175/820)
-                var spotR = size * 0.317;  // spotlight radius (260/820)
+                    lenses.forEach(function(lens) {
+                        var rad = lens.angle * Math.PI / 180;
+                        var x = cx + R * Math.cos(rad);
+                        var y = cy + R * Math.sin(rad);
+                        var el = document.createElement('div');
+                        el.className = 'spotlight';
+                        var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
+                        el.style.width  = spotR * 2 + 'px';
+                        el.style.height = spotR * 2 + 'px';
+                        el.style.left   = (x - spotR) + 'px';
+                        el.style.top    = (y - spotR) + 'px';
+                        el.style.background = 'radial-gradient(circle, rgba(' + r + ',' + g + ',' + b + ',0.85) 0%, rgba(' + r + ',' + g + ',' + b + ',0.6) 25%, rgba(' + r + ',' + g + ',' + b + ',0.35) 45%, rgba(' + r + ',' + g + ',' + b + ',0.1) 65%, rgba(' + r + ',' + g + ',' + b + ',0.0) 80%)';
+                        stage.appendChild(el);
+                    });
 
-                var lenses = [
-                    { colour: [68, 136, 255],  angle: -90 },         // Jurisdiction
-                    { colour: [51, 204, 102],  angle: -90 + 72 },    // Continuity
-                    { colour: [255, 68, 85],   angle: -90 + 144 },   // Surveillance
-                    { colour: [170, 68, 221],  angle: -90 + 216 },   // Lock-in
-                    { colour: [255, 153, 34],  angle: -90 + 288 },   // Cost Exposure
-                ];
+                    var glowR = 85 * s;
+                    var glow = document.createElement('div');
+                    glow.className = 'centre-glow';
+                    glow.style.width  = glowR * 2 + 'px';
+                    glow.style.height = glowR * 2 + 'px';
+                    glow.style.left   = (cx - glowR) + 'px';
+                    glow.style.top    = (cy - glowR) + 'px';
+                    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.0) 70%)';
+                    glow.style.mixBlendMode = 'screen';
+                    stage.appendChild(glow);
+                }
 
-                lenses.forEach(function(lens) {
-                    var rad = lens.angle * Math.PI / 180;
-                    var x = cx + R * Math.cos(rad);
-                    var y = cy + R * Math.sin(rad);
-                    var el = document.createElement('div');
-                    el.className = 'spotlight';
-                    var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
-                    el.style.width  = spotR * 2 + 'px';
-                    el.style.height = spotR * 2 + 'px';
-                    el.style.left   = (x - spotR) + 'px';
-                    el.style.top    = (y - spotR) + 'px';
-                    el.style.background = 'radial-gradient(circle, rgba(' + r + ',' + g + ',' + b + ',0.85) 0%, rgba(' + r + ',' + g + ',' + b + ',0.6) 25%, rgba(' + r + ',' + g + ',' + b + ',0.35) 45%, rgba(' + r + ',' + g + ',' + b + ',0.1) 65%, rgba(' + r + ',' + g + ',' + b + ',0.0) 80%)';
-                    stage.appendChild(el);
-                });
-
-                // White glow at centre
-                var glowR = size * 0.098; // 80/820
-                var glow = document.createElement('div');
-                glow.className = 'centre-glow';
-                glow.style.width  = glowR * 2 + 'px';
-                glow.style.height = glowR * 2 + 'px';
-                glow.style.left   = (cx - glowR) + 'px';
-                glow.style.top    = (cy - glowR) + 'px';
-                glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.0) 70%)';
-                glow.style.mixBlendMode = 'screen';
-                stage.appendChild(glow);
-            }
-
-            if (window.ResizeObserver) {
-                var ro = new ResizeObserver(drawSpotlights);
-                ro.observe(stage.parentElement);
-            } else {
-                drawSpotlights();
+                if (window.ResizeObserver) {
+                    var ro = new ResizeObserver(drawSpotlights);
+                    ro.observe(stage.parentElement);
+                } else {
+                    drawSpotlights();
+                }
             }
 
         })();
