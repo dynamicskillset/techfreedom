@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 
-const API_URL = import.meta.env.VITE_LEADERBOARD_URL || '/api'
+const API_URL = import.meta.env.VITE_LEADERBOARD_URL || 'https://stacktopolis-g8ng0.bunny.run'
 
 export function useLeaderboard() {
   const [scores, setScores] = useState([])
@@ -30,7 +30,6 @@ export function useLeaderboard() {
         body: JSON.stringify(score),
       })
       if (res.ok) {
-        // Refetch to get updated leaderboard position
         await fetchScores()
       }
     } catch {
