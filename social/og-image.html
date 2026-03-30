@@ -1,37 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=fraunces:400,400i,600,700|dm-sans:400,500,600,700" rel="stylesheet">
+<link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,600,700|dm-sans:400,500,600,700" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   width: 1200px;
   height: 630px;
-  background: #1A2332;
+  background: #F7F5F0;
   font-family: 'DM Sans', sans-serif;
   overflow: hidden;
   position: relative;
 }
 
-.noise {
+body::before {
+  content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  opacity: 0.025;
-  pointer-events: none;
-  z-index: 1;
+  background:
+    radial-gradient(ellipse 120% 80% at 30% 20%, rgba(74, 144, 217, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 60% at 80% 60%, rgba(212, 168, 67, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #F7F5F0 0%, #F0EDE5 100%);
+  z-index: 0;
 }
 
-svg.bg {
+.cloud {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cloud--1 {
+  top: 4%;
+  right: -3%;
+  width: 480px;
+  color: rgba(74, 143, 217, 0.12);
+}
+
+.cloud--2 {
+  top: 20%;
+  left: -5%;
+  width: 400px;
+  color: rgba(212, 168, 67, 0.14);
+}
+
+.cloud--3 {
+  bottom: 22%;
+  right: 6%;
+  width: 280px;
+  color: rgba(74, 143, 217, 0.10);
+}
+
+.rays {
+  position: absolute;
+  top: -8%;
+  right: -3%;
+  width: 640px;
+  height: 640px;
+  z-index: 1;
+  pointer-events: none;
+  color: rgba(212, 168, 67, 0.22);
+  opacity: 0.8;
+}
+
+.horizon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(26, 35, 50, 0.06) 20%, rgba(26, 35, 50, 0.06) 80%, transparent 100%);
+  z-index: 3;
 }
 
 .content {
@@ -41,26 +83,16 @@ svg.bg {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 52px 64px;
-}
-
-.top {
-  display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  padding: 52px 64px 48px;
 }
 
-.wordmark {
-  font-family: 'Fraunces', serif;
-  font-size: 22px;
-  font-weight: 400;
-  color: #F7F5F0;
-  letter-spacing: -0.01em;
-}
-
-.wordmark em {
-  color: #D4A843;
-  font-style: normal;
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #636B78;
 }
 
 .main {
@@ -70,37 +102,24 @@ svg.bg {
   justify-content: center;
 }
 
-.eyebrow {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: #D4A843;
-  margin-bottom: 18px;
-}
-
 h1 {
   font-family: 'Fraunces', serif;
-  font-size: 58px;
+  font-size: 72px;
   font-weight: 400;
-  line-height: 1.07;
-  color: #F7F5F0;
-  margin-bottom: 30px;
-  max-width: 720px;
+  line-height: 1.05;
+  color: #1A2332;
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
 }
 
-.divider {
-  width: 44px;
-  height: 2px;
-  background: #D4A843;
-  margin-bottom: 28px;
-}
-
-.description {
-  font-size: 20px;
-  font-weight: 400;
-  color: rgba(247, 245, 240, 0.6);
-  line-height: 1.5;
+.tagline {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 300;
+  font-style: italic;
+  color: #2B6AB0;
+  line-height: 1.35;
+  font-variation-settings: 'opsz' 48;
   max-width: 560px;
 }
 
@@ -108,7 +127,6 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-top: 36px;
 }
 
 .url {
@@ -116,54 +134,55 @@ h1 {
   font-size: 17px;
   font-weight: 400;
   font-style: italic;
-  color: rgba(247, 245, 240, 0.35);
+  color: rgba(26, 35, 50, 0.35);
   letter-spacing: 0.01em;
+}
+
+.description {
+  font-size: 15px;
+  font-weight: 400;
+  color: #3D4A5C;
+  line-height: 1.5;
+  max-width: 420px;
+  text-align: right;
 }
 </style>
 </head>
 <body>
 
-<div class="noise"></div>
-
-<svg class="bg" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#D4A843" stop-opacity="0.14"/>
-      <stop offset="60%" stop-color="#D4A843" stop-opacity="0.04"/>
-      <stop offset="100%" stop-color="#D4A843" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="cornerGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#2B6AB0" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#2B6AB0" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <ellipse cx="0" cy="630" rx="400" ry="300" fill="url(#cornerGlow)"/>
-  <ellipse cx="1050" cy="160" rx="300" ry="240" fill="url(#glow)"/>
-  <g transform="translate(1050, 160)" fill="none" stroke="#D4A843">
-    <ellipse rx="65"  ry="52"  stroke-width="1"   opacity="0.22"/>
-    <ellipse rx="130" ry="104" stroke-width="0.9" opacity="0.16"/>
-    <ellipse rx="210" ry="168" stroke-width="0.8" opacity="0.11"/>
-    <ellipse rx="305" ry="244" stroke-width="0.6" opacity="0.07"/>
-    <ellipse rx="415" ry="332" stroke-width="0.5" opacity="0.05"/>
-    <ellipse rx="540" ry="432" stroke-width="0.4" opacity="0.035"/>
-    <ellipse rx="680" ry="544" stroke-width="0.3" opacity="0.025"/>
-  </g>
+<!-- Clouds -->
+<svg class="cloud cloud--1" viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 160C50 160 80 40 200 60C320 80 280 20 400 40C520 60 560 120 540 160C520 200 100 200 50 160Z" fill="currentColor"/>
+  <path d="M120 170C120 170 140 80 240 95C340 110 310 65 400 80C490 95 520 140 505 170C490 200 150 195 120 170Z" fill="currentColor" opacity="0.5"/>
+</svg>
+<svg class="cloud cloud--2" viewBox="0 0 500 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M30 140C30 140 60 30 180 50C300 70 260 15 360 35C460 55 490 110 470 140C450 170 70 175 30 140Z" fill="currentColor"/>
+</svg>
+<svg class="cloud cloud--3" viewBox="0 0 400 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 120C20 120 45 25 140 40C235 55 210 10 290 28C370 46 395 90 380 120C365 150 50 148 20 120Z" fill="currentColor"/>
 </svg>
 
+<!-- Sun rays -->
+<svg class="rays" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M800 0L400 800L350 800L800 50Z" fill="currentColor" opacity="0.6"/>
+  <path d="M800 80L500 800L450 800L800 130Z" fill="currentColor" opacity="0.4"/>
+  <path d="M800 180L580 800L530 800L800 230Z" fill="currentColor" opacity="0.3"/>
+  <path d="M700 0L300 800L260 800L700 30Z" fill="currentColor" opacity="0.2"/>
+</svg>
+
+<div class="horizon"></div>
+
 <div class="content">
-  <div class="top">
-    <div class="wordmark">Tech<em>Freedom</em></div>
-  </div>
+  <div class="eyebrow">Technology sovereignty for social purpose organisations</div>
 
   <div class="main">
-    <div class="eyebrow">Technology sovereignty for social purpose organisations</div>
-    <h1>A clearer forecast<br>for your organisation's<br>digital future.</h1>
-    <div class="divider"></div>
-    <div class="description">Helping VCSE organisations understand their technology dependencies and start making deliberate choices.</div>
+    <h1>TechFreedom</h1>
+    <p class="tagline">A clearer forecast for your organisation's digital future.</p>
   </div>
 
   <div class="footer">
     <div class="url">techfreedom.eu</div>
+    <div class="description">Helping VCSE organisations understand their technology dependencies and start making deliberate choices.</div>
   </div>
 </div>
 
