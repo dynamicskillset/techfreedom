@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 
+// Bunny Edge Scripting leaderboard API (EU-hosted)
 const API_URL = import.meta.env.VITE_LEADERBOARD_URL || 'https://stacktopolis-g8ng0.bunny.run'
 
 export function useLeaderboard() {
