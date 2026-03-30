@@ -332,12 +332,48 @@ a:hover {
 }
 
 /* ========================================
+   MOBILE NAV TOGGLE
+   ======================================== */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+    color: var(--text-primary);
+    z-index: 101;
+}
+
+.nav-toggle svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.nav-toggle .icon-close {
+    display: none;
+}
+
+.nav-toggle[aria-expanded="true"] .icon-menu {
+    display: none;
+}
+
+.nav-toggle[aria-expanded="true"] .icon-close {
+    display: block;
+}
+
+/* ========================================
    SHARED RESPONSIVE
    ======================================== */
 @media (max-width: 768px) {
     :root {
         --space-xl: 4rem;
         --space-2xl: 6rem;
+    }
+
+    .nav-toggle {
+        display: block;
     }
 
     .nav-cta {
@@ -352,6 +388,30 @@ a:hover {
 
     .nav-wordmark-text {
         display: none;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(247, 245, 240, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: var(--space-xs) 0;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 0.75rem var(--space-m);
+        font-size: 1rem;
     }
 
     .footer-inner {
@@ -372,13 +432,4 @@ a:hover {
         padding-left: var(--space-s);
         padding-right: var(--space-s);
     }
-
-    .nav-links {
-        gap: 0.625rem;
-    }
-
-    .nav-links a {
-        font-size: 0.8rem;
-    }
-
 }

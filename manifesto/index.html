@@ -331,7 +331,7 @@
 
     <nav class="site-nav" aria-label="Main navigation">
         <a href="/" class="nav-wordmark"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="/programme/">Programme</a></li>
             <li><a href="/lenses/">Lenses</a></li>
             <li><a href="/manifesto/" aria-current="page">Manifesto</a></li>
@@ -339,6 +339,7 @@
             <li><a href="/stacktopolis/">Play the game</a></li>
         </ul>
         <a href="/programme/#signup-cta" class="nav-cta">Join the pilot cohort</a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg><svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></button>
     </nav>
 
     <main id="main-content" tabindex="-1">
@@ -429,6 +430,17 @@
 
     <script>
         (function() {
+            // Mobile nav toggle
+            var navToggle = document.querySelector('.nav-toggle');
+            var navLinks = document.querySelector('.nav-links');
+            if (navToggle) {
+                navToggle.addEventListener('click', function() {
+                    var expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', !expanded);
+                    navLinks.classList.toggle('open');
+                });
+            }
+
             // Navigation scroll effect
             var nav = document.querySelector('.site-nav');
 
