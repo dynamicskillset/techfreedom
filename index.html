@@ -881,6 +881,28 @@
             }
         }
 
+        /* Lenses bridge */
+        .lenses-bridge {
+            padding: var(--space-s) 0 var(--space-m);
+        }
+
+        .lenses-bridge-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .lenses-bridge-link {
+            color: var(--accent-sky);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .lenses-bridge-link:hover {
+            color: var(--text-primary);
+        }
+
         /* Endorsement */
         .endorsement {
             margin: clamp(2rem, 5vw, 4rem) 0;
@@ -965,6 +987,7 @@
         <a href="/" class="nav-wordmark" aria-current="page"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
         <ul class="nav-links">
             <li><a href="/programme/">Programme</a></li>
+            <li><a href="/lenses/">Lenses</a></li>
             <li><a href="/manifesto/">Manifesto</a></li>
             <li><a href="/alternatives/">Alternatives</a></li>
         </ul>
@@ -1127,6 +1150,13 @@
             </li>
 
         </ol>
+
+        <!-- ============ LENSES BRIDGE ============ -->
+        <section class="lenses-bridge" aria-label="All five risk lenses">
+            <div class="section-inner">
+                <p class="lenses-bridge-text reveal">These three lenses are part of a wider set of five. Lock-in and Cost Exposure complete the picture. Together, where they overlap, they produce ten distinct compounding risks, with total dependency risk at the centre. <a href="/lenses/" class="lenses-bridge-link">Explore all five lenses</a></p>
+            </div>
+        </section>
 
         <!-- ============ ENDORSEMENT ============ -->
         <section class="endorsement" aria-label="Endorsement">
