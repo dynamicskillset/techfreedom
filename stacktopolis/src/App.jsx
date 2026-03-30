@@ -49,6 +49,9 @@ function App() {
     <>
       <MobileGate />
       <div className="hidden lg:block">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-terminal-surface focus:text-terminal-text focus:border focus:border-terminal-border focus:rounded focus:font-mono focus:text-sm">
+          Skip to main content
+        </a>
         <SoundToggle />
         {screen}
       </div>

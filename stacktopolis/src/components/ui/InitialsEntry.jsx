@@ -108,7 +108,8 @@ export default function InitialsEntry({ onSubmit }) {
               </svg>
             </button>
 
-            <div
+            <button
+              type="button"
               className={`w-14 h-16 flex items-center justify-center rounded border-2 font-mono text-3xl font-bold transition-all ${
                 pos === cursor && !submitted
                   ? 'border-amber-glow text-amber-glow bg-amber-glow/10'
@@ -117,9 +118,10 @@ export default function InitialsEntry({ onSubmit }) {
                     : 'border-terminal-border text-terminal-text bg-terminal-bg'
               }`}
               onClick={() => !submitted && setCursor(pos)}
+              aria-label={`Position ${pos + 1}: ${CHARS[charIdx] === '_' ? 'space' : CHARS[charIdx]}`}
             >
               {CHARS[charIdx] === '_' ? '\u00A0' : CHARS[charIdx]}
-            </div>
+            </button>
 
             <button
               onClick={() => cycleDown(pos)}
