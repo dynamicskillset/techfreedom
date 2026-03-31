@@ -1394,7 +1394,7 @@
                 button.disabled = true;
                 button.textContent = 'Subscribing\u2026';
 
-                fetch('/subscribe', {
+                fetch('https://subscribe.techfreedom.eu', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: emailInput.value }),
