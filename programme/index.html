@@ -1089,6 +1089,22 @@
             </div>
         </section>
 
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="newsletter-section" aria-labelledby="newsletter-heading">
+        <div class="section-inner">
+            <h2 id="newsletter-heading" class="reveal">Stay informed</h2>
+            <p class="reveal reveal-delay-1">Each month we send a short roundup of links on digital sovereignty, open technology, and reducing Big Tech dependency. No tracking, no nonsense.</p>
+            <form class="newsletter-form reveal reveal-delay-2" id="newsletter-form" novalidate>
+                <div class="newsletter-input-row">
+                    <label for="newsletter-email" class="visually-hidden">Email address</label>
+                    <input type="email" id="newsletter-email" name="email" placeholder="your@email.com" required autocomplete="email">
+                    <button type="submit">Subscribe</button>
+                </div>
+                <p class="newsletter-status" id="newsletter-status" aria-live="polite" hidden></p>
+            </form>
+        </div>
+    </section>
+
     </main>
 
     <footer class="site-footer">
@@ -1149,6 +1165,49 @@
             }
 
         })();
+
+        // Newsletter signup
+        var newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var emailInput = document.getElementById('newsletter-email');
+                var status = document.getElementById('newsletter-status');
+                var button = newsletterForm.querySelector('button[type="submit"]');
+
+                status.hidden = true;
+                status.className = 'newsletter-status';
+                button.disabled = true;
+                button.textContent = 'Subscribing\u2026';
+
+                fetch('/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: emailInput.value }),
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    status.hidden = false;
+                    if (data.ok) {
+                        status.textContent = 'You\u2019re subscribed. Thank you.';
+                        status.classList.add('success');
+                        newsletterForm.reset();
+                    } else {
+                        status.textContent = data.error || 'Something went wrong. Please try again.';
+                        status.classList.add('error');
+                    }
+                })
+                .catch(function() {
+                    status.hidden = false;
+                    status.textContent = 'Something went wrong. Please try again.';
+                    status.classList.add('error');
+                })
+                .finally(function() {
+                    button.disabled = false;
+                    button.textContent = 'Subscribe';
+                });
+            });
+        }
     </script>
 </body>
 </html>
