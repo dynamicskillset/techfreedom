@@ -968,13 +968,24 @@
             text-shadow: 0 0 12px rgba(255,255,255,0.7), 0 0 24px rgba(255,255,255,0.35);
             font-size: clamp(0.65rem, 1.4vw, 0.9rem);
         }
-        .overlap-label--top .phrase::before {
-            content: '↑ ';
-            font-size: 0.85em;
-            opacity: 0.9;
-        }
         .overlap-label--top .pairing {
             color: #ccc;
+        }
+        .top-risk-badge {
+            display: none;
+            font-size: clamp(0.45rem, 0.9vw, 0.6rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #fff;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 3px;
+            padding: 1px 5px;
+            margin-bottom: 3px;
+        }
+        .overlap-label--top .top-risk-badge {
+            display: inline-block;
         }
         @media (max-width: 500px) {
             .overlap-label { display: none; }
@@ -1375,18 +1386,18 @@
                         <div class="lens-label" style="bottom:6%;left:4%"><span class="dot" style="background:#aa44dd"></span>Lock-in</div>
                         <div class="lens-label" style="top:28%;left:12px;transform:translateY(-50%)"><span class="dot" style="background:#ff9922"></span>Cost Exposure</div>
                         <!-- Outer ring overlaps -->
-                        <div class="overlap-label" data-dims="jurisdiction,continuity" style="top:19%;left:65%"><span class="phrase">Regulatory exile</span><span class="pairing">Jurisdiction &times; Continuity</span></div>
-                        <div class="overlap-label" data-dims="jurisdiction,costExposure" style="top:19%;left:35%"><span class="phrase">Price hikes, no exit</span><span class="pairing">Jurisdiction &times; Cost Exposure</span></div>
-                        <div class="overlap-label" data-dims="continuity,surveillance" style="top:55%;left:80%"><span class="phrase">Dead platform, living data</span><span class="pairing">Continuity &times; Surveillance</span></div>
-                        <div class="overlap-label" data-dims="lockIn,costExposure" style="top:55%;left:20%"><span class="phrase">The ratchet</span><span class="pairing">Lock-in &times; Cost Exposure</span></div>
-                        <div class="overlap-label" data-dims="surveillance,lockIn" style="top:80%;left:50%;transform:translate(-50%,-50%)"><span class="phrase">The panopticon you can't leave</span><span class="pairing">Surveillance &times; Lock-in</span></div>
+                        <div class="overlap-label" data-dims="jurisdiction,continuity" style="top:19%;left:65%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Regulatory exile</span><span class="pairing">Jurisdiction &times; Continuity</span></div>
+                        <div class="overlap-label" data-dims="jurisdiction,costExposure" style="top:19%;left:35%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Price hikes, no exit</span><span class="pairing">Jurisdiction &times; Cost Exposure</span></div>
+                        <div class="overlap-label" data-dims="continuity,surveillance" style="top:55%;left:80%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Dead platform, living data</span><span class="pairing">Continuity &times; Surveillance</span></div>
+                        <div class="overlap-label" data-dims="lockIn,costExposure" style="top:55%;left:20%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The ratchet</span><span class="pairing">Lock-in &times; Cost Exposure</span></div>
+                        <div class="overlap-label" data-dims="surveillance,lockIn" style="top:80%;left:50%;transform:translate(-50%,-50%)"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The panopticon you can't leave</span><span class="pairing">Surveillance &times; Lock-in</span></div>
                         <!-- Middle ring overlaps -->
-                        <div class="overlap-label" data-dims="jurisdiction,surveillance" style="top:36%;left:72%"><span class="phrase">Extraterritorial extraction</span><span class="pairing">Jurisdiction &times; Surveillance</span></div>
-                        <div class="overlap-label" data-dims="jurisdiction,lockIn" style="top:36%;left:28%"><span class="phrase">Captive to a foreign regime</span><span class="pairing">Jurisdiction &times; Lock-in</span></div>
-                        <div class="overlap-label" data-dims="continuity,lockIn" style="top:69%;left:68%"><span class="phrase">The sunk cost trap</span><span class="pairing">Continuity &times; Lock-in</span></div>
-                        <div class="overlap-label" data-dims="surveillance,costExposure" style="top:69%;left:32%"><span class="phrase">Free means you're the product</span><span class="pairing">Surveillance &times; Cost Exposure</span></div>
+                        <div class="overlap-label" data-dims="jurisdiction,surveillance" style="top:36%;left:72%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Extraterritorial extraction</span><span class="pairing">Jurisdiction &times; Surveillance</span></div>
+                        <div class="overlap-label" data-dims="jurisdiction,lockIn" style="top:36%;left:28%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Captive to a foreign regime</span><span class="pairing">Jurisdiction &times; Lock-in</span></div>
+                        <div class="overlap-label" data-dims="continuity,lockIn" style="top:69%;left:68%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The sunk cost trap</span><span class="pairing">Continuity &times; Lock-in</span></div>
+                        <div class="overlap-label" data-dims="surveillance,costExposure" style="top:69%;left:32%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Free means you're the product</span><span class="pairing">Surveillance &times; Cost Exposure</span></div>
                         <!-- Inner ring overlap -->
-                        <div class="overlap-label" data-dims="continuity,costExposure" style="top:33%;left:50%;transform:translate(-50%,-50%)"><span class="phrase">The boiling frog</span><span class="pairing">Continuity &times; Cost Exposure</span></div>
+                        <div class="overlap-label" data-dims="continuity,costExposure" style="top:33%;left:50%;transform:translate(-50%,-50%)"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The boiling frog</span><span class="pairing">Continuity &times; Cost Exposure</span></div>
                         <!-- Centre -->
                         <div class="centre-label"><span class="phrase">Dependency risk</span><span class="pairing">All five lenses converge</span></div>
                     </div>
@@ -2228,9 +2239,17 @@
                 var dims = el.getAttribute('data-dims').split(',');
                 var score = dims.reduce(function(sum, d) { return sum + getWeightedScore(d); }, 0);
                 el.classList.remove('overlap-label--top');
+                el.removeAttribute('aria-label');
                 if (score > bestScore) { bestScore = score; best = el; }
             });
-            if (best) best.classList.add('overlap-label--top');
+            if (best) {
+                best.classList.add('overlap-label--top');
+                var phrase = best.querySelector('.phrase');
+                var pairing = best.querySelector('.pairing');
+                var name = phrase ? phrase.textContent.trim() : '';
+                var pair = pairing ? pairing.textContent.trim() : '';
+                best.setAttribute('aria-label', 'Your top compound risk: ' + name + ' (' + pair + ')');
+            }
         }
 
         function updateSpotlightSRText() {
@@ -2242,7 +2261,11 @@
                 var rank = state.rankingValues ? state.rankingValues[dim] : (state.cardOrder.indexOf(dim) + 1);
                 return lens.label + ': weighted score ' + wScore + ' (priority rank ' + rank + ')';
             });
-            el.textContent = 'Spotlight weighted risk scores: ' + parts.join('. ') + '.';
+            // Find top compound risk name for SR summary
+            var topEl = document.querySelector('.overlap-label--top .phrase');
+            var topName = topEl ? topEl.textContent.trim() : '';
+            var topSummary = topName ? ' Your top compound risk is: ' + topName + '.' : '';
+            el.textContent = 'Spotlight weighted risk scores: ' + parts.join('. ') + '.' + topSummary;
         }
 
         /* ========================================
