@@ -2472,8 +2472,16 @@
                 return 3;
             }
 
-            // tools only (arriving from assess page "Go deeper") — start at Step 1 with tools pre-loaded
-            return 1;
+            // tools only (arriving from assess page "Go deeper") — skip audit, go straight to card sort
+            state.dimAverages = computeDimAverages() || {
+                jurisdiction: 2.5, continuity: 2.5, surveillance: 2.5, lockIn: 2.5, costExposure: 2.5
+            };
+            if (!state.sliderValues) {
+                state.sliderValues = {};
+                DIMENSIONS.forEach(function(d) { state.sliderValues[d] = state.dimAverages[d]; });
+            }
+            state.maxReachedStep = 2;
+            return 2;
         }
 
         function saveState() {
