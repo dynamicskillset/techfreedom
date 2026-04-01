@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Risk Assessment — TechFreedom</title>
+    <meta name="description" content="A three-step deep assessment: rank your priorities, audit your stack, and visualise your weighted risk profile.">
+    <link rel="canonical" href="https://techfreedom.eu/assess/deep/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://techfreedom.eu/assess/deep/">
+    <meta property="og:title" content="Deep Risk Assessment — TechFreedom">
+    <meta property="og:description" content="Rank your priorities, audit your stack, and visualise your weighted risk profile.">
+    <meta property="og:image" content="https://techfreedom.eu/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:site_name" content="TechFreedom">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Deep Risk Assessment — TechFreedom">
+    <meta name="twitter:description" content="Rank your priorities, audit your stack, and visualise your weighted risk profile.">
+    <meta name="twitter:image" content="https://techfreedom.eu/og-image.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A2332'/%3E%3Ctext x='16' y='24' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23F7F5F0' text-anchor='middle'%3ETf%3C/text%3E%3C/svg%3E">
+    <script defer data-domain="techfreedom.eu" src="https://plausible.io/js/script.js"></script>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=fraunces:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/shared.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        /* ========================================
+           DEEP ASSESSMENT PAGE STYLES
+           ======================================== */
+
+        /* --- Stepper --- */
+        .deep-stepper {
+            margin-top: 60px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--horizon);
+        }
+
+        .stepper-inner {
+            display: flex;
+            align-items: center;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .step-items {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.5rem 0.35rem 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s ease;
+        }
+
+        .step-item:hover:not([disabled]) {
+            color: var(--text-primary);
+        }
+
+        .step-item[disabled] {
+            cursor: default;
+        }
+
+        .step-item[aria-current="step"] {
+            color: var(--text-primary);
+        }
+
+        .step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            border: 2px solid var(--horizon);
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .step-item[aria-current="step"] .step-num {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .step-item.step-done .step-num {
+            background: var(--accent-sky);
+            border-color: var(--accent-sky);
+            color: var(--white);
+        }
+
+        .step-item.step-done {
+            color: var(--text-secondary);
+        }
+
+        .step-divider {
+            flex: 1;
+            height: 1px;
+            background: var(--horizon);
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            .step-label { display: none; }
+            .step-items { max-width: 180px; }
+        }
+
+        /* --- Deep steps --- */
+        .deep-step {
+            min-height: 50vh;
+        }
+
+        /* --- Step header --- */
+        .step-header {
+            padding: var(--space-l) 0 var(--space-m) 0;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-warm) 100%);
+            border-bottom: 1px solid var(--horizon);
+            margin-bottom: var(--space-l);
+        }
+
+        .step-header h1,
+        .step-header h2 {
+            font-size: clamp(1.8rem, 1.3rem + 2.5vw, 3rem);
+            font-weight: 300;
+            margin-bottom: var(--space-s);
+            font-variation-settings: 'opsz' 72;
+        }
+
+        .step-header .tagline {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--accent-sky);
+            margin-bottom: var(--space-s);
+            font-variation-settings: 'opsz' 36;
+        }
+
+        .step-header p:not(.tagline) {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 640px;
+        }
+
+        /* --- Card sort --- */
+        .card-sort {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 var(--space-l) 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 720px;
+        }
+
+        .sort-card {
+            display: grid;
+            grid-template-columns: 2rem 0.75rem auto 1fr auto;
+            gap: 0 0.75rem;
+            align-items: center;
+            padding: var(--space-s) var(--space-m);
+            background: var(--white);
+            border: 1px solid var(--horizon);
+            border-radius: 8px;
+            cursor: grab;
+            transition: box-shadow 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
+            user-select: none;
+        }
+
+        .sort-card:focus-within {
+            border-color: var(--accent-sky);
+        }
+
+        .sort-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .sort-card.drag-over {
+            border-color: var(--accent-sky);
+            box-shadow: 0 0 0 2px rgba(74,144,217,0.25);
+        }
+
+        .sort-rank {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1;
+        }
+
+        .sort-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .sort-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .sort-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .sort-arrows {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex-shrink: 0;
+        }
+
+        .arrow-btn {
+            background: none;
+            border: 1px solid var(--horizon);
+            border-radius: 3px;
+            width: 1.6rem;
+            height: 1.4rem;
+            cursor: pointer;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.1s ease, color 0.1s ease;
+        }
+
+        .arrow-btn:hover:not([disabled]) {
+            background: var(--bg-warm);
+            color: var(--text-primary);
+        }
+
+        .arrow-btn[disabled] {
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .arrow-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .sort-card {
+                grid-template-columns: 1.5rem 0.75rem auto 1fr auto;
+                gap: 0 0.5rem;
+                padding: var(--space-xs) var(--space-s);
+            }
+            .sort-desc { display: none; }
+        }
+
+        /* --- Step footer / continue --- */
+        .step-footer {
+            padding-top: var(--space-m);
+            padding-bottom: var(--space-xl);
+            border-top: 1px solid var(--horizon);
+        }
+
+        .step-footer p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-s);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--text-primary);
+            color: var(--white);
+            border: none;
+            padding: 0.75em 2em;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+        }
+
+        .btn-primary:hover:not([disabled]) {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(26,35,50,0.2);
+        }
+
+        .btn-primary[disabled] {
+            opacity: 0.45;
+            cursor: default;
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 2px;
+        }
+
+        .btn-secondary-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: 1px solid var(--horizon);
+            border-radius: 4px;
+            padding: 0.65em 1.5em;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: border-color 0.15s ease, color 0.15s ease;
+        }
+
+        .btn-secondary-outline:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary-outline:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 2px;
+        }
+
+        /* --- Step 2: Risk audit --- */
+        .audit-intro {
+            margin-bottom: var(--space-l);
+        }
+
+        .audit-intro h3 {
+            margin-bottom: var(--space-xs);
+        }
+
+        .audit-intro p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .archetype-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-s);
+            margin-bottom: var(--space-l);
+        }
+
+        @media (max-width: 768px) {
+            .archetype-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .archetype-grid { grid-template-columns: 1fr; }
+        }
+
+        .archetype-card {
+            padding: var(--space-s) var(--space-m);
+            background: var(--white);
+            border: 1px solid var(--horizon);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            font-family: var(--font-body);
+            transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+        }
+
+        .archetype-card:hover {
+            border-color: var(--accent-sky);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(74,144,217,0.1);
+        }
+
+        .archetype-card.selected {
+            border-color: var(--accent-sky);
+            background: rgba(74,144,217,0.04);
+        }
+
+        .archetype-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .archetype-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 0.35rem;
+        }
+
+        .archetype-card .tool-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .audit-search-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-s);
+            color: var(--text-secondary);
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            max-width: 480px;
+            margin-bottom: var(--space-s);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            width: 1rem;
+            height: 1rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.7em 0.75em 0.7em 2.5em;
+            border: 1px solid var(--horizon);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            background: var(--white);
+            color: var(--text-primary);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-sky);
+            box-shadow: 0 0 0 3px rgba(74,144,217,0.15);
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border: 1px solid var(--horizon);
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(26,35,50,0.12);
+            list-style: none;
+            padding: 0.25rem 0;
+            margin: 0;
+            z-index: 100;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .autocomplete-item {
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.1s ease;
+        }
+
+        .autocomplete-item:hover,
+        .autocomplete-item.highlighted {
+            background: rgba(74,144,217,0.06);
+        }
+
+        .autocomplete-item .category {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+        }
+
+        .selected-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: var(--space-m);
+            min-height: 2rem;
+        }
+
+        .tool-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3em 0.65em;
+            background: rgba(74,144,217,0.08);
+            border: 1px solid rgba(74,144,217,0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            animation: chipIn 0.2s ease-out;
+        }
+
+        @keyframes chipIn {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .chip-remove {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: color 0.1s ease;
+        }
+
+        .chip-remove:hover { color: var(--text-primary); }
+
+        .assess-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.75em 2em;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+            margin-bottom: var(--space-m);
+        }
+
+        .assess-btn:hover:not([disabled]) {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212,168,67,0.3);
+        }
+
+        .assess-btn[disabled] {
+            opacity: 0.45;
+            cursor: default;
+        }
+
+        /* Heatmap */
+        .heatmap-section {
+            margin-bottom: var(--space-m);
+        }
+
+        .heatmap-section h3 {
+            margin-bottom: var(--space-m);
+        }
+
+        .scoring-key {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: var(--space-m);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .scoring-key-label {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .scoring-key-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .scoring-key-swatch {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 3px;
+        }
+
+        .heatmap-wrapper {
+            overflow-x: auto;
+            margin-bottom: var(--space-m);
+        }
+
+        .heatmap {
+            width: 100%;
+            min-width: 560px;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        .heatmap th {
+            padding: 0.6em 0.75em;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: var(--bg-warm);
+            border-bottom: 1px solid var(--horizon);
+            white-space: nowrap;
+        }
+
+        .heatmap td {
+            padding: 0.65em 0.75em;
+            border-bottom: 1px solid var(--horizon);
+            text-align: left;
+        }
+
+        .heatmap tbody tr:hover:not(.key-risks-row) {
+            background: rgba(74,144,217,0.03);
+            cursor: pointer;
+        }
+
+        .heatmap tbody tr { cursor: pointer; }
+
+        .score-cell {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .score-1 { background: var(--score-1); color: var(--white); }
+        .score-2 { background: var(--score-2); color: var(--white); }
+        .score-3 { background: var(--score-3); color: var(--white); }
+        .score-4 { background: var(--score-4); color: var(--white); }
+        .score-5 { background: var(--score-5); color: var(--white); }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 0.2em 0.6em;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .risk-badge.low { background: var(--score-1); color: var(--white); }
+        .risk-badge.medium { background: var(--score-2); color: var(--white); }
+        .risk-badge.high { background: var(--score-4); color: var(--white); }
+        .risk-badge.critical { background: var(--score-5); color: var(--white); }
+
+        .total-cell { font-weight: 600; white-space: nowrap; }
+
+        .expand-indicator {
+            display: inline-block;
+            margin-right: 0.35rem;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        .expand-indicator::before { content: '▶'; }
+        .heatmap tbody tr.expanded .expand-indicator::before { content: '▼'; }
+
+        .tool-category {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-top: 0.1em;
+        }
+
+        .key-risks-row td { padding: 0; }
+
+        .key-risks-content {
+            padding: var(--space-s) var(--space-m);
+            background: rgba(74,144,217,0.04);
+            border-left: 3px solid var(--accent-sky);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* Chart + summary */
+        .chart-summary-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-l);
+            align-items: start;
+            margin-bottom: var(--space-m);
+        }
+
+        @media (max-width: 768px) {
+            .chart-summary-grid { grid-template-columns: 1fr; }
+            .chart-container { max-width: 260px; margin: 0 auto; }
+        }
+
+        .chart-container { position: relative; }
+
+        .summary-box {
+            padding: var(--space-m);
+            background: var(--bg-warm);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .summary-box h3 {
+            font-size: 1rem;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+        }
+
+        /* Continue to spotlight */
+        .continue-section {
+            padding: var(--space-m) 0 var(--space-xl) 0;
+            border-top: 2px solid var(--accent-amber);
+            margin-top: var(--space-l);
+        }
+
+        .continue-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .continue-section p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-m);
+            max-width: 560px;
+        }
+
+        .continue-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            border: none;
+            padding: 0.75em 2em;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(212,168,67,0.3);
+        }
+
+        .continue-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 2px;
+        }
+
+        /* Mobile heatmap card mode */
+        @media (max-width: 768px) {
+            .heatmap-wrapper.mobile-cards .heatmap,
+            .heatmap-wrapper.mobile-cards .heatmap thead,
+            .heatmap-wrapper.mobile-cards .heatmap tbody,
+            .heatmap-wrapper.mobile-cards .heatmap tr,
+            .heatmap-wrapper.mobile-cards .heatmap td { display: block; }
+            .heatmap-wrapper.mobile-cards .heatmap thead { display: none; }
+            .heatmap-wrapper.mobile-cards .heatmap tbody tr:not(.key-risks-row) {
+                padding: var(--space-m);
+                margin-bottom: 0;
+                background: var(--white);
+                border: 1px solid var(--horizon);
+                border-radius: 8px 8px 0 0;
+            }
+            .heatmap-wrapper.mobile-cards .heatmap tbody td {
+                padding: 0.45em 0;
+                border-bottom: none;
+                display: flex;
+                align-items: center;
+                gap: 0.75em;
+            }
+            .heatmap-wrapper.mobile-cards .heatmap tbody td:first-child {
+                display: block;
+                font-size: 0;
+                padding-bottom: 0.5em;
+                margin-bottom: 0.35em;
+                border-bottom: 1px solid var(--horizon);
+            }
+            .heatmap-wrapper.mobile-cards .heatmap tbody td::before {
+                content: attr(data-label);
+                display: inline-block;
+                min-width: 8.5em;
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .heatmap-wrapper.mobile-cards .heatmap tbody tr:not(.key-risks-row)::before {
+                content: attr(data-tool);
+                display: block;
+                font-weight: 500;
+                font-size: 1rem;
+            }
+            .heatmap-wrapper.mobile-cards .key-risks-row {
+                display: block !important;
+                margin-bottom: var(--space-m);
+            }
+            .heatmap-wrapper.mobile-cards .key-risks-content {
+                border-left: none;
+                border-top: 3px solid var(--accent-amber);
+                border-radius: 0 0 8px 8px;
+            }
+        }
+
+        /* ---- Step 3: Spotlight ---- */
+        .spotlight-intro {
+            padding: var(--space-l) 0 var(--space-m) 0;
+            border-bottom: 1px solid var(--horizon);
+        }
+
+        .spotlight-intro h2 {
+            font-size: clamp(1.8rem, 1.3rem + 2.5vw, 3rem);
+            font-weight: 300;
+            margin-bottom: var(--space-s);
+            font-variation-settings: 'opsz' 72;
+        }
+
+        .spotlight-intro p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 580px;
+        }
+
+        /* Spotlight stage */
+        .spotlight-stage {
+            background: #1a1a2e;
+            padding: 0;
+            position: relative;
+        }
+
+        .spotlight-stage::before,
+        .spotlight-stage::after {
+            content: '';
+            display: block;
+            height: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .spotlight-stage::before {
+            background: linear-gradient(to bottom, var(--bg-primary), transparent);
+        }
+
+        .spotlight-stage::after {
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+        }
+
+        .spotlight-inner {
+            padding: var(--space-m) 0 var(--space-l);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .spotlight-heading {
+            color: #aaaacc;
+            text-align: center;
+            font-size: clamp(1rem, 3vw, 1.05rem);
+            font-style: italic;
+            font-weight: 400;
+            margin-bottom: var(--space-s);
+            letter-spacing: 0.01em;
+        }
+
+        .stage-container {
+            position: relative;
+            width: min(960px, 95vw);
+            aspect-ratio: 960 / 900;
+            flex-shrink: 0;
+            margin: 0 auto;
+        }
+
+        .stage {
+            position: absolute;
+            top: 0;
+            left: 4.17%;
+            width: 91.67%;
+            height: 97.78%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #0a0a18 0%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        .lens-label {
+            position: absolute;
+            text-align: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: clamp(0.6rem, 1.3vw, 0.85rem);
+            line-height: 1.3;
+            pointer-events: none;
+        }
+        .lens-label .dot {
+            display: inline-block;
+            width: clamp(8px, 1.5vw, 14px);
+            height: clamp(8px, 1.5vw, 14px);
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+        .overlap-label {
+            position: absolute;
+            text-align: center;
+            pointer-events: none;
+        }
+        .overlap-label .phrase {
+            display: block;
+            font-size: clamp(0.55rem, 1.2vw, 0.8rem);
+            font-weight: 700;
+            color: #fff;
+        }
+        .overlap-label .pairing {
+            display: block;
+            font-size: clamp(0.45rem, 1vw, 0.68rem);
+            font-weight: 500;
+            color: #999;
+        }
+        .centre-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        .centre-label .phrase {
+            display: block;
+            font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .centre-label .pairing {
+            display: block;
+            font-size: clamp(0.55rem, 1.2vw, 0.75rem);
+            font-weight: 500;
+            color: rgba(255,255,255,0.73);
+        }
+        .overlap-label--top .phrase {
+            color: #fff;
+            text-shadow: 0 0 12px rgba(255,255,255,0.7), 0 0 24px rgba(255,255,255,0.35);
+            font-size: clamp(0.65rem, 1.4vw, 0.9rem);
+        }
+        .overlap-label--top .pairing {
+            color: #ccc;
+        }
+        .top-risk-badge {
+            display: none;
+            font-size: clamp(0.45rem, 0.9vw, 0.6rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #fff;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 3px;
+            padding: 1px 5px;
+            margin-bottom: 3px;
+        }
+        .overlap-label--top .top-risk-badge {
+            display: inline-block;
+        }
+        @media (max-width: 500px) {
+            .overlap-label { display: none; }
+            .lens-label { font-size: 0.5rem; }
+        }
+
+        .top-risk-callout {
+            margin: var(--space-m) auto 0;
+            width: min(600px, 90%);
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: var(--space-m) var(--space-l);
+            text-align: center;
+        }
+        .top-risk-callout-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.55);
+            margin: 0 0 0.35rem;
+        }
+        .top-risk-callout-name {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 3vw, 1.7rem);
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 0.2rem;
+        }
+        .top-risk-callout-dims {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            margin: 0 0 0.6rem;
+        }
+        .top-risk-callout-desc {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .spotlight {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .centre-glow {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .spotlight-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+            justify-content: center;
+            padding: var(--space-s) var(--space-m) 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #aaaacc;
+            font-size: 0.8rem;
+        }
+
+        .legend-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Controls */
+        .controls-section {
+            padding: var(--space-l) 0 var(--space-xl) 0;
+        }
+
+        .controls-section h3 {
+            margin-bottom: var(--space-xs);
+        }
+
+        .controls-section > p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-m);
+        }
+
+        .toggle-controls-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: 1px solid var(--horizon);
+            border-radius: 6px;
+            padding: 0.6em 1.25em;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: border-color 0.15s ease, color 0.15s ease;
+            margin-bottom: var(--space-m);
+        }
+
+        .toggle-controls-btn:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+
+        .toggle-controls-btn:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 2px;
+        }
+
+        .controls-panel {
+            border: 1px solid var(--horizon);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .control-row {
+            display: grid;
+            grid-template-columns: 170px 1fr 180px;
+            gap: var(--space-m);
+            align-items: center;
+            padding: var(--space-s) var(--space-m);
+            border-bottom: 1px solid var(--horizon);
+            background: var(--white);
+        }
+
+        .control-row:last-child { border-bottom: none; }
+        .control-row:nth-child(even) { background: var(--bg-warm); }
+
+        @media (max-width: 768px) {
+            .control-row {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+            }
+            .control-lens { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 480px) {
+            .control-row { grid-template-columns: 1fr; }
+        }
+
+        .control-lens {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .control-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .control-score label,
+        .control-rank label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        .score-slider {
+            width: 100%;
+            margin-bottom: 0.2rem;
+            accent-color: var(--accent-sky);
+            cursor: pointer;
+        }
+
+        .slider-val {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .rank-select {
+            width: 100%;
+            padding: 0.4em 0.6em;
+            border: 1px solid var(--horizon);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            background: var(--white);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .rank-select:focus {
+            outline: none;
+            border-color: var(--accent-sky);
+        }
+
+        /* Nav CTA */
+        .nav-cta {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5em 1.25em;
+            background: var(--accent-amber);
+            border-radius: 4px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(212,168,67,0.2);
+        }
+
+        .nav-cta:hover {
+            color: var(--text-primary);
+            box-shadow: 0 3px 12px rgba(212,168,67,0.3);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sort-card, .tool-chip {
+                animation: none;
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class="nav-wordmark"><svg class="nav-icon" aria-hidden="true" width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1A2332"/><text x="16" y="24" font-family="Georgia,serif" font-size="22" font-weight="400" fill="#F7F5F0" text-anchor="middle">Tf</text></svg><span class="nav-wordmark-text">TechFreedom</span></a>
+        <ul class="nav-links">
+            <li><a href="/programme/">Programme</a></li>
+            <li><a href="/lenses/">Lenses</a></li>
+            <li><a href="/manifesto/">Manifesto</a></li>
+            <li><a href="/alternatives/">Alternatives</a></li>
+            <li><a href="/stacktopolis/">Play the game</a></li>
+        </ul>
+        <a href="/programme/#signup-cta" class="nav-cta">Join the pilot cohort</a>
+    </nav>
+
+    <!-- Stepper -->
+    <div class="deep-stepper" id="deep-stepper" role="navigation" aria-label="Assessment steps">
+        <div class="stepper-inner section-inner section-inner--wide">
+            <div class="step-items" role="list">
+                <button class="step-item" id="stepper-1" data-step="1" aria-current="step" role="listitem" type="button">
+                    <span class="step-num" aria-hidden="true">1</span>
+                    <span class="step-label">Audit</span>
+                </button>
+                <div class="step-divider" aria-hidden="true"></div>
+                <button class="step-item" id="stepper-2" data-step="2" disabled role="listitem" type="button">
+                    <span class="step-num" aria-hidden="true">2</span>
+                    <span class="step-label">Prioritise</span>
+                </button>
+                <div class="step-divider" aria-hidden="true"></div>
+                <button class="step-item" id="stepper-3" data-step="3" disabled role="listitem" type="button">
+                    <span class="step-num" aria-hidden="true">3</span>
+                    <span class="step-label">Visualise</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content" tabindex="-1">
+
+        <!-- ============ STEP 2: PRIORITISE ============ -->
+        <section id="step-2" class="deep-step" hidden aria-labelledby="step2-heading">
+            <div class="step-header">
+                <div class="section-inner section-inner--wide">
+                    <p class="tagline">Step 2 of 3</p>
+                    <h2 id="step2-heading">What matters most to your organisation?</h2>
+                    <p>Drag the cards into order, or use the arrow buttons. Put the risk lens that concerns you most at the top. Your ranking acts as a force multiplier when we visualise your results in Step 3.</p>
+                </div>
+            </div>
+
+            <div class="section-inner section-inner--wide">
+                <ol class="card-sort" id="card-sort" aria-label="Risk lens ranking. Drag to reorder.">
+                    <!-- Populated by JS -->
+                </ol>
+
+                <div class="step-footer">
+                    <p>Once you're happy with the order, continue to the spotlight.</p>
+                    <button class="btn-primary" id="step2-continue" type="button">
+                        Continue to visualise &rarr;
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ STEP 1: AUDIT ============ -->
+        <section id="step-1" class="deep-step" aria-labelledby="step1-heading">
+            <div class="step-header">
+                <div class="section-inner section-inner--wide">
+                    <p class="tagline">Step 1 of 3</p>
+                    <h1 id="step1-heading">Which tools are in your stack?</h1>
+                    <p>Choose a starting point that fits your organisation, or search for individual tools. We'll calculate your average risk score across all five lenses.</p>
+                </div>
+            </div>
+
+            <div class="section-inner section-inner--wide">
+
+                <!-- Archetype presets -->
+                <div class="audit-intro">
+                    <h3>Choose a starting point</h3>
+                    <p>Pick the profile closest to your organisation, then add or remove tools below.</p>
+                </div>
+                <div class="archetype-grid" id="archetype-grid" role="list">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Tool search -->
+                <div class="audit-intro">
+                    <h3 id="custom-builder-heading">Or search for tools directly</h3>
+                </div>
+                <div class="search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <label for="tool-search" class="visually-hidden">Search for a tool to add</label>
+                    <input
+                        type="text"
+                        id="tool-search"
+                        class="search-input"
+                        placeholder="Search tools (e.g. Slack, Zoom, Canva...)"
+                        autocomplete="off"
+                        role="combobox"
+                        aria-expanded="false"
+                        aria-controls="autocomplete-list"
+                        aria-autocomplete="list"
+                    >
+                    <ul id="autocomplete-list" class="autocomplete-list" role="listbox" aria-label="Matching tools"></ul>
+                </div>
+
+                <div class="selected-tools" id="selected-tools" aria-live="polite" aria-label="Selected tools"></div>
+
+                <button class="assess-btn" id="assess-btn" disabled type="button">
+                    Show my risk assessment
+                </button>
+
+                <!-- Results (initially hidden) -->
+                <div id="audit-results" hidden>
+                    <div class="heatmap-section">
+                        <h3>Your Risk Assessment</h3>
+                        <div class="scoring-key" role="img" aria-label="Risk scoring: 1 minimal to 5 critical">
+                            <span class="scoring-key-label">Risk scale:</span>
+                            <span class="scoring-key-item"><span class="scoring-key-swatch score-1"></span> 1</span>
+                            <span class="scoring-key-item"><span class="scoring-key-swatch score-2"></span> 2</span>
+                            <span class="scoring-key-item"><span class="scoring-key-swatch score-3"></span> 3</span>
+                            <span class="scoring-key-item"><span class="scoring-key-swatch score-4"></span> 4</span>
+                            <span class="scoring-key-item"><span class="scoring-key-swatch score-5"></span> 5 Critical</span>
+                        </div>
+                        <div class="heatmap-wrapper" id="heatmap-wrapper">
+                            <table class="heatmap" id="heatmap" role="grid" aria-label="Tool risk scores heatmap">
+                                <colgroup>
+                                    <col style="width:22%">
+                                    <col style="width:13%">
+                                    <col style="width:11%">
+                                    <col style="width:13%">
+                                    <col style="width:10%">
+                                    <col style="width:8%">
+                                    <col style="width:10%">
+                                    <col style="width:13%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Tool</th>
+                                        <th scope="col">Jurisdiction</th>
+                                        <th scope="col">Continuity</th>
+                                        <th scope="col">Surveillance</th>
+                                        <th scope="col">Lock-in</th>
+                                        <th scope="col">Cost</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Risk</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="heatmap-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="chart-summary-grid">
+                        <div class="chart-container">
+                            <canvas id="radar-chart" role="img" aria-label="Radar chart of average risk scores across five dimensions"></canvas>
+                            <p id="radar-text-alt" class="visually-hidden"></p>
+                        </div>
+                        <div class="summary-box" id="summary-text">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Continue to step 3 -->
+                    <div class="continue-section" id="continue-section">
+                        <h3>Now rank what matters most to you</h3>
+                        <p>Your ranking in the next step will act as a force multiplier, shaping the final spotlight diagram to reflect what matters most to your organisation.</p>
+                        <button class="continue-btn" id="continue-to-spotlight" type="button">
+                            Continue to rank your priorities &rarr;
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============ STEP 3: SPOTLIGHT ============ -->
+        <section id="step-3" class="deep-step" hidden aria-labelledby="step3-heading">
+
+            <div class="spotlight-intro section-inner section-inner--wide">
+                <p class="tagline" style="font-family:var(--font-display);font-style:italic;color:var(--accent-sky);font-size:1rem;">Step 3 of 3</p>
+                <h2 id="step3-heading">Your Risk Profile</h2>
+                <p>Each spotlight represents a risk lens. Its size reflects your average risk score weighted by how much you said that lens matters. Brighter overlap means compounding risk.</p>
+            </div>
+
+            <!-- Dark spotlight section -->
+            <div class="spotlight-stage" aria-label="Spotlight risk visualisation">
+                <div class="spotlight-inner">
+                    <p class="spotlight-heading" id="spotlight-subheading">Your weighted risk profile</p>
+                    <div class="stage-container" role="img" aria-labelledby="step3-heading" aria-describedby="spotlight-sr-text">
+                        <div class="stage" id="deep-stage" aria-hidden="true"></div>
+                        <!-- Lens labels -->
+                        <div class="lens-label" style="top:-8px;left:50%;transform:translateX(-50%)"><span class="dot" style="background:#4488ff"></span>Jurisdiction</div>
+                        <div class="lens-label" style="top:28%;right:12px;transform:translateY(-50%)"><span class="dot" style="background:#33cc66"></span>Continuity</div>
+                        <div class="lens-label" style="bottom:6%;right:4%"><span class="dot" style="background:#ff4455"></span>Surveillance</div>
+                        <div class="lens-label" style="bottom:6%;left:4%"><span class="dot" style="background:#aa44dd"></span>Lock-in</div>
+                        <div class="lens-label" style="top:28%;left:12px;transform:translateY(-50%)"><span class="dot" style="background:#ff9922"></span>Cost Exposure</div>
+                        <!-- Outer ring overlaps -->
+                        <div class="overlap-label" data-dims="jurisdiction,continuity" style="top:19%;left:65%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Regulatory exile</span><span class="pairing">Jurisdiction &times; Continuity</span></div>
+                        <div class="overlap-label" data-dims="jurisdiction,costExposure" style="top:19%;left:35%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Price hikes, no exit</span><span class="pairing">Jurisdiction &times; Cost Exposure</span></div>
+                        <div class="overlap-label" data-dims="continuity,surveillance" style="top:55%;left:80%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Dead platform, living data</span><span class="pairing">Continuity &times; Surveillance</span></div>
+                        <div class="overlap-label" data-dims="lockIn,costExposure" style="top:55%;left:20%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The ratchet</span><span class="pairing">Lock-in &times; Cost Exposure</span></div>
+                        <div class="overlap-label" data-dims="surveillance,lockIn" style="top:80%;left:50%;transform:translate(-50%,-50%)"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The panopticon you can't leave</span><span class="pairing">Surveillance &times; Lock-in</span></div>
+                        <!-- Middle ring overlaps -->
+                        <div class="overlap-label" data-dims="jurisdiction,surveillance" style="top:36%;left:72%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Extraterritorial extraction</span><span class="pairing">Jurisdiction &times; Surveillance</span></div>
+                        <div class="overlap-label" data-dims="jurisdiction,lockIn" style="top:36%;left:28%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Captive to a foreign regime</span><span class="pairing">Jurisdiction &times; Lock-in</span></div>
+                        <div class="overlap-label" data-dims="continuity,lockIn" style="top:69%;left:68%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The sunk cost trap</span><span class="pairing">Continuity &times; Lock-in</span></div>
+                        <div class="overlap-label" data-dims="surveillance,costExposure" style="top:69%;left:32%"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">Free means you're the product</span><span class="pairing">Surveillance &times; Cost Exposure</span></div>
+                        <!-- Inner ring overlap -->
+                        <div class="overlap-label" data-dims="continuity,costExposure" style="top:33%;left:50%;transform:translate(-50%,-50%)"><span class="top-risk-badge" aria-hidden="true">Your top risk</span><span class="phrase">The boiling frog</span><span class="pairing">Continuity &times; Cost Exposure</span></div>
+                        <!-- Centre -->
+                        <div class="centre-label"><span class="phrase">Dependency risk</span><span class="pairing">All five lenses converge</span></div>
+                    </div>
+                    <div class="top-risk-callout" id="top-risk-callout" hidden>
+                        <p class="top-risk-callout-label">Your top compound risk</p>
+                        <p class="top-risk-callout-name" id="top-risk-name"></p>
+                        <p class="top-risk-callout-dims" id="top-risk-dims"></p>
+                        <p class="top-risk-callout-desc" id="top-risk-desc"></p>
+                    </div>
+                    <div class="spotlight-legend" id="spotlight-legend" aria-hidden="true">
+                        <!-- Populated by JS -->
+                    </div>
+                    <p id="spotlight-sr-text" aria-live="polite" class="visually-hidden"></p>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-section section-inner section-inner--wide">
+                <h3>Adjust the variables</h3>
+                <p>Change the risk scores or your priority ranking to see how the spotlight shifts in real time.</p>
+
+                <button class="toggle-controls-btn" id="toggle-controls" type="button" aria-expanded="false" aria-controls="controls-panel">
+                    <span id="toggle-label">Show controls</span>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div id="controls-panel" hidden>
+                    <!-- Populated by JS -->
+                </div>
+
+                <div style="padding-top:var(--space-l);border-top:1px solid var(--horizon);margin-top:var(--space-l);">
+                    <h3>Share your results</h3>
+                    <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:var(--space-s);">Copy the link below to save or share your assessment. It encodes your tool selection, priority ranking, and adjusted scores.</p>
+                    <button class="btn-secondary-outline" id="share-btn" type="button">Copy share link</button>
+                    <div id="share-url-display" style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted);word-break:break-all;display:none;"></div>
+                    <div id="copy-feedback" style="font-size:0.8rem;font-weight:500;color:#2E7D32;opacity:0;transition:opacity 0.3s ease;margin-top:0.25rem;">Copied to clipboard</div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="section-inner">
+            <div class="footer-inner">
+                <p class="footer-copyright">CC BY TechFreedom 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        /* ========================================
+           CONFIGURATION
+           ======================================== */
+        var STATIC_BASE = '../data';
+
+        /* ========================================
+           CONSTANTS
+           ======================================== */
+        var RANK_WEIGHTS = {1: 1.8, 2: 1.4, 3: 1.0, 4: 0.7, 5: 0.5};
+        var DIMENSIONS = ['jurisdiction', 'continuity', 'surveillance', 'lockIn', 'costExposure'];
+        var DIM_LABELS = {
+            jurisdiction: 'Jurisdiction',
+            continuity: 'Continuity',
+            surveillance: 'Surveillance',
+            lockIn: 'Lock-in',
+            costExposure: 'Cost Exposure'
+        };
+
+        var LENSES = [
+            {dim: 'jurisdiction',  label: 'Jurisdiction',   colour: [68,  136, 255], angle: -90,  desc: 'Where is your data held, and under which laws?'},
+            {dim: 'continuity',    label: 'Continuity',     colour: [51,  204, 102], angle: -18,  desc: 'What happens if a platform changes or disappears?'},
+            {dim: 'surveillance',  label: 'Surveillance',   colour: [255, 68,  85 ], angle:  54,  desc: 'Who can see what you and your users are doing?'},
+            {dim: 'lockIn',        label: 'Lock-in',        colour: [170, 68,  221], angle:  126, desc: 'How easy would it be to leave or switch tools?'},
+            {dim: 'costExposure',  label: 'Cost Exposure',  colour: [255, 153, 34 ], angle:  198, desc: 'How exposed are you to pricing changes?'}
+        ];
+
+        /* ========================================
+           TOOL DATA (embedded fallback)
+           ======================================== */
+        var TOOLS_FALLBACK = [
+            {id:1,name:"Google Workspace",slug:"google-workspace",category:"Productivity Suite",provider:"Google LLC",hqCountry:"United States",dataHosting:"US default",jurisdiction:4,continuity:3,surveillance:5,lockIn:4,costExposure:3,total:19,riskLevel:"Critical",keyRisks:"Data subject to US CLOUD Act. Extensive tracking feeds ad/AI models. EU hosting only on expensive plans."},
+            {id:2,name:"Microsoft 365",slug:"microsoft-365",category:"Productivity Suite",provider:"Microsoft Corp",hqCountry:"United States",dataHosting:"UK/EU available",jurisdiction:3,continuity:3,surveillance:4,lockIn:5,costExposure:4,total:19,riskLevel:"Critical",keyRisks:"Deepest lock-in of any suite. Prices risen 25% in 3 years. Copilot trains on your data by default."},
+            {id:3,name:"Slack",slug:"slack",category:"Communication",provider:"Salesforce",hqCountry:"United States",dataHosting:"US (AWS)",jurisdiction:4,continuity:3,surveillance:3,lockIn:3,costExposure:4,total:17,riskLevel:"High",keyRisks:"Acquired by Salesforce. Data in US. Free tier: 90-day history limit. Paid plans expensive for small orgs."},
+            {id:4,name:"Zoom",slug:"zoom",category:"Video Conferencing",provider:"Zoom Video Communications",hqCountry:"United States",dataHosting:"US primarily",jurisdiction:4,continuity:2,surveillance:4,lockIn:2,costExposure:3,total:15,riskLevel:"High",keyRisks:"ToS 2023 allowing AI training on calls. Data routed through US."},
+            {id:5,name:"Mailchimp",slug:"mailchimp",category:"Email Marketing",provider:"Intuit",hqCountry:"United States",dataHosting:"United States",jurisdiction:4,continuity:2,surveillance:4,lockIn:3,costExposure:4,total:17,riskLevel:"High",keyRisks:"Acquired by Intuit. Free tier cut. Data shared across Intuit products."},
+            {id:6,name:"Canva",slug:"canva",category:"Design",provider:"Canva Pty Ltd",hqCountry:"Australia",dataHosting:"US (AWS)",jurisdiction:4,continuity:2,surveillance:3,lockIn:3,costExposure:3,total:15,riskLevel:"High",keyRisks:"Data on US infrastructure. Teams prices increased 300% in 2024. AI features train on content."},
+            {id:7,name:"HubSpot",slug:"hubspot",category:"CRM",provider:"HubSpot Inc",hqCountry:"United States",dataHosting:"US (AWS)",jurisdiction:4,continuity:3,surveillance:3,lockIn:4,costExposure:4,total:18,riskLevel:"Critical",keyRisks:"Data in US. Freemium hooks you in, prices escalate. Tracks website visitors extensively."},
+            {id:8,name:"Salesforce",slug:"salesforce",category:"CRM",provider:"Salesforce Inc",hqCountry:"United States",dataHosting:"US/EU options",jurisdiction:3,continuity:4,surveillance:3,lockIn:5,costExposure:5,total:20,riskLevel:"Critical",keyRisks:"Extremely deep lock-in. Migration is a major project. Very expensive."},
+            {id:9,name:"Trello",slug:"trello",category:"Project Management",provider:"Atlassian",hqCountry:"Australia/US",dataHosting:"US (AWS)",jurisdiction:4,continuity:2,surveillance:3,lockIn:2,costExposure:3,total:14,riskLevel:"Medium",keyRisks:"Data in US. Low lock-in. Easy to export and switch."},
+            {id:10,name:"Dropbox",slug:"dropbox",category:"Cloud Storage",provider:"Dropbox Inc",hqCountry:"United States",dataHosting:"US (AWS)",jurisdiction:4,continuity:2,surveillance:3,lockIn:2,costExposure:3,total:14,riskLevel:"Medium",keyRisks:"Data in US. Reasonable export. Easy to switch."},
+            {id:11,name:"Monday.com",slug:"monday-com",category:"Project Management",provider:"Monday.com Ltd",hqCountry:"Israel/US",dataHosting:"US (AWS)",jurisdiction:4,continuity:2,surveillance:3,lockIn:3,costExposure:4,total:16,riskLevel:"High",keyRisks:"Data in US. Expensive per-seat pricing. Tracks usage for AI."},
+            {id:12,name:"Asana",slug:"asana",category:"Project Management",provider:"Asana Inc",hqCountry:"United States",dataHosting:"US",jurisdiction:4,continuity:2,surveillance:3,lockIn:3,costExposure:4,total:16,riskLevel:"High",keyRisks:"Data in US. Per-seat pricing. Good data export."},
+            {id:13,name:"Notion",slug:"notion",category:"Database / Docs",provider:"Notion Labs",hqCountry:"United States",dataHosting:"US (AWS)",jurisdiction:4,continuity:2,surveillance:3,lockIn:3,costExposure:3,total:15,riskLevel:"High",keyRisks:"US-hosted. AI features train on content. Moderate lock-in through linked databases."},
+            {id:14,name:"Meta (Facebook / Instagram)",slug:"meta",category:"Social Media",provider:"Meta Platforms",hqCountry:"United States",dataHosting:"US",jurisdiction:5,continuity:2,surveillance:5,lockIn:4,costExposure:2,total:18,riskLevel:"Critical",keyRisks:"Maximum surveillance. Community locked in platform."},
+            {id:15,name:"LinkedIn",slug:"linkedin",category:"Social Media",provider:"Microsoft Corp",hqCountry:"United States",dataHosting:"US",jurisdiction:4,continuity:2,surveillance:4,lockIn:4,costExposure:3,total:17,riskLevel:"High",keyRisks:"Microsoft-owned. Extensive professional data harvesting."},
+            {id:16,name:"Amazon Web Services",slug:"amazon-web-services",category:"Cloud Infrastructure",provider:"Amazon.com Inc",hqCountry:"United States",dataHosting:"UK/EU regions available",jurisdiction:3,continuity:3,surveillance:3,lockIn:4,costExposure:4,total:17,riskLevel:"High",keyRisks:"CLOUD Act applies. Deep lock-in through proprietary services."},
+            {id:17,name:"Signal",slug:"signal",category:"Messaging",provider:"Signal Foundation",hqCountry:"United States",dataHosting:"Minimal metadata only",jurisdiction:2,continuity:2,surveillance:1,lockIn:1,costExposure:1,total:7,riskLevel:"Low",keyRisks:"Non-profit. E2E encryption. Minimal data retention. US-based but privacy-first."},
+            {id:18,name:"Proton Mail",slug:"proton-mail",category:"Email",provider:"Proton AG",hqCountry:"Switzerland",dataHosting:"Switzerland",jurisdiction:1,continuity:2,surveillance:1,lockIn:2,costExposure:2,total:8,riskLevel:"Low",keyRisks:"Swiss jurisdiction, strong privacy laws. End-to-end encrypted. Open source clients."},
+            {id:19,name:"Nextcloud",slug:"nextcloud",category:"Cloud Storage",provider:"Nextcloud GmbH",hqCountry:"Germany",dataHosting:"Self-hosted",jurisdiction:1,continuity:3,surveillance:1,lockIn:1,costExposure:2,total:8,riskLevel:"Low",keyRisks:"Self-hosted, your data stays with you. Requires technical administration."},
+            {id:20,name:"ChatGPT / OpenAI",slug:"chatgpt",category:"AI",provider:"OpenAI",hqCountry:"United States",dataHosting:"United States",jurisdiction:5,continuity:3,surveillance:4,lockIn:3,costExposure:3,total:18,riskLevel:"Critical",keyRisks:"US-based. Conversations may train models by default. Sensitive data risk."}
+        ];
+
+        var TOOLS = TOOLS_FALLBACK.slice();
+
+        /* ========================================
+           ARCHETYPE PRESETS
+           ======================================== */
+        var ARCHETYPES_FALLBACK = [
+            {name:"Microsoft Heavy",  slug:"microsoft-heavy",  description:"Typical organisation running on the Microsoft ecosystem",         toolSlugs:["microsoft-365","linkedin","dropbox"]},
+            {name:"Google Heavy",     slug:"google-heavy",     description:"Organisation built around Google's tools",                        toolSlugs:["google-workspace","canva","zoom"]},
+            {name:"Small Charity",    slug:"small-charity",    description:"Common stack for small UK charities",                             toolSlugs:["google-workspace","canva","mailchimp","zoom"]},
+            {name:"Startup",          slug:"startup",          description:"Fast-moving startup or social enterprise",                        toolSlugs:["slack","amazon-web-services","hubspot","zoom"]},
+            {name:"AI Explorer",      slug:"ai-explorer",      description:"Organisation integrating AI tools heavily",                       toolSlugs:["google-workspace","slack","chatgpt","zoom"]},
+            {name:"Privacy First",    slug:"privacy-first",    description:"Organisation prioritising data sovereignty and privacy",          toolSlugs:["proton-mail","signal","nextcloud","notion"]}
+        ];
+
+        var ARCHETYPES = ARCHETYPES_FALLBACK.slice();
+
+        /* ========================================
+           STATE
+           ======================================== */
+        var state = {
+            step: 1,
+            cardOrder: ['jurisdiction', 'continuity', 'surveillance', 'lockIn', 'costExposure'],
+            selectedToolIds: [],
+            dimAverages: null,
+            sliderValues: null,
+            rankingValues: null,
+            maxReachedStep: 1
+        };
+
+        var radarChart = null;
+        var resizeObserverAdded = false;
+
+        /* ========================================
+           HELPERS
+           ======================================== */
+        function getLensByDim(dim) {
+            for (var i = 0; i < LENSES.length; i++) {
+                if (LENSES[i].dim === dim) return LENSES[i];
+            }
+            return null;
+        }
+
+        function getToolBySlug(slug) {
+            for (var i = 0; i < TOOLS.length; i++) {
+                if (TOOLS[i].slug === slug) return TOOLS[i];
+            }
+            return null;
+        }
+
+        function getToolById(id) {
+            for (var i = 0; i < TOOLS.length; i++) {
+                if (TOOLS[i].id === id) return TOOLS[i];
+            }
+            return null;
+        }
+
+        function getRiskClass(level) {
+            return (level || '').toLowerCase();
+        }
+
+        function getWeightedScore(dim) {
+            var avg = (state.sliderValues && state.sliderValues[dim] != null)
+                ? state.sliderValues[dim]
+                : (state.dimAverages ? state.dimAverages[dim] : 2.5);
+            var rank = (state.rankingValues && state.rankingValues[dim] != null)
+                ? state.rankingValues[dim]
+                : (state.cardOrder.indexOf(dim) + 1);
+            return avg * RANK_WEIGHTS[rank];
+        }
+
+        /* ========================================
+           STEP 2: CARD SORT
+           ======================================== */
+        function initStep2() {
+            renderCards();
+            document.getElementById('step2-continue').addEventListener('click', function() {
+                state.rankingValues = {};
+                DIMENSIONS.forEach(function(d) {
+                    state.rankingValues[d] = state.cardOrder.indexOf(d) + 1;
+                });
+                state.maxReachedStep = 3;
+                goToStep(3);
+            });
+        }
+
+        function renderCards() {
+            var sortEl = document.getElementById('card-sort');
+            sortEl.innerHTML = '';
+
+            state.cardOrder.forEach(function(dim, idx) {
+                var lens = getLensByDim(dim);
+                var rank = idx + 1;
+                var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
+
+                var li = document.createElement('li');
+                li.className = 'sort-card';
+                li.setAttribute('draggable', 'true');
+                li.setAttribute('data-dim', dim);
+                li.setAttribute('aria-label', 'Rank ' + rank + ': ' + lens.label + '. ' + lens.desc);
+
+                li.innerHTML =
+                    '<span class="sort-rank" aria-hidden="true">' + rank + '</span>' +
+                    '<span class="sort-dot" style="background:rgba(' + r + ',' + g + ',' + b + ',0.85)" aria-hidden="true"></span>' +
+                    '<span class="sort-name">' + lens.label + '</span>' +
+                    '<span class="sort-desc">' + lens.desc + '</span>' +
+                    '<span class="sort-arrows">' +
+                        '<button class="arrow-btn" data-dir="up" aria-label="Move ' + lens.label + ' up"' + (idx === 0 ? ' disabled' : '') + ' type="button">&#9650;</button>' +
+                        '<button class="arrow-btn" data-dir="down" aria-label="Move ' + lens.label + ' down"' + (idx === state.cardOrder.length - 1 ? ' disabled' : '') + ' type="button">&#9660;</button>' +
+                    '</span>';
+
+                sortEl.appendChild(li);
+            });
+
+            // Wire up arrow buttons
+            sortEl.querySelectorAll('.arrow-btn').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var card = btn.closest('.sort-card');
+                    var dim = card.getAttribute('data-dim');
+                    var idx = state.cardOrder.indexOf(dim);
+                    if (btn.getAttribute('data-dir') === 'up' && idx > 0) {
+                        var tmp = state.cardOrder[idx - 1];
+                        state.cardOrder[idx - 1] = state.cardOrder[idx];
+                        state.cardOrder[idx] = tmp;
+                    } else if (btn.getAttribute('data-dir') === 'down' && idx < state.cardOrder.length - 1) {
+                        var tmp2 = state.cardOrder[idx + 1];
+                        state.cardOrder[idx + 1] = state.cardOrder[idx];
+                        state.cardOrder[idx] = tmp2;
+                    }
+                    renderCards();
+                    saveState();
+                    // Return focus to the moved card's button
+                    var movedCard = sortEl.querySelector('[data-dim="' + dim + '"]');
+                    if (movedCard) {
+                        var newBtn = movedCard.querySelector('[data-dir="' + btn.getAttribute('data-dir') + '"]');
+                        if (newBtn && !newBtn.disabled) {
+                            newBtn.focus();
+                        } else {
+                            movedCard.querySelector('.sort-name').focus();
+                        }
+                    }
+                });
+            });
+
+            // Wire up drag and drop
+            initDragDrop(sortEl);
+        }
+
+        function initDragDrop(sortEl) {
+            var dragSrc = null;
+            var cards = sortEl.querySelectorAll('.sort-card');
+
+            cards.forEach(function(card) {
+                card.addEventListener('dragstart', function(e) {
+                    dragSrc = card;
+                    card.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', card.getAttribute('data-dim'));
+                });
+
+                card.addEventListener('dragend', function() {
+                    card.classList.remove('dragging');
+                    sortEl.querySelectorAll('.sort-card').forEach(function(c) {
+                        c.classList.remove('drag-over');
+                    });
+                    dragSrc = null;
+                });
+
+                card.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    if (dragSrc && dragSrc !== card) {
+                        sortEl.querySelectorAll('.sort-card').forEach(function(c) {
+                            c.classList.remove('drag-over');
+                        });
+                        card.classList.add('drag-over');
+                    }
+                });
+
+                card.addEventListener('dragleave', function() {
+                    card.classList.remove('drag-over');
+                });
+
+                card.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    card.classList.remove('drag-over');
+                    if (!dragSrc || dragSrc === card) return;
+
+                    var srcDim = dragSrc.getAttribute('data-dim');
+                    var tgtDim = card.getAttribute('data-dim');
+                    var srcIdx = state.cardOrder.indexOf(srcDim);
+                    var tgtIdx = state.cardOrder.indexOf(tgtDim);
+
+                    state.cardOrder.splice(srcIdx, 1);
+                    state.cardOrder.splice(tgtIdx, 0, srcDim);
+
+                    renderCards();
+                    saveState();
+                });
+            });
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        function goToStep(n) {
+            if (n > state.maxReachedStep) state.maxReachedStep = n;
+            state.step = n;
+
+            // Show/hide steps
+            for (var i = 1; i <= 3; i++) {
+                var el = document.getElementById('step-' + i);
+                if (el) el.hidden = (i !== n);
+            }
+
+            // Update stepper
+            for (var j = 1; j <= 3; j++) {
+                var btn = document.getElementById('stepper-' + j);
+                if (!btn) continue;
+
+                btn.removeAttribute('aria-current');
+                btn.classList.remove('step-done');
+                btn.disabled = (j > state.maxReachedStep);
+
+                if (j === n) {
+                    btn.setAttribute('aria-current', 'step');
+                } else if (j < n) {
+                    btn.classList.add('step-done');
+                }
+            }
+
+            // Focus heading
+            var heading = document.querySelector('#step-' + n + ' h1, #step-' + n + ' h2');
+            if (heading) {
+                heading.setAttribute('tabindex', '-1');
+                heading.focus();
+            }
+
+            window.scrollTo(0, 0);
+            saveState();
+
+            if (n === 2) {
+                initStep2();
+            } else if (n === 3) {
+                initStep3();
+            }
+        }
+
+        // Stepper click handlers
+        document.querySelectorAll('.step-item').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var target = parseInt(btn.getAttribute('data-step'));
+                if (target <= state.maxReachedStep) {
+                    goToStep(target);
+                }
+            });
+        });
+
+        /* ========================================
+           STEP 2: ARCHETYPE PRESETS
+           ======================================== */
+        function renderArchetypes() {
+            var grid = document.getElementById('archetype-grid');
+            grid.innerHTML = '';
+            ARCHETYPES.forEach(function(arch) {
+                var btn = document.createElement('button');
+                btn.className = 'archetype-card';
+                btn.setAttribute('role', 'listitem');
+                btn.setAttribute('type', 'button');
+                btn.innerHTML =
+                    '<h3>' + arch.name + '</h3>' +
+                    '<p>' + arch.description + '</p>' +
+                    '<span class="tool-count">' + arch.toolSlugs.length + ' tools</span>';
+                btn.addEventListener('click', function() {
+                    selectArchetype(arch);
+                });
+                grid.appendChild(btn);
+            });
+        }
+
+        function selectArchetype(arch) {
+            state.selectedToolIds = [];
+            document.querySelectorAll('.archetype-card').forEach(function(c) { c.classList.remove('selected'); });
+
+            // Mark selected
+            var cards = document.querySelectorAll('.archetype-card');
+            var archs = ARCHETYPES;
+            for (var i = 0; i < archs.length; i++) {
+                if (archs[i].slug === arch.slug && cards[i]) {
+                    cards[i].classList.add('selected');
+                }
+            }
+
+            arch.toolSlugs.forEach(function(slug) {
+                var tool = getToolBySlug(slug);
+                if (tool && state.selectedToolIds.indexOf(tool.id) === -1) {
+                    state.selectedToolIds.push(tool.id);
+                }
+            });
+
+            renderSelectedTools();
+            updateAssessButton();
+        }
+
+        /* ========================================
+           STEP 2: SEARCH / AUTOCOMPLETE
+           ======================================== */
+        function initSearch() {
+            var input = document.getElementById('tool-search');
+            var list = document.getElementById('autocomplete-list');
+            var highlightedIndex = -1;
+
+            input.addEventListener('input', function() {
+                var query = input.value.trim().toLowerCase();
+                list.innerHTML = '';
+                highlightedIndex = -1;
+
+                if (query.length < 2) {
+                    input.setAttribute('aria-expanded', 'false');
+                    return;
+                }
+
+                var matches = TOOLS.filter(function(t) {
+                    return (
+                        t.name.toLowerCase().indexOf(query) !== -1 ||
+                        t.category.toLowerCase().indexOf(query) !== -1 ||
+                        (t.provider && t.provider.toLowerCase().indexOf(query) !== -1)
+                    ) && state.selectedToolIds.indexOf(t.id) === -1;
+                }).slice(0, 15);
+
+                if (matches.length === 0) {
+                    input.setAttribute('aria-expanded', 'false');
+                    return;
+                }
+
+                input.setAttribute('aria-expanded', 'true');
+
+                matches.forEach(function(tool, idx) {
+                    var li = document.createElement('li');
+                    li.className = 'autocomplete-item';
+                    li.setAttribute('role', 'option');
+                    li.setAttribute('id', 'autocomplete-option-' + idx);
+                    li.innerHTML = tool.name + '<span class="category">' + tool.category + '</span>';
+                    li.addEventListener('click', function() {
+                        addTool(tool.id);
+                        input.value = '';
+                        list.innerHTML = '';
+                        input.setAttribute('aria-expanded', 'false');
+                        input.focus();
+                    });
+                    list.appendChild(li);
+                });
+            });
+
+            input.addEventListener('keydown', function(e) {
+                var items = list.querySelectorAll('.autocomplete-item');
+                if (items.length === 0) return;
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    highlightedIndex = Math.min(highlightedIndex + 1, items.length - 1);
+                    updateHighlight(items);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    highlightedIndex = Math.max(highlightedIndex - 1, 0);
+                    updateHighlight(items);
+                } else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                    e.preventDefault();
+                    items[highlightedIndex].click();
+                } else if (e.key === 'Escape') {
+                    list.innerHTML = '';
+                    input.setAttribute('aria-expanded', 'false');
+                    highlightedIndex = -1;
+                }
+            });
+
+            function updateHighlight(items) {
+                items.forEach(function(item, i) {
+                    if (i === highlightedIndex) {
+                        item.classList.add('highlighted');
+                        input.setAttribute('aria-activedescendant', item.id);
+                    } else {
+                        item.classList.remove('highlighted');
+                    }
+                });
+            }
+
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !list.contains(e.target)) {
+                    list.innerHTML = '';
+                    input.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        /* ========================================
+           STEP 2: TOOL SELECTION
+           ======================================== */
+        function addTool(id) {
+            if (state.selectedToolIds.indexOf(id) === -1) {
+                state.selectedToolIds.push(id);
+                renderSelectedTools();
+                updateAssessButton();
+                saveState();
+            }
+        }
+
+        function removeTool(id) {
+            state.selectedToolIds = state.selectedToolIds.filter(function(tid) { return tid !== id; });
+            document.querySelectorAll('.archetype-card').forEach(function(c) { c.classList.remove('selected'); });
+            renderSelectedTools();
+            updateAssessButton();
+            saveState();
+
+            // Re-run results if already showing
+            if (!document.getElementById('audit-results').hidden) {
+                showResults();
+            }
+        }
+
+        function renderSelectedTools() {
+            var container = document.getElementById('selected-tools');
+            container.innerHTML = '';
+            state.selectedToolIds.forEach(function(id) {
+                var tool = getToolById(id);
+                if (!tool) return;
+                var chip = document.createElement('span');
+                chip.className = 'tool-chip';
+
+                var nameSpan = document.createElement('span');
+                nameSpan.textContent = tool.name;
+
+                var btn = document.createElement('button');
+                btn.className = 'chip-remove';
+                btn.setAttribute('type', 'button');
+                btn.setAttribute('aria-label', 'Remove ' + tool.name);
+                btn.innerHTML = '&times;';
+                btn.addEventListener('click', function() { removeTool(id); });
+
+                chip.appendChild(nameSpan);
+                chip.appendChild(btn);
+                container.appendChild(chip);
+            });
+        }
+
+        function updateAssessButton() {
+            var btn = document.getElementById('assess-btn');
+            var hasTools = state.selectedToolIds.length > 0;
+            btn.disabled = !hasTools;
+        }
+
+        /* ========================================
+           STEP 2: SHOW RESULTS
+           ======================================== */
+        function showResults() {
+            var tools = state.selectedToolIds.map(getToolById).filter(Boolean);
+            if (tools.length === 0) return;
+
+            renderHeatmap(tools);
+            renderRadarChart(tools);
+            renderSummary(tools);
+
+            document.getElementById('audit-results').hidden = false;
+
+            if (window.innerWidth <= 768) {
+                document.getElementById('heatmap-wrapper').classList.add('mobile-cards');
+            }
+
+            document.getElementById('audit-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderHeatmap(tools) {
+            var tbody = document.getElementById('heatmap-body');
+            tbody.innerHTML = '';
+
+            var sorted = tools.slice().sort(function(a, b) { return b.total - a.total; });
+
+            sorted.forEach(function(tool) {
+                var tr = document.createElement('tr');
+                tr.setAttribute('tabindex', '0');
+                tr.setAttribute('data-tool', tool.name);
+                tr.setAttribute('aria-label', tool.name + '. Total: ' + tool.total + '/25. ' + tool.riskLevel + '. Click to expand.');
+
+                tr.innerHTML =
+                    '<td><span class="expand-indicator" aria-hidden="true"></span>' + tool.name +
+                    '<span class="tool-category">' + tool.category + '</span></td>' +
+                    '<td data-label="Jurisdiction"><span class="score-cell score-' + tool.jurisdiction + '" aria-label="' + tool.jurisdiction + '">' + tool.jurisdiction + '</span></td>' +
+                    '<td data-label="Continuity"><span class="score-cell score-' + tool.continuity + '">' + tool.continuity + '</span></td>' +
+                    '<td data-label="Surveillance"><span class="score-cell score-' + tool.surveillance + '">' + tool.surveillance + '</span></td>' +
+                    '<td data-label="Lock-in"><span class="score-cell score-' + tool.lockIn + '">' + tool.lockIn + '</span></td>' +
+                    '<td data-label="Cost"><span class="score-cell score-' + tool.costExposure + '">' + tool.costExposure + '</span></td>' +
+                    '<td data-label="Total" class="total-cell">' + tool.total + '/25</td>' +
+                    '<td data-label="Risk"><span class="risk-badge ' + getRiskClass(tool.riskLevel) + '">' + tool.riskLevel + '</span></td>';
+
+                var risksRow = document.createElement('tr');
+                risksRow.className = 'key-risks-row';
+                risksRow.hidden = true;
+                risksRow.innerHTML = '<td colspan="8"><div class="key-risks-content"><strong>Key risks:</strong> ' + tool.keyRisks + '</div></td>';
+
+                (function(mainRow, detailRow) {
+                    function toggle() {
+                        var isExpanded = !detailRow.hidden;
+                        detailRow.hidden = isExpanded;
+                        mainRow.classList.toggle('expanded', !isExpanded);
+                    }
+                    mainRow.addEventListener('click', toggle);
+                    mainRow.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+                    });
+                })(tr, risksRow);
+
+                tbody.appendChild(tr);
+                tbody.appendChild(risksRow);
+            });
+        }
+
+        function renderRadarChart(tools) {
+            var ctx = document.getElementById('radar-chart');
+            if (!ctx) return;
+
+            var avgs = computeDimAverages();
+            if (!avgs) return;
+
+            var labels = DIMENSIONS.map(function(d) { return DIM_LABELS[d]; });
+            var data = DIMENSIONS.map(function(d) { return avgs[d]; });
+
+            var altText = 'Average risk scores: ' + DIMENSIONS.map(function(d) {
+                return DIM_LABELS[d] + ': ' + avgs[d];
+            }).join('. ');
+            document.getElementById('radar-text-alt').textContent = altText;
+
+            if (typeof Chart === 'undefined') {
+                ctx.parentElement.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:1rem;">' + altText + '</p>';
+                return;
+            }
+
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (radarChart) {
+                radarChart.data.datasets[0].data = data;
+                radarChart.update();
+                return;
+            }
+
+            radarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Your Stack',
+                        data: data,
+                        backgroundColor: 'rgba(26,35,50,0.15)',
+                        borderColor: '#4A90D9',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#4A90D9',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    animation: { duration: prefersReducedMotion ? 0 : 600 },
+                    scales: {
+                        r: {
+                            min: 0, max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                font: { family: "'DM Sans', sans-serif", size: 11 },
+                                backdropColor: 'transparent'
+                            },
+                            grid: { color: 'rgba(26,35,50,0.08)' },
+                            angleLines: { color: 'rgba(26,35,50,0.08)' },
+                            pointLabels: {
+                                font: { family: "'DM Sans', sans-serif", size: 12, weight: '500' },
+                                color: '#3D4A5C'
+                            }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function renderSummary(tools) {
+            var container = document.getElementById('summary-text');
+
+            var avgs = computeDimAverages();
+            if (!avgs) return;
+
+            var avgTotal = parseFloat((tools.reduce(function(s, t) { return s + t.total; }, 0) / tools.length).toFixed(1));
+
+            var worstDim = DIMENSIONS[0];
+            DIMENSIONS.forEach(function(dim) {
+                if (avgs[dim] > avgs[worstDim]) worstDim = dim;
+            });
+
+            var riskLabel = avgTotal >= 18 ? 'Critical' : avgTotal >= 15 ? 'High' : avgTotal >= 11 ? 'Medium' : 'Low';
+
+            var highestRiskTool = tools[0];
+            tools.forEach(function(t) { if (t.total > highestRiskTool.total) highestRiskTool = t; });
+
+            container.innerHTML =
+                '<h3>Summary</h3>' +
+                '<p>Your stack of <strong>' + tools.length + ' tool' + (tools.length !== 1 ? 's' : '') + '</strong> has an average risk score of <strong>' + avgTotal + '/25</strong> (' + riskLabel + ').</p>' +
+                '<p>The highest-risk dimension on average is <strong>' + DIM_LABELS[worstDim] + '</strong> (' + avgs[worstDim].toFixed(1) + '/5). ' +
+                'Your highest-risk individual tool is <strong>' + highestRiskTool.name + '</strong> (' + highestRiskTool.total + '/25).</p>' +
+                '<p>In Step 3, your priority ranking will weight these scores to show how the risk profile looks through your organisation\'s particular lens.</p>';
+        }
+
+        function computeDimAverages() {
+            var tools = state.selectedToolIds.map(getToolById).filter(Boolean);
+            if (tools.length === 0) return null;
+            var avgs = {};
+            DIMENSIONS.forEach(function(dim) {
+                var sum = 0;
+                tools.forEach(function(t) { sum += (t[dim] || 0); });
+                avgs[dim] = parseFloat((sum / tools.length).toFixed(2));
+            });
+            return avgs;
+        }
+
+        /* ========================================
+           STEP 3: INIT
+           ======================================== */
+        function initStep3() {
+            // Ensure dimAverages is set
+            if (!state.dimAverages) {
+                state.dimAverages = computeDimAverages() || {
+                    jurisdiction: 2.5, continuity: 2.5, surveillance: 2.5, lockIn: 2.5, costExposure: 2.5
+                };
+            }
+
+            // Initialise slider/ranking values if not set
+            if (!state.sliderValues) {
+                state.sliderValues = {};
+                DIMENSIONS.forEach(function(dim) {
+                    state.sliderValues[dim] = state.dimAverages[dim];
+                });
+            }
+
+            if (!state.rankingValues) {
+                state.rankingValues = {};
+                DIMENSIONS.forEach(function(dim) {
+                    state.rankingValues[dim] = state.cardOrder.indexOf(dim) + 1;
+                });
+            }
+
+            buildLegend();
+            initControls();
+            drawDeepSpotlights();
+            updateSpotlightSRText();
+        }
+
+        function buildLegend() {
+            var legend = document.getElementById('spotlight-legend');
+            legend.innerHTML = '';
+            LENSES.forEach(function(lens) {
+                var item = document.createElement('div');
+                item.className = 'legend-item';
+                var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
+                item.innerHTML =
+                    '<span class="legend-dot" style="background:rgba(' + r + ',' + g + ',' + b + ',0.85)"></span>' +
+                    lens.label;
+                legend.appendChild(item);
+            });
+        }
+
+        /* ========================================
+           STEP 3: SPOTLIGHT DRAWING
+           ======================================== */
+        function drawDeepSpotlights() {
+            var stageEl = document.getElementById('deep-stage');
+            if (!stageEl) return;
+
+            var container = stageEl.parentElement;
+            var w = container.offsetWidth;
+            if (w === 0) return;
+
+            // Clear
+            stageEl.innerHTML = '';
+
+            var s = w / 960;
+            var cx = 480 * s;
+            var cy = 460 * s;
+            var R  = 185 * s;
+
+            // Spotlight radius: 132–308 at ref scale, mapped from weighted score 0.5–9.0
+            var MIN_R = 132, MAX_R = 308;
+
+            LENSES.forEach(function(lens) {
+                var dim = lens.dim;
+                var wScore = getWeightedScore(dim);
+                wScore = Math.max(0.5, Math.min(9.0, wScore));
+                var spotR = (MIN_R + (wScore - 0.5) / 8.5 * (MAX_R - MIN_R)) * s;
+
+                var rad = lens.angle * Math.PI / 180;
+                var x = cx + R * Math.cos(rad);
+                var y = cy + R * Math.sin(rad);
+
+                var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
+                var el = document.createElement('div');
+                el.className = 'spotlight';
+                el.style.width  = spotR * 2 + 'px';
+                el.style.height = spotR * 2 + 'px';
+                el.style.left   = (x - spotR) + 'px';
+                el.style.top    = (y - spotR) + 'px';
+                el.style.background = 'radial-gradient(circle, rgba(' + r + ',' + g + ',' + b + ',0.85) 0%, rgba(' + r + ',' + g + ',' + b + ',0.6) 25%, rgba(' + r + ',' + g + ',' + b + ',0.35) 45%, rgba(' + r + ',' + g + ',' + b + ',0.1) 65%, rgba(' + r + ',' + g + ',' + b + ',0.0) 80%)';
+                stageEl.appendChild(el);
+            });
+
+            // Centre glow — scales with average weighted score
+            var avgWScore = DIMENSIONS.reduce(function(sum, dim) {
+                return sum + getWeightedScore(dim);
+            }, 0) / DIMENSIONS.length;
+            var glowR = (50 + (avgWScore / 9.0) * 55) * s;
+            var glow = document.createElement('div');
+            glow.className = 'centre-glow';
+            glow.style.width  = glowR * 2 + 'px';
+            glow.style.height = glowR * 2 + 'px';
+            glow.style.left   = (cx - glowR) + 'px';
+            glow.style.top    = (cy - glowR) + 'px';
+            glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.0) 70%)';
+            glow.style.mixBlendMode = 'screen';
+            stageEl.appendChild(glow);
+
+            highlightTopOverlap();
+
+            // Set up ResizeObserver once
+            if (!resizeObserverAdded && window.ResizeObserver) {
+                var ro = new ResizeObserver(function() { drawDeepSpotlights(); });
+                ro.observe(container);
+                resizeObserverAdded = true;
+            }
+        }
+
+        var OVERLAP_DESCRIPTIONS = {
+            'jurisdiction,continuity':   'Your data is held under foreign law, and if the platform changes course you have limited legal recourse or means of exit.',
+            'jurisdiction,costExposure': 'You are subject to pricing decisions made under a foreign legal regime, with little contractual protection if costs rise sharply.',
+            'continuity,surveillance':   'If the platform shuts down or pivots, the data it has collected about your organisation does not disappear with it.',
+            'lockIn,costExposure':       'The deeper you are embedded in a platform, the less leverage you have when prices increase — switching costs keep you paying.',
+            'surveillance,lockIn':       'You cannot leave a platform that is watching you, and leaving would mean losing access to data it has accumulated about you.',
+            'jurisdiction,surveillance': 'A foreign state or corporation can access data about your organisation under laws that do not protect you.',
+            'jurisdiction,lockIn':       'You are deeply dependent on infrastructure governed by laws and courts outside your control.',
+            'continuity,lockIn':         'Money and effort already spent on a platform makes it hard to leave, even if the platform\'s future is uncertain.',
+            'surveillance,costExposure': 'You pay with your data as well as your budget — often without a clear accounting of what that data is worth.',
+            'continuity,costExposure':   'Costs creep up gradually while switching becomes ever more disruptive, until leaving feels more expensive than staying.'
+        };
+
+        function highlightTopOverlap() {
+            var els = document.querySelectorAll('.overlap-label[data-dims]');
+            if (!els.length) return;
+            var best = null, bestScore = -1;
+            els.forEach(function(el) {
+                var dims = el.getAttribute('data-dims').split(',');
+                var score = dims.reduce(function(sum, d) { return sum + getWeightedScore(d); }, 0);
+                el.classList.remove('overlap-label--top');
+                el.removeAttribute('aria-label');
+                if (score > bestScore) { bestScore = score; best = el; }
+            });
+
+            var callout = document.getElementById('top-risk-callout');
+
+            if (best) {
+                best.classList.add('overlap-label--top');
+                var phrase = best.querySelector('.phrase');
+                var pairing = best.querySelector('.pairing');
+                var name = phrase ? phrase.textContent.trim() : '';
+                var pair = pairing ? pairing.textContent.trim() : '';
+                best.setAttribute('aria-label', 'Your top compound risk: ' + name + ' (' + pair + ')');
+
+                if (callout) {
+                    document.getElementById('top-risk-name').textContent = name;
+                    document.getElementById('top-risk-dims').textContent = pair;
+                    var key = best.getAttribute('data-dims');
+                    document.getElementById('top-risk-desc').textContent = OVERLAP_DESCRIPTIONS[key] || '';
+                    callout.hidden = false;
+                }
+            } else if (callout) {
+                callout.hidden = true;
+            }
+        }
+
+        function updateSpotlightSRText() {
+            var el = document.getElementById('spotlight-sr-text');
+            if (!el) return;
+            var parts = LENSES.map(function(lens) {
+                var dim = lens.dim;
+                var wScore = getWeightedScore(dim).toFixed(1);
+                var rank = state.rankingValues ? state.rankingValues[dim] : (state.cardOrder.indexOf(dim) + 1);
+                return lens.label + ': weighted score ' + wScore + ' (priority rank ' + rank + ')';
+            });
+            // Find top compound risk name for SR summary
+            var topEl = document.querySelector('.overlap-label--top .phrase');
+            var topName = topEl ? topEl.textContent.trim() : '';
+            var topSummary = topName ? ' Your top compound risk is: ' + topName + '.' : '';
+            el.textContent = 'Spotlight weighted risk scores: ' + parts.join('. ') + '.' + topSummary;
+        }
+
+        /* ========================================
+           STEP 3: CONTROLS
+           ======================================== */
+        function initControls() {
+            var toggleBtn = document.getElementById('toggle-controls');
+            var panel = document.getElementById('controls-panel');
+
+            toggleBtn.addEventListener('click', function() {
+                var isHidden = panel.hidden;
+                panel.hidden = !isHidden;
+                toggleBtn.setAttribute('aria-expanded', String(isHidden));
+                document.getElementById('toggle-label').textContent = isHidden ? 'Hide controls' : 'Show controls';
+                var chevron = toggleBtn.querySelector('svg');
+                if (chevron) chevron.style.transform = isHidden ? 'rotate(180deg)' : '';
+
+                if (isHidden && panel.children.length === 0) {
+                    buildControlsPanel(panel);
+                }
+            });
+        }
+
+        function buildControlsPanel(panel) {
+            panel.innerHTML = '';
+
+            LENSES.forEach(function(lens) {
+                var dim = lens.dim;
+                var score = state.sliderValues[dim];
+                var rank = state.rankingValues[dim];
+                var r = lens.colour[0], g = lens.colour[1], b = lens.colour[2];
+
+                var row = document.createElement('div');
+                row.className = 'control-row';
+
+                row.innerHTML =
+                    '<div class="control-lens">' +
+                        '<span class="control-dot" style="background:rgba(' + r + ',' + g + ',' + b + ',0.85)"></span>' +
+                        '<span class="control-name">' + lens.label + '</span>' +
+                    '</div>' +
+                    '<div class="control-score">' +
+                        '<label for="slider-' + dim + '">Risk score: <span id="slider-val-' + dim + '">' + score.toFixed(1) + '</span></label>' +
+                        '<input type="range" id="slider-' + dim + '" class="score-slider" min="1" max="5" step="0.1" value="' + score + '" aria-valuemin="1" aria-valuemax="5" aria-valuenow="' + score + '" aria-valuetext="' + score.toFixed(1) + ' out of 5">' +
+                    '</div>' +
+                    '<div class="control-rank">' +
+                        '<label for="rank-' + dim + '">Priority rank</label>' +
+                        '<select id="rank-' + dim + '" class="rank-select" aria-label="Priority rank for ' + lens.label + '">' +
+                            [1,2,3,4,5].map(function(rv) {
+                                return '<option value="' + rv + '"' + (rv === rank ? ' selected' : '') + '>Rank ' + rv + ' (' + (rv === 1 ? 'highest' : rv === 5 ? 'lowest' : '') + ')</option>';
+                            }).join('') +
+                        '</select>' +
+                    '</div>';
+
+                panel.appendChild(row);
+
+                // Wire slider
+                var slider = panel.querySelector('#slider-' + dim);
+                var valLabel = panel.querySelector('#slider-val-' + dim);
+                slider.addEventListener('input', function() {
+                    var v = parseFloat(slider.value);
+                    state.sliderValues[dim] = v;
+                    valLabel.textContent = v.toFixed(1);
+                    slider.setAttribute('aria-valuenow', v);
+                    slider.setAttribute('aria-valuetext', v.toFixed(1) + ' out of 5');
+                    drawDeepSpotlights();
+                    updateSpotlightSRText();
+                    saveState();
+                });
+
+                // Wire rank select
+                var rankSel = panel.querySelector('#rank-' + dim);
+                rankSel.addEventListener('change', function() {
+                    var newRank = parseInt(rankSel.value);
+                    var oldRank = state.rankingValues[dim];
+
+                    // Swap with the dim currently holding newRank
+                    DIMENSIONS.forEach(function(d) {
+                        if (d !== dim && state.rankingValues[d] === newRank) {
+                            state.rankingValues[d] = oldRank;
+                            var otherSel = panel.querySelector('#rank-' + d);
+                            if (otherSel) otherSel.value = oldRank;
+                        }
+                    });
+                    state.rankingValues[dim] = newRank;
+
+                    drawDeepSpotlights();
+                    updateSpotlightSRText();
+                    saveState();
+                });
+            });
+        }
+
+        /* ========================================
+           URL PARAMS & PERSISTENCE
+           ======================================== */
+        var DIM_CODES = {jurisdiction: 'j', continuity: 'c', surveillance: 's', lockIn: 'l', costExposure: 'e'};
+        var CODE_DIMS = {j: 'jurisdiction', c: 'continuity', s: 'surveillance', l: 'lockIn', e: 'costExposure'};
+
+        function encodeRanking() {
+            return DIMENSIONS.map(function(dim) {
+                return DIM_CODES[dim] + (state.cardOrder.indexOf(dim) + 1);
+            }).join(',');
+        }
+
+        function decodeRanking(str) {
+            var pairs = str.split(',');
+            var ranking = {};
+            pairs.forEach(function(pair) {
+                var code = pair[0];
+                var rank = parseInt(pair.slice(1));
+                if (CODE_DIMS[code] && rank >= 1 && rank <= 5) {
+                    ranking[CODE_DIMS[code]] = rank;
+                }
+            });
+            if (Object.keys(ranking).length === 5) {
+                var order = new Array(5);
+                Object.keys(ranking).forEach(function(dim) {
+                    order[ranking[dim] - 1] = dim;
+                });
+                if (order.every(Boolean)) return order;
+            }
+            return null;
+        }
+
+        function encodeScores() {
+            if (!state.sliderValues) return '';
+            return DIMENSIONS.map(function(dim) {
+                return DIM_CODES[dim] + state.sliderValues[dim].toFixed(1);
+            }).join(',');
+        }
+
+        function decodeScores(str) {
+            var pairs = str.split(',');
+            var scores = {};
+            pairs.forEach(function(pair) {
+                var code = pair[0];
+                var val = parseFloat(pair.slice(1));
+                if (CODE_DIMS[code] && !isNaN(val)) {
+                    scores[CODE_DIMS[code]] = Math.max(1, Math.min(5, val));
+                }
+            });
+            if (Object.keys(scores).length === 5) return scores;
+            return null;
+        }
+
+        function generateShareURL() {
+            var slugs = state.selectedToolIds.map(getToolById).filter(Boolean).map(function(t) { return t.slug; });
+            var params = [];
+            if (slugs.length) params.push('tools=' + slugs.join(','));
+            params.push('ranking=' + encodeRanking());
+            if (state.step === 3) params.push('step=3');
+            if (state.sliderValues) params.push('scores=' + encodeScores());
+            return window.location.origin + '/assess/deep/?' + params.join('&');
+        }
+
+        function parseURLParams() {
+            var params = new URLSearchParams(window.location.search);
+            var toolsParam  = params.get('tools');
+            var rankingParam = params.get('ranking');
+            var stepParam   = parseInt(params.get('step')) || 1;
+            var scoresParam = params.get('scores');
+
+            if (rankingParam) {
+                var order = decodeRanking(rankingParam);
+                if (order) state.cardOrder = order;
+            }
+
+            if (toolsParam) {
+                toolsParam.split(',').forEach(function(slug) {
+                    var tool = getToolBySlug(slug.trim());
+                    if (tool && state.selectedToolIds.indexOf(tool.id) === -1) {
+                        state.selectedToolIds.push(tool.id);
+                    }
+                });
+            }
+
+            if (scoresParam) {
+                var scores = decodeScores(scoresParam);
+                if (scores) state.sliderValues = scores;
+            }
+
+            // Determine starting step
+            if (toolsParam && rankingParam) {
+                // Both audit and card sort done — go straight to spotlight
+                state.dimAverages = computeDimAverages() || {
+                    jurisdiction: 2.5, continuity: 2.5, surveillance: 2.5, lockIn: 2.5, costExposure: 2.5
+                };
+                if (!state.sliderValues) {
+                    state.sliderValues = {};
+                    DIMENSIONS.forEach(function(d) { state.sliderValues[d] = state.dimAverages[d]; });
+                }
+                state.rankingValues = {};
+                DIMENSIONS.forEach(function(d) {
+                    state.rankingValues[d] = state.cardOrder.indexOf(d) + 1;
+                });
+                state.maxReachedStep = 3;
+                return 3;
+            }
+
+            // tools only (arriving from assess page "Go deeper") — skip audit, go straight to card sort
+            state.dimAverages = computeDimAverages() || {
+                jurisdiction: 2.5, continuity: 2.5, surveillance: 2.5, lockIn: 2.5, costExposure: 2.5
+            };
+            if (!state.sliderValues) {
+                state.sliderValues = {};
+                DIMENSIONS.forEach(function(d) { state.sliderValues[d] = state.dimAverages[d]; });
+            }
+            state.maxReachedStep = 2;
+            return 2;
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('tf-deep-assess', JSON.stringify({
+                    step:           state.step,
+                    cardOrder:      state.cardOrder,
+                    selectedToolIds: state.selectedToolIds,
+                    dimAverages:    state.dimAverages,
+                    sliderValues:   state.sliderValues,
+                    rankingValues:  state.rankingValues,
+                    maxReachedStep: state.maxReachedStep
+                }));
+            } catch(e) {}
+        }
+
+        function loadSavedState() {
+            try {
+                var saved = JSON.parse(localStorage.getItem('tf-deep-assess'));
+                if (saved) {
+                    if (Array.isArray(saved.cardOrder) && saved.cardOrder.length === 5)
+                        state.cardOrder = saved.cardOrder;
+                    if (Array.isArray(saved.selectedToolIds))
+                        state.selectedToolIds = saved.selectedToolIds;
+                    if (saved.dimAverages)   state.dimAverages   = saved.dimAverages;
+                    if (saved.sliderValues)  state.sliderValues  = saved.sliderValues;
+                    if (saved.rankingValues) state.rankingValues = saved.rankingValues;
+                    if (saved.maxReachedStep) state.maxReachedStep = saved.maxReachedStep;
+                    return saved.step || 1;
+                }
+            } catch(e) {}
+            return 1;
+        }
+
+        /* ========================================
+           SHARE BUTTON
+           ======================================== */
+        function initShareButton() {
+            var btn = document.getElementById('share-btn');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                var url = generateShareURL();
+                var display = document.getElementById('share-url-display');
+                var feedback = document.getElementById('copy-feedback');
+
+                display.textContent = url;
+                display.style.display = 'block';
+
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(url).then(function() {
+                        feedback.style.opacity = '1';
+                        setTimeout(function() { feedback.style.opacity = '0'; }, 2000);
+                    });
+                }
+
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, '', '?' + new URL(url).searchParams.toString());
+                }
+            });
+        }
+
+        /* ========================================
+           ASSESS BUTTON
+           ======================================== */
+        function initAssessButton() {
+            document.getElementById('assess-btn').addEventListener('click', function() {
+                showResults();
+                state.maxReachedStep = Math.max(state.maxReachedStep, 2);
+            });
+
+            document.getElementById('continue-to-spotlight').addEventListener('click', function() {
+                state.dimAverages = computeDimAverages() || state.dimAverages;
+                if (!state.sliderValues) {
+                    state.sliderValues = {};
+                    DIMENSIONS.forEach(function(d) { state.sliderValues[d] = state.dimAverages[d]; });
+                }
+                state.maxReachedStep = Math.max(state.maxReachedStep, 2);
+                goToStep(2);
+            });
+        }
+
+        /* ========================================
+           NAV
+           ======================================== */
+        function initNav() {
+            var nav = document.querySelector('.site-nav');
+            if (!nav) return;
+            nav.classList.add('scrolled');
+            window.addEventListener('scroll', function() {
+                nav.classList.toggle('scrolled', window.pageYOffset > 40);
+            }, { passive: true });
+
+            var toggle = document.querySelector('.nav-toggle');
+            var links  = document.querySelector('.nav-links');
+            if (toggle && links) {
+                toggle.addEventListener('click', function() {
+                    var exp = toggle.getAttribute('aria-expanded') === 'true';
+                    toggle.setAttribute('aria-expanded', String(!exp));
+                    links.classList.toggle('open');
+                });
+            }
+        }
+
+        /* ========================================
+           DATA FETCH
+           ======================================== */
+        function fetchWithTimeout(url, ms) {
+            return new Promise(function(resolve, reject) {
+                var timer = setTimeout(function() { reject(new Error('timeout')); }, ms);
+                fetch(url).then(function(r) {
+                    clearTimeout(timer);
+                    if (!r.ok) { reject(new Error(r.status)); return; }
+                    resolve(r.json());
+                }).catch(function(err) {
+                    clearTimeout(timer);
+                    reject(err);
+                });
+            });
+        }
+
+        function fetchData() {
+            if (!window.fetch) return Promise.reject('No fetch');
+            return fetchWithTimeout(STATIC_BASE + '/tools.json', 3000).then(function(data) {
+                if (data && data.length > 0) {
+                    TOOLS = data;
+                    console.log('TechFreedom: Loaded ' + TOOLS.length + ' tools');
+                }
+            });
+        }
+
+        /* ========================================
+           INIT
+           ======================================== */
+        function init() {
+            initNav();
+            initAssessButton();
+            initShareButton();
+
+            // URL params take priority over localStorage
+            var hasURLParams = window.location.search.indexOf('tools=') !== -1 ||
+                               window.location.search.indexOf('ranking=') !== -1;
+
+            var startStep = 1;
+            if (hasURLParams) {
+                // Fetch data first, then parse URL (so tool slugs resolve)
+                fetchData().catch(function() {}).then(function() {
+                    startStep = parseURLParams();
+                    afterDataLoad(startStep);
+                });
+            } else {
+                var savedStep = loadSavedState();
+                fetchData().catch(function() {}).then(function() {
+                    afterDataLoad(savedStep);
+                });
+            }
+        }
+
+        function afterDataLoad(startStep) {
+            renderArchetypes();
+            initSearch();
+
+            if (state.selectedToolIds.length > 0) {
+                renderSelectedTools();
+                updateAssessButton();
+                showResults();
+            }
+
+            goToStep(startStep);
+        }
+
+        // Wait for DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+    </script>
+
+</body>
+</html>
