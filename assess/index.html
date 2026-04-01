@@ -1043,6 +1043,19 @@
             </div>
         </section>
 
+        <!-- ============ GO DEEPER ============ -->
+        <section class="cta-section" id="go-deeper-section" aria-labelledby="go-deeper-heading" hidden>
+            <div class="section-inner section-inner--wide">
+                <div class="cta-banner" style="background: linear-gradient(135deg, rgba(74, 144, 217, 0.08) 0%, rgba(74, 144, 217, 0.03) 100%); border-color: rgba(74, 144, 217, 0.2);">
+                    <div class="cta-banner-text">
+                        <h2 id="go-deeper-heading">Go deeper with your results</h2>
+                        <p>Rank the five risk lenses by what matters most to your organisation. We'll weight your scores and show a personalised spotlight diagram you can explore interactively.</p>
+                    </div>
+                    <a href="/assess/deep/" class="cta-link" id="cta-deep" aria-label="Go deeper with a full priority-weighted risk assessment">Go deeper &rarr;</a>
+                </div>
+            </div>
+        </section>
+
         <!-- ============ CTA ============ -->
         <section class="cta-section" id="cta-section" aria-labelledby="cta-heading" hidden>
             <div class="section-inner section-inner--wide">
@@ -1411,16 +1424,24 @@
 
             var resultsSection = document.getElementById('results-section');
             var ctaSection = document.getElementById('cta-section');
+            var deepSection = document.getElementById('go-deeper-section');
             resultsSection.hidden = false;
             ctaSection.hidden = false;
+            if (deepSection) deepSection.hidden = false;
             var nudge = document.getElementById('next-step-nudge');
             if (nudge) nudge.hidden = false;
 
             // Set alternatives CTA link with selected tool slugs
+            var slugs = selectedToolIds.map(getToolById).filter(Boolean).map(function(t) { return t.slug; });
             var altLink = document.getElementById('cta-alternatives');
             if (altLink) {
-                var slugs = selectedToolIds.map(getToolById).filter(Boolean).map(function(t) { return t.slug; });
                 altLink.href = '/alternatives/?tools=' + slugs.join(',');
+            }
+
+            // Set deep assessment link with selected tool slugs
+            var deepLink = document.getElementById('cta-deep');
+            if (deepLink) {
+                deepLink.href = '/assess/deep/?tools=' + slugs.join(',');
             }
 
             // Scroll to results
