@@ -1207,12 +1207,12 @@
             <div class="step-items" role="list">
                 <button class="step-item" id="stepper-1" data-step="1" aria-current="step" role="listitem" type="button">
                     <span class="step-num" aria-hidden="true">1</span>
-                    <span class="step-label">Prioritise</span>
+                    <span class="step-label">Audit</span>
                 </button>
                 <div class="step-divider" aria-hidden="true"></div>
                 <button class="step-item" id="stepper-2" data-step="2" disabled role="listitem" type="button">
                     <span class="step-num" aria-hidden="true">2</span>
-                    <span class="step-label">Audit</span>
+                    <span class="step-label">Prioritise</span>
                 </button>
                 <div class="step-divider" aria-hidden="true"></div>
                 <button class="step-item" id="stepper-3" data-step="3" disabled role="listitem" type="button">
@@ -1225,12 +1225,12 @@
 
     <main id="main-content" tabindex="-1">
 
-        <!-- ============ STEP 1: PRIORITISE ============ -->
-        <section id="step-1" class="deep-step" aria-labelledby="step1-heading">
+        <!-- ============ STEP 2: PRIORITISE ============ -->
+        <section id="step-2" class="deep-step" hidden aria-labelledby="step2-heading">
             <div class="step-header">
                 <div class="section-inner section-inner--wide">
-                    <p class="tagline">Step 1 of 3</p>
-                    <h1 id="step1-heading">What matters most to your organisation?</h1>
+                    <p class="tagline">Step 2 of 3</p>
+                    <h2 id="step2-heading">What matters most to your organisation?</h2>
                     <p>Drag the cards into order, or use the arrow buttons. Put the risk lens that concerns you most at the top. Your ranking acts as a force multiplier when we visualise your results in Step 3.</p>
                 </div>
             </div>
@@ -1241,20 +1241,20 @@
                 </ol>
 
                 <div class="step-footer">
-                    <p>Once you're happy with the order, continue to audit your tech stack.</p>
-                    <button class="btn-primary" id="step1-continue" type="button">
-                        Continue to audit &rarr;
+                    <p>Once you're happy with the order, continue to the spotlight.</p>
+                    <button class="btn-primary" id="step2-continue" type="button">
+                        Continue to visualise &rarr;
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- ============ STEP 2: AUDIT ============ -->
-        <section id="step-2" class="deep-step" hidden aria-labelledby="step2-heading">
+        <!-- ============ STEP 1: AUDIT ============ -->
+        <section id="step-1" class="deep-step" aria-labelledby="step1-heading">
             <div class="step-header">
                 <div class="section-inner section-inner--wide">
-                    <p class="tagline">Step 2 of 3</p>
-                    <h2 id="step2-heading">Which tools are in your stack?</h2>
+                    <p class="tagline">Step 1 of 3</p>
+                    <h1 id="step1-heading">Which tools are in your stack?</h1>
                     <p>Choose a starting point that fits your organisation, or search for individual tools. We'll calculate your average risk score across all five lenses.</p>
                 </div>
             </div>
@@ -1353,10 +1353,10 @@
 
                     <!-- Continue to step 3 -->
                     <div class="continue-section" id="continue-section">
-                        <h3>Now see how your priorities change the picture</h3>
-                        <p>We'll use your ranking from Step 1 to weight each risk dimension and show you a personalised spotlight diagram. You'll be able to adjust everything interactively.</p>
+                        <h3>Now rank what matters most to you</h3>
+                        <p>Your ranking in the next step will act as a force multiplier, shaping the final spotlight diagram to reflect what matters most to your organisation.</p>
                         <button class="continue-btn" id="continue-to-spotlight" type="button">
-                            Continue to spotlight &rarr;
+                            Continue to rank your priorities &rarr;
                         </button>
                     </div>
                 </div>
@@ -1572,12 +1572,17 @@
         }
 
         /* ========================================
-           STEP 1: CARD SORT
+           STEP 2: CARD SORT
            ======================================== */
-        function initStep1() {
+        function initStep2() {
             renderCards();
-            document.getElementById('step1-continue').addEventListener('click', function() {
-                goToStep(2);
+            document.getElementById('step2-continue').addEventListener('click', function() {
+                state.rankingValues = {};
+                DIMENSIONS.forEach(function(d) {
+                    state.rankingValues[d] = state.cardOrder.indexOf(d) + 1;
+                });
+                state.maxReachedStep = 3;
+                goToStep(3);
             });
         }
 
@@ -1737,7 +1742,9 @@
             window.scrollTo(0, 0);
             saveState();
 
-            if (n === 3) {
+            if (n === 2) {
+                initStep2();
+            } else if (n === 3) {
                 initStep3();
             }
         }
@@ -2448,7 +2455,8 @@
             }
 
             // Determine starting step
-            if (toolsParam && rankingParam && stepParam >= 3) {
+            if (toolsParam && rankingParam) {
+                // Both audit and card sort done — go straight to spotlight
                 state.dimAverages = computeDimAverages() || {
                     jurisdiction: 2.5, continuity: 2.5, surveillance: 2.5, lockIn: 2.5, costExposure: 2.5
                 };
@@ -2462,13 +2470,9 @@
                 });
                 state.maxReachedStep = 3;
                 return 3;
-            } else if (toolsParam && rankingParam) {
-                state.maxReachedStep = 2;
-                return 2;
             }
 
-            // tools only (arriving from assess page "Go deeper") — start at Step 1
-            // tools are pre-loaded in state.selectedToolIds for use in Step 2
+            // tools only (arriving from assess page "Go deeper") — start at Step 1 with tools pre-loaded
             return 1;
         }
 
@@ -2542,17 +2546,12 @@
 
             document.getElementById('continue-to-spotlight').addEventListener('click', function() {
                 state.dimAverages = computeDimAverages() || state.dimAverages;
-                // Reset slider values to new averages if not manually adjusted
                 if (!state.sliderValues) {
                     state.sliderValues = {};
                     DIMENSIONS.forEach(function(d) { state.sliderValues[d] = state.dimAverages[d]; });
                 }
-                state.rankingValues = {};
-                DIMENSIONS.forEach(function(d) {
-                    state.rankingValues[d] = state.cardOrder.indexOf(d) + 1;
-                });
-                state.maxReachedStep = 3;
-                goToStep(3);
+                state.maxReachedStep = Math.max(state.maxReachedStep, 2);
+                goToStep(2);
             });
         }
 
@@ -2610,7 +2609,6 @@
            ======================================== */
         function init() {
             initNav();
-            initStep1();
             initAssessButton();
             initShareButton();
 
@@ -2634,16 +2632,13 @@
         }
 
         function afterDataLoad(startStep) {
-            renderCards();   // re-render with potentially restored state.cardOrder
             renderArchetypes();
             initSearch();
 
             if (state.selectedToolIds.length > 0) {
                 renderSelectedTools();
                 updateAssessButton();
-                if (startStep >= 2) {
-                    showResults();
-                }
+                showResults();
             }
 
             goToStep(startStep);
