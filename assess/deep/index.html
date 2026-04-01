@@ -1749,11 +1749,11 @@
                 if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     highlightedIndex = Math.min(highlightedIndex + 1, items.length - 1);
-                    updateHighlight(items, input);
+                    updateHighlight(items);
                 } else if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     highlightedIndex = Math.max(highlightedIndex - 1, 0);
-                    updateHighlight(items, input);
+                    updateHighlight(items);
                 } else if (e.key === 'Enter' && highlightedIndex >= 0) {
                     e.preventDefault();
                     items[highlightedIndex].click();
@@ -1764,34 +1764,21 @@
                 }
             });
 
+            function updateHighlight(items) {
+                items.forEach(function(item, i) {
+                    if (i === highlightedIndex) {
+                        item.classList.add('highlighted');
+                        input.setAttribute('aria-activedescendant', item.id);
+                    } else {
+                        item.classList.remove('highlighted');
+                    }
+                });
+            }
+
             document.addEventListener('click', function(e) {
                 if (!input.contains(e.target) && !list.contains(e.target)) {
                     list.innerHTML = '';
                     input.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-
-        function updateHighlight(items, input) {
-            items.forEach(function(item, i) {
-                if (i === highlightedIndex) {
-                    item.classList.add('highlighted');
-                    input.setAttribute('aria-activedescendant', item.id);
-                } else {
-                    item.classList.remove('highlighted');
-                }
-            });
-        }
-
-        // highlightedIndex scoped to initSearch — this is a closure workaround
-        var highlightedIndex = -1;
-        function updateHighlight(items, input) {
-            items.forEach(function(item, i) {
-                if (i === highlightedIndex) {
-                    item.classList.add('highlighted');
-                    if (input) input.setAttribute('aria-activedescendant', item.id);
-                } else {
-                    item.classList.remove('highlighted');
                 }
             });
         }
