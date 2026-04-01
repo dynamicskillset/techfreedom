@@ -2411,11 +2411,13 @@
                 });
                 state.maxReachedStep = 3;
                 return 3;
-            } else if (toolsParam) {
+            } else if (toolsParam && rankingParam) {
                 state.maxReachedStep = 2;
                 return 2;
             }
 
+            // tools only (arriving from assess page "Go deeper") — start at Step 1
+            // tools are pre-loaded in state.selectedToolIds for use in Step 2
             return 1;
         }
 
