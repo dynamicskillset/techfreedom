@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.3
+
+### Fixed
+- Guided tour steps 3 and 4 tooltip no longer goes off the top of the screen on tablets
+
 ## 3.2.2
 
 ### Fixed
