@@ -31,19 +31,26 @@
 import * as BunnySDK from "@bunny.net/edgescript-sdk";
 import { createClient } from "https://esm.sh/@libsql/client@0.14/web";
 
-const ALLOWED_ORIGIN = "https://techfreedom.eu";
+const ALLOWED_ORIGINS = new Set([
+  "https://techfreedom.eu",
+  "https://www.techfreedom.eu",
+]);
 
-const CORS_HEADERS: Record<string, string> = {
-  "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Max-Age": "86400",
-};
+function corsHeaders(request: Request): Record<string, string> {
+  const origin = request.headers.get("Origin") || "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED_ORIGINS.has(origin) ? origin : "https://techfreedom.eu",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    "Vary": "Origin",
+  };
+}
 
-function json(data: unknown, status = 200): Response {
+function json(data: unknown, status: number, request: Request): Response {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { "Content-Type": "application/json", ...CORS_HEADERS },
+    headers: { "Content-Type": "application/json", ...corsHeaders(request) },
   });
 }
 
@@ -91,7 +98,7 @@ function getDb() {
 BunnySDK.net.http.serve(async (request: Request): Promise<Response> => {
   // CORS preflight
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: CORS_HEADERS });
+    return new Response(null, { status: 204, headers: corsHeaders(request) });
   }
 
   const url = new URL(request.url);
@@ -130,7 +137,7 @@ BunnySDK.net.http.serve(async (request: Request): Promise<Response> => {
       date: row.created_at,
     }));
 
-    return json({ scores });
+    return json({ scores }, 200, request);
   }
 
   // POST /scores
@@ -139,11 +146,11 @@ BunnySDK.net.http.serve(async (request: Request): Promise<Response> => {
     try {
       body = await request.json();
     } catch {
-      return json({ error: "Invalid JSON" }, 400);
+      return json({ error: "Invalid JSON" }, 400, request);
     }
 
     const error = validateScore(body);
-    if (error) return json({ error }, 400);
+    if (error) return json({ error }, 400, request);
 
     const db = getDb();
     await db.execute({
@@ -159,8 +166,8 @@ BunnySDK.net.http.serve(async (request: Request): Promise<Response> => {
       ],
     });
 
-    return json({ ok: true }, 201);
+    return json({ ok: true }, 201, request);
   }
 
-  return json({ error: "Not found" }, 404);
+  return json({ error: "Not found" }, 404, request);
 });
