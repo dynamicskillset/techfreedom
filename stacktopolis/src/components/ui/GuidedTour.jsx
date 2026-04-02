@@ -79,10 +79,12 @@ export default function GuidedTour({ onComplete }) {
     tooltipStyle = { top, right }
   } else if (current.position === 'top') {
     let left = highlight.left
-    let bottom = window.innerHeight - highlight.top + 16
+    let top = highlight.top - TH - 16
+    if (top < PAD) top = highlight.top + highlight.height + 16
+    if (top + TH > window.innerHeight - PAD) top = PAD
     if (left + TW > window.innerWidth - PAD) left = window.innerWidth - TW - PAD
     if (left < PAD) left = PAD
-    tooltipStyle = { bottom, left }
+    tooltipStyle = { top, left }
   }
 
   return (
