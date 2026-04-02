@@ -59,14 +59,30 @@ export default function GuidedTour({ onComplete }) {
   const current = STEPS[step]
   if (!highlight) return null
 
-  // Position the tooltip near the highlighted element
+  // Position the tooltip near the highlighted element, clamped to viewport
+  const TW = 320 // max-w-xs
+  const TH = 200 // approximate tooltip height
+  const PAD = 8
   let tooltipStyle = {}
   if (current.position === 'right') {
-    tooltipStyle = { top: highlight.top + 20, left: highlight.left + highlight.width + 16 }
+    let left = highlight.left + highlight.width + 16
+    let top = highlight.top + 20
+    if (left + TW > window.innerWidth - PAD) left = highlight.left - TW - 16
+    if (left < PAD) left = PAD
+    if (top + TH > window.innerHeight - PAD) top = window.innerHeight - TH - PAD
+    tooltipStyle = { top, left }
   } else if (current.position === 'left') {
-    tooltipStyle = { top: highlight.top + 20, right: window.innerWidth - highlight.left + 16 }
+    let right = window.innerWidth - highlight.left + 16
+    let top = highlight.top + 20
+    if (right + TW > window.innerWidth - PAD) right = PAD
+    if (top + TH > window.innerHeight - PAD) top = window.innerHeight - TH - PAD
+    tooltipStyle = { top, right }
   } else if (current.position === 'top') {
-    tooltipStyle = { bottom: window.innerHeight - highlight.top + 16, left: highlight.left }
+    let left = highlight.left
+    let bottom = window.innerHeight - highlight.top + 16
+    if (left + TW > window.innerWidth - PAD) left = window.innerWidth - TW - PAD
+    if (left < PAD) left = PAD
+    tooltipStyle = { bottom, left }
   }
 
   return (
@@ -77,6 +93,7 @@ export default function GuidedTour({ onComplete }) {
       aria-modal="true"
       aria-label={`Tour step ${step + 1} of ${STEPS.length}: ${current.title}`}
       onKeyDown={(e) => { if (e.key === 'Escape') skip() }}
+      onClick={skip}
     >
       {/* Dark overlay with cutout */}
       <svg className="absolute inset-0 w-full h-full">
@@ -118,6 +135,7 @@ export default function GuidedTour({ onComplete }) {
       <div
         className="fixed bg-terminal-bg border border-amber-glow/60 rounded-lg p-5 max-w-xs animate-fade-in"
         style={{ ...tooltipStyle, boxShadow: '0 0 20px rgba(255, 176, 0, 0.2)' }}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="font-mono text-xs text-amber-glow uppercase tracking-wider mb-1">
           {step + 1}/{STEPS.length}

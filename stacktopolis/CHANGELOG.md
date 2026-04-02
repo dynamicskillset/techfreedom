@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.2.2
+
+### Fixed
+- Guided tour tooltip now stays within the viewport on tablets (was being pushed off-screen)
+- Tapping the dark backdrop now skips the tour on touch devices
+
 ## 3.2.1
 
 ### Fixed
