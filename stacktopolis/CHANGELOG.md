@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.2.1
+
+### Fixed
+- iPad and tablet users (≥768px) can now access the game — mobile gate was set to 1024px, blocking most iPads in portrait mode and right-on-the-edge in landscape
+- Mobile gate message updated to suggest landscape mode for tablet users
+
+## 3.2.0 (see below for details)
+
 ## 3.1.0
 
 ### Language & Tone
