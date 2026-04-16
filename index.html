@@ -1394,12 +1394,12 @@
                 button.disabled = true;
                 button.textContent = 'Subscribing\u2026';
 
-                fetch('https://subscribe.techfreedom.eu', {
+                fetch('https://newsletter.techfreedom.eu/api/public/subscription', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: emailInput.value }),
+                    body: JSON.stringify({ email: emailInput.value, list_uuids: ['b671b5e8-8a0c-4125-b222-195668914d4f'] }),
                 })
-                .then(function(r) { return r.json(); })
+                .then(function(r) { return r.ok ? { ok: true } : r.json().then(function(d) { return { ok: false, error: d.message }; }); })
                 .then(function(data) {
                     status.hidden = false;
                     if (data.ok) {
