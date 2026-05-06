@@ -317,6 +317,231 @@
             box-shadow: none;
         }
 
+        /* --- Bulk Add --- */
+        .bulk-add-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+            margin-top: 0.6em;
+            padding: 0;
+            border: none;
+            background: none;
+            color: var(--accent-sky);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .bulk-add-link:hover { color: var(--text-primary); }
+        .bulk-add-link:focus-visible {
+            outline: 2px solid var(--accent-sky);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: var(--space-s);
+            overflow-y: auto;
+        }
+
+        .modal-overlay[hidden] { display: none; }
+
+        .modal {
+            background: var(--white);
+            border-radius: 6px;
+            max-width: 720px;
+            width: 100%;
+            max-height: calc(100vh - 2rem);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            padding: var(--space-s) var(--space-m);
+            border-bottom: 1px solid var(--bg-fog);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-s);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.15rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            line-height: 1;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.2em 0.4em;
+        }
+
+        .modal-close:hover { color: var(--text-primary); }
+
+        .modal-body {
+            padding: var(--space-m);
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .modal-body p { margin-top: 0; font-size: 0.9rem; color: var(--text-muted); }
+
+        .bulk-textarea {
+            width: 100%;
+            min-height: 140px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            padding: 0.75em;
+            border: 1px solid var(--bg-fog);
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .bulk-textarea:focus {
+            outline: none;
+            border-color: var(--accent-sky);
+            box-shadow: 0 0 0 3px var(--accent-sky-light);
+        }
+
+        .bulk-tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-s);
+            align-items: center;
+            margin-top: var(--space-s);
+        }
+
+        .bulk-file-label {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.55em 1em;
+            border: 1px solid var(--horizon);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            background: var(--bg-mist);
+        }
+
+        .bulk-file-label:hover { background: var(--bg-fog); }
+        .bulk-file-label input[type="file"] { display: none; }
+
+        .bulk-review {
+            margin-top: var(--space-m);
+            border-top: 1px solid var(--bg-fog);
+            padding-top: var(--space-s);
+        }
+
+        .bulk-review h4 {
+            margin: 0 0 var(--space-xs) 0;
+            font-size: 0.95rem;
+        }
+
+        .bulk-summary {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-s);
+        }
+
+        .bulk-row {
+            display: grid;
+            grid-template-columns: 24px 1fr 1.4fr;
+            gap: 0.6em;
+            align-items: center;
+            padding: 0.5em 0;
+            border-bottom: 1px solid var(--bg-mist);
+            font-size: 0.9rem;
+        }
+
+        .bulk-row-input {
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .bulk-row-match select {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            padding: 0.35em 0.5em;
+            border: 1px solid var(--bg-fog);
+            border-radius: 3px;
+            background: var(--white);
+        }
+
+        .bulk-row-match.no-match {
+            color: #C62828;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        .bulk-row-match.high-confidence {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .bulk-row-match.high-confidence .confidence-badge {
+            display: inline-block;
+            margin-left: 0.4em;
+            padding: 0.1em 0.4em;
+            font-size: 0.7rem;
+            background: rgba(76, 175, 80, 0.15);
+            color: #2E7D32;
+            border-radius: 3px;
+        }
+
+        .modal-footer {
+            padding: var(--space-s) var(--space-m);
+            border-top: 1px solid var(--bg-fog);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-s);
+        }
+
+        .modal-btn {
+            padding: 0.6em 1.2em;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid var(--horizon);
+            background: var(--white);
+            color: var(--text-primary);
+        }
+
+        .modal-btn:hover { background: var(--bg-mist); }
+
+        .modal-btn--primary {
+            background: var(--accent-amber);
+            border-color: var(--accent-amber);
+        }
+
+        .modal-btn--primary:hover {
+            background: var(--accent-amber);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(212, 168, 67, 0.3);
+        }
+
+        .modal-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         /* --- Results Section --- */
         .results-section {
             padding: var(--space-l) 0 var(--space-s) 0;
@@ -975,6 +1200,10 @@
                         <ul id="autocomplete-list" class="autocomplete-list" role="listbox" aria-label="Matching tools"></ul>
                     </div>
 
+                    <button type="button" class="bulk-add-link" id="bulk-add-btn" aria-haspopup="dialog">
+                        Or paste / upload a list of tools
+                    </button>
+
                     <div class="selected-tools" id="selected-tools" aria-live="polite" aria-label="Selected tools">
                         <!-- Chips appear here -->
                     </div>
@@ -1071,6 +1300,37 @@
         </section>
 
     </main>
+
+    <!-- ============ BULK ADD MODAL ============ -->
+    <div class="modal-overlay" id="bulk-modal" role="dialog" aria-modal="true" aria-labelledby="bulk-modal-title" hidden>
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="bulk-modal-title">Add tools in bulk</h3>
+                <button type="button" class="modal-close" id="bulk-modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Paste your tool list (one per line) or upload a CSV. We'll match each entry against our catalogue — review the matches before adding.</p>
+                <label for="bulk-textarea" class="visually-hidden">Tool list</label>
+                <textarea id="bulk-textarea" class="bulk-textarea" placeholder="Slack&#10;Microsoft 365&#10;Notion&#10;Zoom"></textarea>
+                <div class="bulk-tools-row">
+                    <label class="bulk-file-label">
+                        Upload CSV
+                        <input type="file" id="bulk-file" accept=".csv,text/csv,text/plain">
+                    </label>
+                    <button type="button" class="modal-btn" id="bulk-match-btn">Match tools</button>
+                </div>
+                <div class="bulk-review" id="bulk-review" hidden>
+                    <h4>Review matches</h4>
+                    <p class="bulk-summary" id="bulk-summary"></p>
+                    <div id="bulk-rows"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-btn" id="bulk-cancel">Cancel</button>
+                <button type="button" class="modal-btn modal-btn--primary" id="bulk-confirm" disabled>Add selected</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ============ FOOTER ============ -->
     <footer class="site-footer">
@@ -1365,6 +1625,355 @@
                 renderSelectedTools();
                 updateAssessButton();
             }
+        }
+
+        /* ========================================
+           BULK ADD: fuzzy matching + modal
+           ======================================== */
+        var BULK_HIGH = 0.85;   // auto-tick threshold
+        var BULK_LOW = 0.35;    // below this = no match
+        var bulkLastResults = [];  // populated by runBulkMatching
+
+        function normaliseText(s) {
+            return (s || '')
+                .toLowerCase()
+                .replace(/[\(\)\[\]\{\},\.\/\\:;!\?'"`’]/g, ' ')
+                .replace(/[\-_+&]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function tokenise(s) {
+            var n = normaliseText(s);
+            if (!n) return [];
+            return n.split(' ').filter(function(t) { return t.length > 1; });
+        }
+
+        // Levenshtein on short strings — used as tie-breaker on shortest token
+        function levenshtein(a, b) {
+            if (a === b) return 0;
+            if (!a.length) return b.length;
+            if (!b.length) return a.length;
+            var prev = [], curr = [], i, j;
+            for (j = 0; j <= b.length; j++) prev[j] = j;
+            for (i = 1; i <= a.length; i++) {
+                curr[0] = i;
+                for (j = 1; j <= b.length; j++) {
+                    var cost = a.charCodeAt(i - 1) === b.charCodeAt(j - 1) ? 0 : 1;
+                    curr[j] = Math.min(curr[j - 1] + 1, prev[j] + 1, prev[j - 1] + cost);
+                }
+                for (j = 0; j <= b.length; j++) prev[j] = curr[j];
+            }
+            return prev[b.length];
+        }
+
+        // Score a single input string against a single tool. Returns 0..1.
+        function scoreToolMatch(input, tool) {
+            var inputNorm = normaliseText(input);
+            if (!inputNorm) return 0;
+            var inputTokens = tokenise(input);
+
+            // Candidate strings: name, slug (de-hyphenated), provider, aliases
+            var candidates = [tool.name, tool.slug.replace(/-/g, ' '), tool.provider];
+            if (tool.aliases && tool.aliases.length) {
+                for (var a = 0; a < tool.aliases.length; a++) candidates.push(tool.aliases[a]);
+            }
+
+            var best = 0;
+            for (var c = 0; c < candidates.length; c++) {
+                var candNorm = normaliseText(candidates[c]);
+                if (!candNorm) continue;
+                var candTokens = tokenise(candidates[c]);
+
+                // Exact match
+                if (inputNorm === candNorm) { best = Math.max(best, 1); continue; }
+
+                // Substring (input fully contained in candidate or vice versa)
+                var subBonus = 0;
+                if (candNorm.indexOf(inputNorm) !== -1 || inputNorm.indexOf(candNorm) !== -1) {
+                    subBonus = 0.4;
+                }
+
+                // Token overlap (Jaccard-ish, weighted toward input coverage)
+                var overlap = 0;
+                if (inputTokens.length && candTokens.length) {
+                    var matched = 0;
+                    for (var t = 0; t < inputTokens.length; t++) {
+                        if (candTokens.indexOf(inputTokens[t]) !== -1) matched++;
+                    }
+                    overlap = matched / Math.max(inputTokens.length, 1);
+                    // Weight: full coverage of input tokens is strong signal
+                    overlap = overlap * 0.7 + (matched / Math.max(candTokens.length, 1)) * 0.1;
+                }
+
+                // Edit-distance forgiveness for short typos (single-token inputs)
+                var typoBonus = 0;
+                if (inputTokens.length === 1 && candTokens.length >= 1) {
+                    var minDist = Infinity;
+                    for (var k = 0; k < candTokens.length; k++) {
+                        var d = levenshtein(inputTokens[0], candTokens[k]);
+                        if (d < minDist) minDist = d;
+                    }
+                    var ref = inputTokens[0].length;
+                    if (ref >= 4 && minDist === 1) typoBonus = 0.7;
+                    else if (ref >= 5 && minDist === 2) typoBonus = 0.5;
+                    else if (ref >= 3 && minDist <= 1) typoBonus = 0.5;
+                }
+
+                var score = Math.min(1, overlap + subBonus + typoBonus);
+                if (score > best) best = score;
+            }
+            return best;
+        }
+
+        // For one input line, return up to top N candidates [{tool, score}]
+        function findCandidates(input, topN) {
+            var scored = [];
+            for (var i = 0; i < TOOLS.length; i++) {
+                var s = scoreToolMatch(input, TOOLS[i]);
+                if (s > 0) scored.push({ tool: TOOLS[i], score: s });
+            }
+            scored.sort(function(a, b) { return b.score - a.score; });
+            return scored.slice(0, topN || 3);
+        }
+
+        // Minimal CSV parser. Returns array of strings (first non-empty cell per row).
+        function parseCSV(text) {
+            var rows = [];
+            var i = 0, field = '', row = [], inQuotes = false;
+            while (i < text.length) {
+                var ch = text[i];
+                if (inQuotes) {
+                    if (ch === '"') {
+                        if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+                        inQuotes = false; i++; continue;
+                    }
+                    field += ch; i++;
+                } else {
+                    if (ch === '"') { inQuotes = true; i++; continue; }
+                    if (ch === ',') { row.push(field); field = ''; i++; continue; }
+                    if (ch === '\r') { i++; continue; }
+                    if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; continue; }
+                    field += ch; i++;
+                }
+            }
+            if (field.length || row.length) { row.push(field); rows.push(row); }
+            // Take first non-empty cell of each row; skip likely header if it doesn't match anything
+            var out = [];
+            for (var r = 0; r < rows.length; r++) {
+                for (var c = 0; c < rows[r].length; c++) {
+                    var cell = (rows[r][c] || '').trim();
+                    if (cell) { out.push(cell); break; }
+                }
+            }
+            // Heuristic: if first row is "name"/"tool"/"tool name" etc, drop it
+            if (out.length && /^(name|tool|tool name|tools|product|service)$/i.test(out[0])) out.shift();
+            return out;
+        }
+
+        function parseInputLines(text) {
+            return text.split(/\r?\n/).map(function(l) { return l.trim(); }).filter(Boolean);
+        }
+
+        function openBulkModal() {
+            var modal = document.getElementById('bulk-modal');
+            modal.hidden = false;
+            document.body.style.overflow = 'hidden';
+            setTimeout(function() {
+                document.getElementById('bulk-textarea').focus();
+            }, 50);
+        }
+
+        function closeBulkModal() {
+            var modal = document.getElementById('bulk-modal');
+            modal.hidden = true;
+            document.body.style.overflow = '';
+            // Reset state for next open
+            document.getElementById('bulk-textarea').value = '';
+            document.getElementById('bulk-file').value = '';
+            document.getElementById('bulk-review').hidden = true;
+            document.getElementById('bulk-rows').innerHTML = '';
+            document.getElementById('bulk-summary').textContent = '';
+            document.getElementById('bulk-confirm').disabled = true;
+            bulkLastResults = [];
+        }
+
+        function runBulkMatching() {
+            var text = document.getElementById('bulk-textarea').value;
+            var lines = parseInputLines(text);
+            if (lines.length === 0) {
+                alert('Please paste at least one tool name or upload a CSV.');
+                return;
+            }
+
+            bulkLastResults = lines.map(function(line) {
+                var candidates = findCandidates(line, 3);
+                var top = candidates[0];
+                var status;
+                if (!top || top.score < BULK_LOW) status = 'none';
+                else if (top.score >= BULK_HIGH) status = 'high';
+                else status = 'medium';
+                return {
+                    input: line,
+                    candidates: candidates,
+                    status: status,
+                    selectedId: status === 'none' ? null
+                              : (top && selectedToolIds.indexOf(top.tool.id) === -1 ? top.tool.id : null),
+                    alreadySelected: top && selectedToolIds.indexOf(top.tool.id) !== -1
+                };
+            });
+
+            renderBulkReview();
+        }
+
+        function renderBulkReview() {
+            var review = document.getElementById('bulk-review');
+            var rowsEl = document.getElementById('bulk-rows');
+            var summary = document.getElementById('bulk-summary');
+            rowsEl.innerHTML = '';
+
+            var counts = { high: 0, medium: 0, none: 0, already: 0 };
+            var unmatched = [];
+
+            bulkLastResults.forEach(function(res, idx) {
+                if (res.alreadySelected) counts.already++;
+                else counts[res.status]++;
+                if (res.status === 'none') unmatched.push(res.input);
+
+                var row = document.createElement('div');
+                row.className = 'bulk-row';
+
+                // Checkbox
+                var cb = document.createElement('input');
+                cb.type = 'checkbox';
+                cb.id = 'bulk-cb-' + idx;
+                cb.checked = res.selectedId !== null && !res.alreadySelected;
+                cb.disabled = res.status === 'none' || res.alreadySelected;
+                cb.addEventListener('change', function() {
+                    res.checked = cb.checked;
+                    updateBulkConfirmState();
+                });
+                res.checked = cb.checked;
+                row.appendChild(cb);
+
+                // Input label
+                var inputCell = document.createElement('div');
+                inputCell.className = 'bulk-row-input';
+                inputCell.textContent = res.input;
+                row.appendChild(inputCell);
+
+                // Match cell
+                var matchCell = document.createElement('div');
+                matchCell.className = 'bulk-row-match';
+
+                if (res.alreadySelected) {
+                    matchCell.classList.add('high-confidence');
+                    matchCell.innerHTML = '<em>Already selected</em> — ' + escapeHtml(res.candidates[0].tool.name);
+                } else if (res.status === 'none') {
+                    matchCell.classList.add('no-match');
+                    matchCell.textContent = 'No match found';
+                } else if (res.status === 'high') {
+                    matchCell.classList.add('high-confidence');
+                    var pct = Math.round(res.candidates[0].score * 100);
+                    matchCell.innerHTML = escapeHtml(res.candidates[0].tool.name) +
+                        '<span class="confidence-badge">' + pct + '%</span>';
+                } else {
+                    // Medium: dropdown of top 3
+                    var sel = document.createElement('select');
+                    res.candidates.forEach(function(cand) {
+                        var opt = document.createElement('option');
+                        opt.value = cand.tool.id;
+                        opt.textContent = cand.tool.name + '  (' + Math.round(cand.score * 100) + '%)';
+                        sel.appendChild(opt);
+                    });
+                    sel.value = res.selectedId || res.candidates[0].tool.id;
+                    sel.addEventListener('change', function() {
+                        res.selectedId = parseInt(sel.value, 10);
+                    });
+                    matchCell.appendChild(sel);
+                }
+                row.appendChild(matchCell);
+                rowsEl.appendChild(row);
+            });
+
+            var parts = [];
+            if (counts.high) parts.push(counts.high + ' confident match' + (counts.high === 1 ? '' : 'es'));
+            if (counts.medium) parts.push(counts.medium + ' to review');
+            if (counts.none) parts.push(counts.none + ' unmatched');
+            if (counts.already) parts.push(counts.already + ' already added');
+            summary.textContent = parts.join(' · ');
+
+            if (unmatched.length) {
+                console.log('TechFreedom bulk import — unmatched:', unmatched);
+            }
+
+            review.hidden = false;
+            updateBulkConfirmState();
+        }
+
+        function updateBulkConfirmState() {
+            var anyChecked = bulkLastResults.some(function(r) {
+                return r.checked && r.selectedId && !r.alreadySelected;
+            });
+            document.getElementById('bulk-confirm').disabled = !anyChecked;
+        }
+
+        function confirmBulkAdd() {
+            var added = 0;
+            bulkLastResults.forEach(function(res) {
+                if (res.checked && res.selectedId && !res.alreadySelected) {
+                    if (selectedToolIds.indexOf(res.selectedId) === -1) {
+                        selectedToolIds.push(res.selectedId);
+                        added++;
+                    }
+                }
+            });
+            if (added > 0) {
+                // Bulk add invalidates archetype selection
+                document.querySelectorAll('.archetype-card').forEach(function(c) { c.classList.remove('selected'); });
+                renderSelectedTools();
+                updateAssessButton();
+            }
+            closeBulkModal();
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, function(c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
+        }
+
+        function initBulkAdd() {
+            document.getElementById('bulk-add-btn').addEventListener('click', openBulkModal);
+            document.getElementById('bulk-modal-close').addEventListener('click', closeBulkModal);
+            document.getElementById('bulk-cancel').addEventListener('click', closeBulkModal);
+            document.getElementById('bulk-match-btn').addEventListener('click', runBulkMatching);
+            document.getElementById('bulk-confirm').addEventListener('click', confirmBulkAdd);
+
+            // CSV upload
+            document.getElementById('bulk-file').addEventListener('change', function(e) {
+                var file = e.target.files && e.target.files[0];
+                if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    var text = ev.target.result || '';
+                    var names = parseCSV(text);
+                    document.getElementById('bulk-textarea').value = names.join('\n');
+                };
+                reader.readAsText(file);
+            });
+
+            // Close on overlay click (but not modal click)
+            document.getElementById('bulk-modal').addEventListener('click', function(e) {
+                if (e.target === this) closeBulkModal();
+            });
+
+            // Esc to close
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !document.getElementById('bulk-modal').hidden) {
+                    closeBulkModal();
+                }
+            });
         }
 
         function removeTool(id) {
@@ -2220,6 +2829,7 @@
             function renderUI() {
                 renderArchetypes();
                 initSearch();
+                initBulkAdd();
                 parseURLParams();
             }
 
