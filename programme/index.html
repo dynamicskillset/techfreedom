@@ -42,7 +42,8 @@
         "hasCourseInstance": {
             "@type": "CourseInstance",
             "courseMode": "online",
-            "courseWorkload": "PT6H"
+            "courseWorkload": "PT6H",
+            "startDate": "2026-09-16"
         }
     }
     </script>
@@ -60,7 +61,7 @@
         /* Page header */
         .programme-header {
             position: relative;
-            padding: calc(var(--space-xl) + 60px) 0 var(--space-l);
+            padding: calc(var(--space-xl) + 60px + var(--banner-offset, 0px)) 0 var(--space-l);
             background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-primary) 100%);
             overflow: hidden;
         }
@@ -715,7 +716,7 @@
 
         @media (max-width: 480px) {
             .programme-header {
-                padding-top: calc(var(--space-xl) + 60px);
+                padding-top: calc(var(--space-xl) + 60px + var(--banner-offset, 0px));
             }
 
             .include-item {
@@ -756,6 +757,34 @@
     </style>
 </head>
 <body>
+    <div class="taster-banner" id="taster-banner" hidden>
+        <span class="taster-banner-text">Free taster session &middot; 9 September 2026</span>
+        <a href="https://luma.com/qdqzb9xg" class="taster-banner-link" target="_blank" rel="noopener">Reserve your spot &rarr;</a>
+        <button type="button" class="taster-banner-close" id="taster-banner-close" aria-label="Dismiss banner">&times;</button>
+    </div>
+    <script>
+    (function () {
+        try {
+            var KEY = 'tasterBannerDismissed';
+            var EXPIRY = new Date('2026-09-10T00:00:00Z');
+            if (localStorage.getItem(KEY) === '1' || new Date() >= EXPIRY) return;
+            var banner = document.getElementById('taster-banner');
+            var closeBtn = document.getElementById('taster-banner-close');
+            if (!banner || !closeBtn) return;
+            function setOffset() {
+                document.documentElement.style.setProperty('--banner-offset', banner.offsetHeight + 'px');
+            }
+            banner.hidden = false;
+            setOffset();
+            window.addEventListener('resize', setOffset);
+            closeBtn.addEventListener('click', function () {
+                try { localStorage.setItem(KEY, '1'); } catch (e) {}
+                banner.hidden = true;
+                document.documentElement.style.setProperty('--banner-offset', '0px');
+            });
+        } catch (e) {}
+    })();
+    </script>
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <nav class="site-nav" aria-label="Main navigation">
@@ -783,7 +812,7 @@
             </div>
             <div class="section-inner">
                 <h1 class="reveal">The Programme</h1>
-                <p class="tagline reveal reveal-delay-1">A cohort-based journey to technology sovereignty. The next cohort runs in September 2026.</p>
+                <p class="tagline reveal reveal-delay-1">A cohort-based journey to technology sovereignty. The next cohort runs 16 September &ndash; 14 October 2026.</p>
             </div>
         </header>
 
@@ -801,7 +830,7 @@
             <div class="section-inner">
                 <div class="cta-area reveal">
                     <p class="cta-heading">Sign up</p>
-                    <span class="cta-subtext">Our pilot cohort has finished and the next cohort runs in September 2026. Join our newsletter for dates and details.</span>
+                    <span class="cta-subtext">The next cohort runs 16 September, 30 September &amp; 14 October 2026. Newsletter subscribers get first access to book their place.</span>
                     <a href="/programme/#newsletter" class="cta-button">Newsletter signup</a>
                 </div>
             </div>
@@ -969,14 +998,14 @@
                         <span class="pricing-label">Format</span>
                         <span class="pricing-value">3 &times; 2-hour online sessions</span>
 
-                        <span class="pricing-label">Spacing</span>
-                        <span class="pricing-value">2&ndash;3 weeks between sessions</span>
+                        <span class="pricing-label">Dates</span>
+                        <span class="pricing-value">16 September &middot; 30 September &middot; 14 October 2026</span>
 
                         <span class="pricing-label">Cohort size</span>
                         <span class="pricing-value">6&ndash;10 organisations (one person per organisation)</span>
 
                         <span class="pricing-label">Cost</span>
-                        <span class="pricing-value"><span class="price">&pound;450</span> + VAT per person</span>
+                        <span class="pricing-value"><span class="price">&pound;450</span> per person</span>
 
                         <span class="pricing-label">Includes</span>
                         <span class="pricing-value">Canvas, database, facilitation, ongoing support</span>
@@ -984,7 +1013,7 @@
                         <span class="pricing-label">Add-on</span>
                         <span class="pricing-value">1:1 surgery sessions available for working through specific blockers</span>
                     </div>
-                    <p class="pilot-note">Next cohort: September 2026. Join the newsletter to be first to hear when registration opens.</p>
+                    <p class="pilot-note">Next cohort: 16 September, 30 September &amp; 14 October 2026. Newsletter subscribers will be the first to hear when booking opens.</p>
                 </div>
             </div>
         </section>
@@ -1073,9 +1102,9 @@
         <section class="cta-section" id="signup-cta">
             <div class="section-inner">
                 <div class="cta-area reveal">
-                    <p class="cta-subtext" style="color: var(--accent-amber); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Next cohort: September 2026</p>
-                    <p class="cta-heading">Interested in the September cohort?</p>
-                    <p class="cta-dates" style="margin-bottom: 2rem;">Our pilot ran successfully with great feedback. Join our newsletter to find out when registration opens.</p>
+                    <p class="cta-subtext" style="color: var(--accent-amber); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Next cohort: 16 Sept &ndash; 14 Oct 2026</p>
+                    <p class="cta-heading">Interested in the next cohort?</p>
+                    <p class="cta-dates" style="margin-bottom: 2rem;">Newsletter subscribers get first access to book their place. Sign up so you don't miss it.</p>
                     <a href="/programme/#newsletter" class="cta-button">Subscribe to newsletter</a>
                 </div>
             </div>
@@ -1103,6 +1132,7 @@
         <div class="section-inner">
             <div class="footer-inner">
                 <p class="footer-copyright">CC BY TechFreedom 2026</p>
+                <p class="footer-credit">A project of <a href="https://fieldstation.xyz" rel="noopener">Field Station Ltd</a></p>
             </div>
         </div>
     </footer>

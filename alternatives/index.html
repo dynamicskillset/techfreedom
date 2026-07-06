@@ -35,7 +35,7 @@
 
         /* --- Page Header --- */
         .alt-header {
-            padding: calc(var(--space-xl) + 60px) 0 var(--space-l) 0;
+            padding: calc(var(--space-xl) + 60px + var(--banner-offset, 0px)) 0 var(--space-l) 0;
             background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-warm) 100%);
         }
 
@@ -462,7 +462,7 @@
 
         @media (max-width: 480px) {
             .alt-header {
-                padding-top: calc(var(--space-xl) + 60px);
+                padding-top: calc(var(--space-xl) + 60px + var(--banner-offset, 0px));
             }
 
             .alt-card {
@@ -500,6 +500,34 @@
     </style>
 </head>
 <body>
+    <div class="taster-banner" id="taster-banner" hidden>
+        <span class="taster-banner-text">Free taster session &middot; 9 September 2026</span>
+        <a href="https://luma.com/qdqzb9xg" class="taster-banner-link" target="_blank" rel="noopener">Reserve your spot &rarr;</a>
+        <button type="button" class="taster-banner-close" id="taster-banner-close" aria-label="Dismiss banner">&times;</button>
+    </div>
+    <script>
+    (function () {
+        try {
+            var KEY = 'tasterBannerDismissed';
+            var EXPIRY = new Date('2026-09-10T00:00:00Z');
+            if (localStorage.getItem(KEY) === '1' || new Date() >= EXPIRY) return;
+            var banner = document.getElementById('taster-banner');
+            var closeBtn = document.getElementById('taster-banner-close');
+            if (!banner || !closeBtn) return;
+            function setOffset() {
+                document.documentElement.style.setProperty('--banner-offset', banner.offsetHeight + 'px');
+            }
+            banner.hidden = false;
+            setOffset();
+            window.addEventListener('resize', setOffset);
+            closeBtn.addEventListener('click', function () {
+                try { localStorage.setItem(KEY, '1'); } catch (e) {}
+                banner.hidden = true;
+                document.documentElement.style.setProperty('--banner-offset', '0px');
+            });
+        } catch (e) {}
+    })();
+    </script>
 
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
@@ -563,6 +591,7 @@
         <div class="section-inner">
             <div class="footer-inner">
                 <p class="footer-copyright">CC BY TechFreedom 2026</p>
+                <p class="footer-credit">A project of <a href="https://fieldstation.xyz" rel="noopener">Field Station Ltd</a></p>
             </div>
         </div>
     </footer>

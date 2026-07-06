@@ -41,6 +41,8 @@
     --space-l: 4rem;
     --space-xl: 6rem;
     --space-2xl: 10rem;
+
+    --banner-offset: 0px;
 }
 
 /* ========================================
@@ -202,11 +204,74 @@ a:hover {
 }
 
 /* ========================================
+   TASTER SESSION BANNER
+   ======================================== */
+.taster-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-s);
+    padding: 0.6rem var(--space-m);
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.taster-banner[hidden] {
+    display: none;
+}
+
+.taster-banner-text {
+    font-weight: 500;
+}
+
+.taster-banner-link {
+    color: var(--accent-amber);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    white-space: nowrap;
+}
+
+.taster-banner-link:hover {
+    color: var(--white);
+}
+
+.taster-banner-close {
+    background: none;
+    border: none;
+    color: rgba(247, 245, 240, 0.6);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem;
+    flex-shrink: 0;
+}
+
+.taster-banner-close:hover {
+    color: var(--bg-primary);
+}
+
+@media (max-width: 640px) {
+    .taster-banner {
+        font-size: 0.78rem;
+        gap: var(--space-xs);
+        flex-wrap: wrap;
+    }
+}
+
+/* ========================================
    SITE NAVIGATION
    ======================================== */
 .site-nav {
     position: fixed;
-    top: 0;
+    top: var(--banner-offset);
     left: 0;
     right: 0;
     z-index: 100;

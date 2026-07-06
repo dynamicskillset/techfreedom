@@ -2,7 +2,7 @@
 
 **A clearer forecast for your organisation's digital future.**
 
-TechFreedom helps social purpose organisations understand their technology dependencies and start making deliberate choices about them. First cohort launches towards the end of April 2026.
+TechFreedom helps social purpose organisations understand their technology dependencies and start making deliberate choices about them. The next cohort runs 16 September, 30 September and 14 October 2026, with a free taster session on 9 September.
 
 ## About
 
@@ -16,7 +16,7 @@ TechFreedom is a three-session cohort programme that examines your technology th
 - **Lock-in**: How difficult would it be to switch away?
 - **Cost Exposure**: What happens when pricing changes?
 
-The programme follows three stages: **SEE** (map your dependencies), **ASSESS** (score the risks), and **PLAN** (build a roadmap). £300 + VAT per person, 6-10 organisations per cohort.
+The programme follows three stages: **SEE** (map your dependencies), **ASSESS** (score the risks), and **PLAN** (build a roadmap). £450 per person, 6-10 organisations per cohort.
 
 ## Pages
 
@@ -46,4 +46,4 @@ python3 -m http.server 8080
 
 ## Contact
 
-A project by [Tom Watson](https://tomcw.xyz) at [The Good Ship](https://good-ship.co.uk) and [Doug Belshaw](https://dougbelshaw.com) at [Dynamic Skillset](https://dynamicskillset.com).
+A project of [Field Station Ltd](https://fieldstation.xyz), by [Tom Watson](https://tomcw.xyz) and [Doug Belshaw](https://dougbelshaw.com).
