@@ -1,0 +1,24 @@
+name: Purge Newsletter Cache (BunnyCDN)
+on:
+  workflow_dispatch:
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge newsletter pull zone cache
+        run: |
+          STATUS=$(curl -sS -o /tmp/purge-response.json -w "%{http_code}" \
+            -X POST "https://api.bunny.net/pullzone/${{ secrets.BUNNY_NEWSLETTER_PULL_ZONE_ID }}/purgeCache" \
+            -H "AccessKey: ${{ secrets.BUNNY_API_KEY }}" \
+            -H "Content-Type: application/json")
+          echo "Purge API response: HTTP $STATUS"
+          cat /tmp/purge-response.json 2>/dev/null || true
+          if [ "$STATUS" != "204" ] && [ "$STATUS" != "200" ]; then
+            echo "::error::Purge failed with HTTP $STATUS"
+            exit 1
+          fi
+      - name: Verify archive page is reachable
+        run: |
+          curl -sS -o /dev/null -w "archive status: %{http_code}\n" https://newsletter.techfreedom.eu/archive
+          curl -sSI https://newsletter.techfreedom.eu/archive | grep -iE "cdn-cache|cdn-cachedat" || true
