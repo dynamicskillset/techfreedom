@@ -204,9 +204,9 @@ a:hover {
 }
 
 /* ========================================
-   TASTER SESSION BANNER
+   TOP BANNER
    ======================================== */
-.taster-banner {
+.top-banner {
     position: fixed;
     top: 0;
     left: 0;
@@ -223,15 +223,15 @@ a:hover {
     text-align: center;
 }
 
-.taster-banner[hidden] {
+.top-banner[hidden] {
     display: none;
 }
 
-.taster-banner-text {
+.top-banner-text {
     font-weight: 500;
 }
 
-.taster-banner-link {
+.top-banner-link {
     color: var(--accent-amber);
     font-weight: 700;
     text-decoration: underline;
@@ -239,11 +239,11 @@ a:hover {
     white-space: nowrap;
 }
 
-.taster-banner-link:hover {
+.top-banner-link:hover {
     color: var(--white);
 }
 
-.taster-banner-close {
+.top-banner-close {
     background: none;
     border: none;
     color: rgba(247, 245, 240, 0.6);
@@ -254,12 +254,12 @@ a:hover {
     flex-shrink: 0;
 }
 
-.taster-banner-close:hover {
+.top-banner-close:hover {
     color: var(--bg-primary);
 }
 
 @media (max-width: 640px) {
-    .taster-banner {
+    .top-banner {
         font-size: 0.78rem;
         gap: var(--space-xs);
         flex-wrap: wrap;

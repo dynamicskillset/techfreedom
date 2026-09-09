@@ -1142,19 +1142,19 @@
     </style>
 </head>
 <body>
-    <div class="taster-banner" id="taster-banner" hidden>
-        <span class="taster-banner-text">Free taster session &middot; 9 September 2026</span>
-        <a href="https://luma.com/qdqzb9xg" class="taster-banner-link" target="_blank" rel="noopener">Reserve your spot &rarr;</a>
-        <button type="button" class="taster-banner-close" id="taster-banner-close" aria-label="Dismiss banner">&times;</button>
+    <div class="top-banner" id="top-banner" hidden>
+        <span class="top-banner-text">Next cohort begins 21 October &middot; &pound;100 off with code TF100</span>
+        <a href="https://techfreedom.eu/programme/" class="top-banner-link">See the programme &rarr;</a>
+        <button type="button" class="top-banner-close" id="top-banner-close" aria-label="Dismiss banner">&times;</button>
     </div>
     <script>
     (function () {
         try {
-            var KEY = 'tasterBannerDismissed';
-            var EXPIRY = new Date('2026-09-10T00:00:00Z');
+            var KEY = 'topBannerDismissed';
+            var EXPIRY = new Date('2026-10-21T00:00:00Z');
             if (localStorage.getItem(KEY) === '1' || new Date() >= EXPIRY) return;
-            var banner = document.getElementById('taster-banner');
-            var closeBtn = document.getElementById('taster-banner-close');
+            var banner = document.getElementById('top-banner');
+            var closeBtn = document.getElementById('top-banner-close');
             if (!banner || !closeBtn) return;
             function setOffset() {
                 document.documentElement.style.setProperty('--banner-offset', banner.offsetHeight + 'px');
