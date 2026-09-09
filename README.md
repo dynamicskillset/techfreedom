@@ -2,7 +2,7 @@
 
 **A clearer forecast for your organisation's digital future.**
 
-TechFreedom helps social purpose organisations understand their technology dependencies and start making deliberate choices about them. The next cohort runs 16 September, 30 September and 14 October 2026, with a free taster session on 9 September.
+TechFreedom helps social purpose organisations understand their technology dependencies and start making deliberate choices about them. The next cohort runs 21 October, 4 November and 18 November 2026.
 
 ## About
 
